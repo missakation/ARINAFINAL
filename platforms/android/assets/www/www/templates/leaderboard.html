@@ -1,0 +1,136 @@
+<style>
+    .headercolor {
+        background-color: rgb(62, 83, 100);
+        color: white;
+        border-bottom: 3px solid rgb(62, 83, 100);
+        border-top: 3px;
+    }
+    
+    .spinner svg {
+        width: 38px;
+        height: 38px;
+        stroke: #444;
+        fill: #444;
+        margin-top: 30%;
+    }
+    
+    .card {
+        background-color: transparent;
+    }
+}
+    
+</style>
+<ion-view view-title="Leaderboard">
+
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
+
+    <ion-nav-bar class="headercolor">
+        <ion-nav-back-button>
+
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content style="background-color:rgb(45,62,75)">
+        
+        <!--<div align="center">
+            <ion-spinner ng-show="notloaded" icon="spiral"></ion-spinner>
+        </div>
+        -->
+
+        <div class="card" ng-show="!notloaded" style="margin:7px 10px;border-color:transparent">
+            <div class="row" style="padding:20px 0 0 0;margin:0px;background-color:rgb(62,83,100);border: none">
+
+                <div class="col" align="center" ng-click="goteamprofile(rankedteams[1].key)" style="padding:0px;margin:0px">
+                    <h5 class="whitetext" style="font-weight:bold;text-transform:capitalize;color:white"> {{rankedteams[1].teamname}}</h5>
+                    <img src="img/Badges/{{rankedteams[1].badge}}.png" style="width:57px;height:60px">
+                    <h4 class="whitetext" style="margin-bottom:3px;font-size:20px;font-weight:bold;text-transform:capitalize;color:white">
+                        2nd
+                    </h4>
+                </div>
+
+                <div class="col" align="center" ng-click="goteamprofile(rankedteams[0].key)" style="padding:0px;margin:-18px 0 0 0px">
+                    <h5 class="whitetext" style="font-weight:bold;text-transform:capitalize;color:white"> {{rankedteams[0].teamname}}</h5>
+                    <img src="img/Badges/{{rankedteams[0].badge}}.png" style="width:70px;height:76px;margin-bottom:-10px">
+                    <h4 class="whitetext" style="margin-bottom:3px;font-size:30px;font-weight:bold;text-transform:capitalize;color:white">
+                        1st
+                    </h4>
+
+                </div>
+
+                <div class="col" align="center" ng-click="goteamprofile(rankedteams[2].key)" style="padding:0px;margin:0px">
+                    <h5 class="whitetext" style="font-weight:bold;text-transform:capitalize;color:white"> {{rankedteams[2].teamname}}</h5>
+                    <img src="img/Badges/{{rankedteams[2].badge}}.png" style="width:57px;height:60px">
+                    <h4 style="margin-bottom:3px;font-size:20px;font-weight:bold;text-transform:capitalize;color:white">
+                        3rd
+                    </h4>
+                </div>
+            </div>
+            <div class="row" style="color:darkturquoise;padding:0px;margin:0px;background-color:rgb(62,83,100);border: none">
+
+                <div class="col" align="center">
+                    {{rankedteams[1].rank}} AR
+                </div>
+
+                <div class="col" align="center">
+                    {{rankedteams[0].rank}} AR
+                </div>
+
+                <div class="col" align="center">
+                    {{rankedteams[2].rank}} AR
+                </div>
+
+
+                </div>
+            </div>
+        <div style="padding-top:0px;margin:0px 10px;padding-bottom:0px;border-color:rgb(45,62,75);background-color: rgb(45,62,75);box-shadow:none"
+            ng-show="!notloaded">
+            <div class="row" style="border:none" ng-show="!notloaded">
+
+                <div class="col" align="center">
+                    <h5 class="whitetext" style="color:white;font-weight:bold; text-align:left;padding-left:30px;padding-top:10px;margin:-10px">
+                        Teams
+                    </h5>
+                </div>
+
+                <div class="col" align="center">
+                    <h5 class="whitetext" style="font-weight:bold;color:white; text-align:right;margin:-10px;padding-top:10px;padding-right:10px">
+                        Rating
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card" ng-show="!notloaded" style="background-color:rgb(62, 83, 100) ">
+            <div class="row row-center" style="border-bottom:6px solid #5f7485;margin-bottom:-5px;padding:0px;background-color:rgb(62,83,100)" ng-repeat="item in rankedteams"
+                ng-hide="{{$index<3}}" ng-click="goteamprofile(item.key)">
+                <div style="width:9%;padding:5px 1% 5px 0" align="right">
+                    <h5 class="whitetext" style="color:white;margin:0px -2px 0px 0px">
+                        {{$index+1}}.
+                    </h5>
+
+                </div>
+                <div class="col">
+                    <h5 class="whitetext" style="text-transform:capitalize;color:white;font-weight:bold">
+                        {{item.teamname}}
+                    </h5>
+
+                </div>
+                <div class="col">
+                    <h5 class="whitetext" align="right" style="color: DarkTurquoise; font-weight:bold">
+                        {{item.rank}}AR
+                    </h5>
+
+                </div>
+        </div>
+        </div>
+        <ion-infinite-scroll ng-disabled="limitfinished" on-infinite="loadMore()" distance="1%">
+        </ion-infinite-scroll>
+    </ion-content>
+
+
+</ion-view>

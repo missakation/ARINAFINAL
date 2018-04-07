@@ -1,0 +1,353 @@
+<!--Ari-->
+<ion-view view-title="Profile" align="center">
+	<style>
+		img {
+			height: 100px;
+			width: 100px;
+		}
+		
+		h3.whitetext,
+		h2.whitetext,
+		h1.whitetext,
+		h5.whitetext,
+		h4.whitetext,
+		p {
+			color: white;
+		}
+		
+		.item-input {
+			padding: 0 0 0 0;
+		}
+		
+		.item {
+			background-color: rgb(62, 83, 100);
+		}
+		
+		.headercolor {
+			background-color: rgb(62, 83, 100);
+			color: white;
+			border-bottom: 2px solid rgb(62, 83, 100);
+		}
+	</style>
+	<ion-nav-buttons side="right">
+	</ion-nav-buttons>
+
+
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+
+
+	<ion-content style="background-color:rgb(46,62,75)">
+
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+		</ion-refresher>
+
+
+
+
+
+		<div class="card" style="background-color:rgb(62,83,100)">
+			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
+
+			<div class="row" style="margin-top:5px;padding:6px 0 0 0">
+				<div class="col col-50" style="border-right:1px solid #5f7485;	padding:0px" align="center">
+					<img src="{{currentprofile.photo}}" style="padding:0px;border-radius:50px;width:80px;height:80px;">
+					<div class="row" style="padding:0px">
+
+						<div class="col" style="padding:0px" align="center">
+							<h5 class="whitetext" style="margin-bottom:0px;margin-top:5px;text-transform: capitalize;padding:0px;font-weight:bold"> {{currentprofile.firstname}}
+							</h5>
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div class="col col-50" style="padding:0px" align="center" ng-click="gototeam(teamdisplayed.key)">
+					<img style="width:80px;height:80px" src="img/Badges/{{teamdisplayed.picture}}.png">
+					<h5 class="whitetext" style="margin-bottom:0px;margin-top:5px;text-transform: capitalize;padding:0px;font-weight:bold"> {{teamdisplayed.name}} </h5>
+
+				</div>
+
+			</div>
+
+			<div class="row" style="margin-bottom:8px;padding:0px">
+				<div class="col col-40" style="padding-left:12%" align="center">
+
+
+					<div align="center" style="color:#5f7485">
+						{{currentprofile.identity}}
+					</div>
+				</div>
+				<div class="col col-10" style="margin-top:5px;padding:0px;font-size:20px;padding:0px;color:#2ab041" align="center">
+					<img src="img/{{currentprofile.availablepng}}.png" style="width:15px;height:15px;">
+
+				</div>
+
+
+				<div class="col col-50" style="margin-top:5px;padding:0px;color:darkturquoise" align="center">
+						Rank {{teamdisplayed.rank}}th
+			</div>
+		</div>
+
+
+
+	
+
+			<div class="row row-top" style="padding:0px">
+
+				<h6 align="center" style="padding-left:0px;padding-right:0px;width:30%;font-size:12px;color:#5f7485;">POSITION
+
+				</h6>
+
+
+				<h6 align="center" style="padding-left:0px;padding-right:0px;width:20%;font-size:12px;border-left:1px solid #5f7485;color:#5f7485">
+				SKILL
+
+				</h6>
+
+				<h6 align="center" style="padding-left:0px;padding-right:0px;width:20%;font-size:12px;color:#5f7485;border-right:1px solid #5f7485;border-left:1px solid #5f7485"
+				 align="right"> AGE
+
+				</h6>
+
+				<h6 align="center" style="padding-left:0px;padding-right:0px;width:30%;font-size:12px;margin-left:2px;color:#5f7485">HOME STADIUM
+
+				</h6>
+
+			</div>
+
+
+
+			<div class="row" style="padding:0px;margin-top:-10px">
+				<div align="center" style="width:30%;padding:5px 0 0 0 ;color:white"> {{currentprofile.playposition}}
+
+				</div>
+
+				<div align="center" style="width:20%;padding:5px 0 0 0;border-left:1px solid #5f7485;color:white"> {{currentprofile.skilllevel}}
+
+				</div>
+
+				<div style="width:20%;color:white;padding:5px 0 0 0;;border-right:1px solid #5f7485;border-left:1px solid #5f7485;" align="center">
+					{{currentprofile.agenum}}
+
+				</div>
+
+				<div align="center" style="width:30%;margin-left:2px;padding:5px 0 0 0;padding-left:0px;color:white"> 404
+				</div>
+			</div>
+
+
+			<h5 align="left" style="color:white;margin-top:20px;padding:0 0 10px 10px">
+				{{currentprofile.comments}}
+			</h5>
+
+		</div>
+		</div>
+		</div>
+
+		<!--<div class="card">
+<ion-item class="row" align="center">
+	<div class="col" align="center">
+		<button class="button button-full button-balanced" ng-click="Invite()" style="border-radius:15px">Invite Member</button>
+</div>
+
+<div class="col" align="center">
+	<button class="button button-full button-balanced" ng-click="Challengeteam()" style="border-radius:15px">challenge</button>
+</div>
+</ion-item>
+</div>-->
+
+
+		<!--
+<div class="card" style="background-color:rgb(46,62,75)">
+<div class="button-bar" style="background-color:rgb(46,62,75)">
+
+	<button class="button button-full button-balanced" ng-click="Invite()" style="border-radius:15px">Invite Member</button>
+	<button class="button button-full button-balanced" ng-click="Challengeteam()" style="border-radius:15px">challenge</button>
+</div>
+</div>
+-->
+		<div class="card" style="background-color: rgb(62, 83, 100);margin-top:15px">
+			<ion-item style="border: none;padding:0px">
+				<div class="row row-center" align="center" style="padding:0px">
+					<div class="col" align="center" style="border-bottom:{{status.Available}};border-color: #2ab041;padding:10px 0px; border-right:2px solid #5f7485">
+						<h3 class="whitetext" ng-click="switchscreens(1)">
+							<b>AVAILABILITY</b>
+						</h3>
+
+					</div>
+
+					<div class="col" style="border-bottom: {{status.Statistics}};border-color:#2ab041;padding:10px 0px">
+						<h3 class="whitetext" ng-click="switchscreens(2)">
+							<b>STATISTICS</b>
+						</h3>
+
+					</div>
+
+
+				</div>
+
+
+
+			</ion-item>
+
+
+			<ion-item ng-show="tabs.Statistics" align="left" style="border: none;padding:0px">
+
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485;margin-top:15px">
+					<div class='col col-75'>
+
+						<h3 class="whitetext">Games On Arina</h3>
+					</div>
+
+					<div class="col">
+
+						<h3 class="whitetext" align="right">404</h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485; padding-top:5px; margin:0px">
+					<div class='col col-75'>
+
+						<h3 class="whitetext">Wins</h3>
+					</div>
+
+					<div class="col">
+
+						<h3 class="whitetext" align="right">404</h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485; padding-top:5px; margin:0px">
+					<div class="col col-75">
+
+						<h3 class="whitetext">Win Streak</h3>
+					</div>
+
+					<div class="col">
+
+						<h3 class="whitetext" align="right">404</h3>
+					</div>
+
+				</div>
+
+			</ion-item>
+
+
+			<ion-item ng-show="tabs.Available" align="left" style="border: none;padding:0px">
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485;margin-top:15px">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Monday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startmonday == currentprofile.startmondayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startmonday != currentprofile.startmondayend" class="whitetext" align="right"> <b>{{currentprofile.startmonday}}:00</b> till <b>{{currentprofile.startmondayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485;padding-top:3px">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Tuesday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.starttuesday == currentprofile.starttuesdayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.starttuesday != currentprofile.starttuesdayend" class="whitetext" align="right"> <b>{{currentprofile.starttuesday}}:00</b> till <b>{{currentprofile.starttuesdayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Wednesday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startwednesday == currentprofile.startwednesdayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startwednesday != currentprofile.startwednesdayend" class="whitetext" align="right"> <b>{{currentprofile.startwednesday}}:00</b> till <b>{{currentprofile.startwednesdayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485; padding-top:3px">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Thursday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startthursday == currentprofile.startthursdayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startthursday != currentprofile.startthursdayend" class="whitetext" align="right"> <b>{{currentprofile.startthursday}}:00</b> till <b>{{currentprofile.startthursdayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Friday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startfriday == currentprofile.startfridayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startfriday != currentprofile.startfridayend" class="whitetext" align="right"> <b>{{currentprofile.startfriday}}:00</b> till <b>{{currentprofile.startfridayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Saturday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startsaturday == currentprofile.startsaturdayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startsaturday != currentprofile.startsaturdayend" class="whitetext" align="right"> <b>{{currentprofile.startsaturday}}:00</b> till <b>{{currentprofile.startsaturdayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+				<div class="row row-center" style="border-bottom:1px solid #5f7485">
+					<div class="col" style="margin-top:5px">
+
+						<h3 class="whitetext">Sunday</h3>
+					</div>
+
+					<div class="col" style="margin-top:5px">
+						<h3 ng-show="notloaded && currentprofile.startsunday == currentprofile.startsundayend" class="whitetext" align="right"> Not Available </h3>
+						<h3 ng-show="notloaded && currentprofile.startsunday != currentprofile.startsundayend" class="whitetext" align="right"> <b>{{currentprofile.startsunday}}:00</b> till <b>{{currentprofile.startsundayend}}:00</b> </h3>
+					</div>
+
+				</div>
+
+
+
+			</ion-item>
+
+			</ion-list>
+
+		<hr style="height:15px; visibility:hidden;" />
+	</ion-content>
+</ion-view>

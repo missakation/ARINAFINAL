@@ -1,0 +1,35 @@
+
+
+<ion-view view-title="Mini Stadiums">
+
+    <ion-content style="background-color:rgb(30,30,30)" >
+
+
+        <div class="list card" ng-repeat="items in myministadiums">
+            <div class="item item-body">
+                <img class="full-image" src="http://www.hasilakhir.com/wp-content/uploads/2014/11/Old-Trafford-Stadium-Hasilakhircom-860x280.jpg">
+
+                <h2 style="color:black"> <b><u>{{items.name}}</u></b></h2>
+
+
+
+
+                <p style="color:darkgreen">
+                    Price : {{items.price}} $ /hour
+                </p>
+
+                <p>
+                    <a href="#" class="subdued">30 Reviews</a>
+                </p>
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+    </ion-content>
+    <div class="bar bar-footer ">
+        <a ng-href="#/app/addministadium/{{key}}" class="button button-calm button-large ion-plus-round">Create New Stadium</a>
+    </div>
+</ion-view>

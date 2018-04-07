@@ -1,0 +1,45 @@
+<style>
+    .headercolor{
+        background-color: rgb(62,83,100);
+        color: white
+    }
+    .whitecheck{
+        background-color: transparent;
+        color: white;
+        border: none
+    }
+    
+</style>
+
+<ion-view view-title="Enter Your Number">
+
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-bar class="headercolor">
+        <ion-nav-back-button>
+
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content style="background-color:rgb(46,62,75)">
+
+
+<ion-list>
+
+
+    <label class="item item-input" style="background-color:rgb(46,62,75)">
+<span class="input-label" style="color:white">Telephone</span>
+<input type="tel">
+</label>
+
+<button class="button button-balanced button-full" ng-click="gosmsverifypage()">
+            Receive Confirmation Code
+        </button>
+
+</ion-list>
+
+</ion-content>
+</ion-view>

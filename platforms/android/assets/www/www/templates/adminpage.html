@@ -1,0 +1,32 @@
+
+
+<ion-view view-title="My Stadiums">
+
+    <ion-content style="background-color:rgb(30,30,30)" ng-controller="AdminController">
+
+        <div class="card" ng-repeat="items in mystadiums" >
+            <a href="#/app/adminpagedetails/{{items.key}}" class="item item-thumbnail-left" >
+                
+                <img src="http://www.hasilakhir.com/wp-content/uploads/2014/11/Old-Trafford-Stadium-Hasilakhircom-860x280.jpg">
+
+                <h2 style="color:black"> <b><u>{{items.name}}</u></b></h2>
+
+
+      
+
+
+
+            </a>
+
+
+        </div>
+
+
+     
+
+       
+</ion-content>
+    <div class="bar bar-footer " style="background-color:rgb(30,30,30)">
+        <a ng-href="#/app/addstadium" class="button button-calm button-large ion-plus-round"  style="background-color:orange">Create New Stadium</a>
+    </div>
+</ion-view>

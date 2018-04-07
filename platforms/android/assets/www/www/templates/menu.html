@@ -1,0 +1,257 @@
+<style>
+    .item {
+        border-color: transparent;
+        margin: 0px;
+    }
+
+    .icon {
+        font-size: 30px;
+    }
+
+    .grade-b .menu-content,
+    .grade-c .menu-content {
+        border-right: 1px solid rgb(62, 75, 100);
+        border-left: 1px solid rgb(62, 75, 100);
+    }
+
+    .item-complex .item-content,
+    .item-radio .item-content {
+        background-color: transparent;
+    }
+
+    .item.menuit .item-content {
+        color: white;
+    }
+
+    .scroll-content {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .my-container {
+        background: linear-gradient(to bottom, rgb(62, 75, 100), rgb(45, 62, 75));
+        background-repeat: repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        border-bottom: transparent;
+        position: absolute;
+    }
+
+    .headerr {
+        background-color: transparent !important;
+        background-image: url('img/loggo.png');
+        background-size: 110px 55px;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-color: transparent !important;
+    }
+
+    .transp .item-content {
+        background-color: transparent !important;
+        color: #21ab41;
+        border-color: transparent !important;
+    }
+</style>
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content drag-content="false">
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-android-menu" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+
+        <ion-content class="my-container" ng-controller="MenuController">
+
+            <ion-list>
+                <ion-item class="headerr menuit item-icon-left" menu-toggle="left" style="padding-top:5px;height:78px;background-color: transparent">
+
+                </ion-item>
+
+                <a href="#/app/reservestadium" style="text-decoration:none;background-color: transparent">
+                    <div class="row" menu-toggle="left" style="padding:0 7px;border:transparent">
+                        <div>
+                            <img src="img/Reserveicon.png" align="center" style="margin-left:8px;margin-top:10px;margin-right:7px;color:white;width:32px;height:32px">
+                        </div>
+                        <h5 align="left" style="color:white;font-size:16px;line-height:37px">Reserve Stadiums</h5>
+
+                    </div>
+                </a>
+
+                <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="border:transparent;padding:2.5px;background-color: transparent"
+                    href="#/app/bookings">
+                    <i class="icon ion-android-calendar"></i> My Bookings
+                </ion-item>
+
+                <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="border:transparent;padding:2.5px;background-color: transparent"
+                    href="#/app/settings">
+                    <i class="icon ion-ios-gear"></i> Settings
+                </ion-item>
+
+                <!--   <ion-item class="transp menuit item-icon-left" menu-close style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        href="#/app/homepage">
+                        <i class="icon ion-android-share-alt"></i> Invite Your Friends
+                    </ion-item> -->
+
+
+                <ion-item class="transp menuit item-icon-left" menu-close style="border:transparent;padding:2.5px;background-color: transparent"
+                    href="#/app/feedbacks">
+                    <i class="icon ion-ios-telephone"></i> Feedback
+                </ion-item>
+
+                <!--<ion-item class="headerr menuit item-icon-left" style="padding-top:5px;height:44px;background-color: rgba(62, 75, 100, 1);border:transparent important!"
+                        menu-close href="#/app/homepage">
+    
+                    </ion-item>-->
+
+                <!--<ion-item class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        menu-close href="#/app/homepage">
+                        <i class="icon ion-ios-home"></i> Home
+                    </ion-item>-->
+                <!--
+                    <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        href="#/app/selfprofile">
+                        <i class="icon ion-ios-person" style="font-size:35px"></i> My Profile
+                    </ion-item>
+    
+                    <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        href="#/app/teammanagement">
+    
+                        <i class="icon ion-tshirt" style="font-size:28px"> </i> My Teams
+    
+                    </ion-item>
+    
+    
+    
+                    <a href="#/app/chooseyourteam" style="text-decoration:none">
+                        <div class="row" menu-toggle="left" style="margin-top:0px;padding:3.5px;background-color: rgba(62, 75, 100, 0.90);border:transparent important!">
+                            <img src="img/TMM.png" align="center" style="margin-left:8px;margin-top:10px;margin-right:7px;color:white;width:32px;height:32px">
+    
+                            <h5 align="left" style="color:white;font-size:16px;line-height:37px">Challenge Teams </h5>
+                        </div>
+                    </a>
+    
+                    <a href="#/app/availableplayers" style="text-decoration:none">
+                        <div class="row" menu-toggle="left" style="margin-top:0px;padding:3.5px;background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                            href="#/app/availableplayers">
+                            <img src="img/playerfinder.png" align="center" style="margin-left:8px;margin-top:10px;margin-right:7px;color:white;width:32px;height:32px">
+                            <h5 align="left" style="color:white;font-size:16px;line-height:37px">Player Finder</h5>
+    
+                        </div>
+                    </a>
+    
+    
+                    <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        href="#/app/leaderboard">
+                        <i class="icon  ion-podium"></i> Leaderboard
+    
+                    </ion-item>
+    
+                    <ion-item class="transp menuit item-icon-left" menu-close style="background-color: rgba(62, 75, 100, 0.90);border:transparent important!"
+                        href="#/app/homepage">
+                        <i class="icon  ion-trophy"></i> Tournament
+                    </ion-item> -->
+
+                <ion-item class="transp menuit item-icon-left" menu-close style="color:white;background-color: transparent" ng-click="logout()">
+                    <i class="icon ion-power"></i> Log Out
+                </ion-item>
+
+
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
+
+<!---
+    <ion-side-menus enable-menu-with-back-views="false">
+        <ion-side-menu-content drag-content="false">
+            <ion-nav-bar class="bar-stable">
+                <ion-nav-back-button>
+                </ion-nav-back-button>
+    
+                <ion-nav-buttons side="left">
+                    <button class="button button-icon button-clear ion-android-menu" menu-toggle="left" style="background-color: transparent !important"></button>
+                </ion-nav-buttons>
+            </ion-nav-bar>
+            <ion-nav-view name="menuContent"></ion-nav-view>
+        </ion-side-menu-content>
+    
+    
+    
+        <ion-side-menu side="left">
+            <ion-header-bar class="homeheaderbar" style="background-color:#2d3e4b ;border-bottom-color:transparent">
+                <img src="img/loggo.png" align="center" style="width:70px;height:35px;padding-top:5px">
+    
+    
+    
+            </ion-header-bar>
+    
+            <ion-content style="background-color:#2d3e4b" ng-controller="MenuController">
+                <ion-list>
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/homepage" style="color:#2ab041">
+                        <i class="icon ion-ios-home-outline" style="color:#2ab041"></i> Home
+                    </ion-item>
+    
+                    <ion-item title="QuickBooking" class="menuit item-icon-left" menu-toggle="left" href="#/app/reservestadium" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon url(img/QuickBooking.jpg)" style="color:#2ab041"></i> Reserve
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/chooseyourteam" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-email" style="color:#2ab041"></i> Match Making
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/availableplayers" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-email" style="color:#2ab041"></i> Player Finder
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/selfprofile" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-email" style="color:#2ab041"></i> My Profile
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/teammanagement" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-email" style="color:#2ab041"></i> My Teams
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/bookings" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-email" style="color:#2ab041"></i> Bookings
+                    </ion-item>
+    
+    
+                    <ion-item class="menuit item-icon-left" menu-toggle="left" href="#/app/settings" style="color:#2ab041;border-color:#2d3e4b">
+                        <i class="icon ion-chatbubble-working" style="color:#2ab041"></i> Settings
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/homepage" style="color:#2ab041;border-color:#2d3e4b">
+                        Invite Your Friends
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/leaderboard" style="color:#2ab041;border-color:#2d3e4b">
+                        Leaderboard
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/homepage" style="color:#2ab041;border-color:#2d3e4b">
+                        Tournament
+                    </ion-item>
+    
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/feedbacks" style="color:#2ab041;border-color:#2d3e4b">
+                        Contact Us
+                    </ion-item>
+    
+                    <ion-item class="menuit item-icon-left" menu-close href="#/app/feedbacks" style="color:#2ab041;border-color:#2d3e4b" ng-click="logout()">
+                        Log Out
+                    </ion-item>
+    
+                </ion-list>
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>

@@ -1,0 +1,77 @@
+
+<style>
+    .header .col {
+    background-color:black;
+    color:white
+}
+
+
+.col:last-child {
+   
+}
+
+.row:last-child .col {
+    border-bottom: solid 1px grey;
+}
+
+
+</style>
+<ion-view view-title="Balances">
+    <ion-content>
+
+
+        <div>
+
+
+
+            <div class="row header">
+                <div class="col">Type</div>
+                <div class="col">Price $</div>
+                <div class="col">%</div>
+                <div class="col">total $</div>
+            </div>
+
+            <div ng-repeat="items in mybalances">
+
+                <div style="color:darkorange">
+
+                    <b>{{items.reservationnum}}/</b>
+                    <span>
+                        {{items.year}}.{{items.month}}.{{items.day}} - {{items.hour}}:{{items.minute}} 
+
+
+                    </span>
+                </div>
+                <div class="row">
+                    <!--ng-repeat="data in ctrl.data"-->
+                    <div class="col">{{items.type}} </div>
+                    <div class="col">{{items.total}} </div>
+                    <div class="col">{{items.percentage}}% </div>
+                    <div class="col">{{items.total}} </div>
+
+
+                    <!--<div class="col"><button style="background-color:darkorange;color:white" class="button button-small" ng-click="ctrl.add($index)">Edit</button></div>-->
+                </div>
+                <!--<div>
+                <h5 style="color:green">
+                    Total Price :
+                </h5>
+            </div>-->
+
+            </div>
+
+            <div>
+                <h4 style="color:green">
+                    Total : {{totalbalance}}$
+                </h4>
+            </div>
+        </div>
+      
+
+
+
+    </ion-content>
+
+    
+
+</ion-view>

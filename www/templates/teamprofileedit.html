@@ -1,0 +1,255 @@
+<ion-view view-title="Edit Team Profile" align="center">
+	<style>
+		img {
+			height: 100px;
+			width: 100px;
+		}
+
+		h3.whitetext,
+		h2.whitetext,
+		h1.whitetext,
+		h4.whitetext,
+		h5.whitetext,
+		h6.whitetext,
+		p.whitetext {
+			color: white;
+		}
+
+		.h3.greytext,
+		h2.greytext,
+		h1.greytext,
+		h4.greytext,
+		h5.greytext,
+		h6.greytext,
+		p.greytext {
+			color: #5f7485;
+		}
+
+		.item-input {
+			padding: 0 0 0 0;
+		}
+
+		.item {
+			background-color: rgb(62, 83, 100);
+		}
+
+		.toggle .track {
+			background-color: #c8141e;
+		}
+
+		.toggle .handle {
+			background-color: white;
+		}
+
+		hr {
+			display: block;
+			height: 2px;
+			border: 0;
+			border-top: 2px solid #28b041;
+			margin: 1em 0;
+			padding: 0;
+		}
+
+		.headercolor {
+			background-color: rgb(62, 83, 100);
+			color: white;
+			border-bottom: 1px solid rgb(62, 83, 100);
+		}
+	</style>
+
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+
+	<ion-nav-buttons side="right">
+		<button class="button icon ion-checkmark" style="color:#2ab041;background-color:rgb(62,83,100)" ng-show="currentprofile.amiadmin"
+		 ng-click="UpdateTeam(currentprofile)"></button>
+
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+
+	<ion-content style="background-color:rgb(45,62,75)">
+
+
+		<div align="center" style="padding-top:10px">
+			<img src="img/Badges/{{currentprofile.badge}}.png" style="width:80px;height:80px ">
+			<h4 class="whitetext" style="margin:0px"> {{currentprofile.teamname | uppercase }} </h4>
+		</div>
+
+		<div class="row row-center" style="padding-bottom:0px">
+			<div class="col">
+
+				<h5 align="left" style="color:#5f7485"> DATE CREATED</h5>
+			</div>
+
+			<div align="right" class="col">
+
+				<h5 style="color:white;padding-bottom:0px"> {{currentprofile.datecreated | date:'MMMM d, y'}}</h5>
+			</div>
+
+		</div>
+
+		</div>
+
+		<h5 align="left" style="padding-left:10px;color:#5f7485">
+			ABOUT {{currentprofile.teamname | uppercase }}
+		</h5>
+		<div class="list" style="width:100%; padding-left:10px;padding-right:10px;padding-bottom:15px;border-bottom:1px solid #5f7485">
+			<label class="item item-input" style="padding:2px 20px 20px 10px;background-color:transparent; color:#ffffff; border-radius:5px; border-color:#97a7b4">
+                <textarea rows="4" cols="100" maxlength="105"  type="text" placeholder="Write something cool about your team!" ng-model="currentprofile.comments" style="font-style:italic;color:#2ab041;background-color:transparent;padding-left:2px">
+                	 </textarea>
+			</label>
+		</div>
+
+		<div class="row" style="padding-bottom:0px;margin-top:-20px" ng-click="gochoosestadium(currentprofile)">
+			<div class="col col-66" ng-click="gochoosestadium(currentprofile)" align="left" style="padding-bottom:0px;color: white">
+				<h5 align="left" style="padding-bottom:0px;color:#5f7485">
+					FAVORITE STADIUM
+				</h5>
+				<div>
+				</div>
+
+			</div>
+
+			<h5 class="col col-33" ng-click="gochoosestadium(currentprofile)" align="center" style="border-radius:15px;border:1px solid #97a7b4;padding-top:5px;color:#2ab041">
+				{{currentprofile.favstadiumname| uppercase }}
+			</h5>
+
+
+		</div>
+		<h6 align="left" style="padding-top:0px;padding-bottom:10px;border-bottom:1px solid #5f7485;padding-left:10px;color:#5f7485">
+		<i class="ion-ios-information-outline" style="font-size:15px;color:#2ab041"></i> Info: We will use your favorite stadium
+			as your current location</h6>
+
+		<div class="row row-center" style="border-bottom:1px solid #5f7485;padding:5px 0px" align="left">
+			<div class="col" style="padding:0 0 0 10px">
+				<div class="row whitetext" style="font-size:15px;padding:0px;color:#5f7485;font-size:14px">
+					<div class="col" style="padding:0px">
+						TEAM STATUS :
+					</div>
+					<div ng-show="!currentprofile.available" class="col" style="margin-left:-12%;font-weight:bold;color:#c8141e;padding:0px">
+						BUSY
+					</div>
+					<div ng-show="currentprofile.available" class="col" style="margin-left:-12%;font-weight:bold;color:#28b041;padding:0px">
+						AVAILABLE
+					</div>
+					<div class="col col-20" style="padding:0px;margin-top:-5px">
+						<label class="toggle">
+							<input type="checkbox" ng-model="currentprofile.available" >
+							<div class="track">
+								<div class="handle"></div>
+							</div>
+						</label>
+					</div>
+				</div>
+				<h6 ng-show="!currentprofile.available" style="color:#c8141e;margin-top:-3px"> <i class="ion-ios-information-outline" style="font-size:15px;color:#2ab041"></i> Your Team Cannot Be Challenged</h6>
+			</div>
+		</div>
+
+		<div ng-show="currentprofile.available">
+			<div align="left" style="padding-left:10px">
+				<h5 align="left" style="padding-top:5px;color:#5f7485;margin-bottom:-10px">
+					AVAILABILITY
+
+				</h5>
+			</div>
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						MON
+					</h5>
+				</div>
+				<div class="col col-80">
+					<rzslider rz-slider-model="currentprofile.startmonday" rz-slider-high="currentprofile.startmondayend" rz-slider-options="slider1.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						TUE
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.starttuesday " rz-slider-high="currentprofile.starttuesdayend" rz-slider-options="slider2.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						WED
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.startwednesday " rz-slider-high="currentprofile.startwednesdayend" rz-slider-options="slider3.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						THU
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.startthursday " rz-slider-high="currentprofile.startthursdayend " rz-slider-options="slider4.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						FRI
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.startfriday " rz-slider-high="currentprofile.startfridayend " rz-slider-options="slider5.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						SAT
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.startsaturday " rz-slider-high="currentprofile.startsaturdayend " rz-slider-options="slider6.options "
+					 style="color:white "></rzslider>
+				</div>
+			</div>
+
+			<div class="row row-center" style="margin-bottom:-12px">
+				<div class="col col-20">
+					<h5 align="left" style="color:#5f7485;margin-bottom:-10px">
+						SUN
+					</h5>
+				</div>
+				<div class="col">
+					<rzslider rz-slider-model="currentprofile.startsunday " rz-slider-high="currentprofile.startsundayend " rz-slider-options="slider7.options "
+					 style="color:white " ng-readonly="currentprofile.amiadmin"></rzslider>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<br>
+		<button align="center" <button style="min-height:10px;line-height:40px;width:100%;border-radius: 20px" class="button button-assertive small_button"
+		 ng-click="deleteteam(currentprofile)" ng-show="currentprofile.amiadmin">
+                                Delete Team
+           </button>
+
+	</ion-content>
+
+</ion-view>

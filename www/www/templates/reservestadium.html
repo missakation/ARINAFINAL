@@ -1,0 +1,708 @@
+<style>
+	.item {
+		background-color: rgb(46, 62, 75);
+	}
+
+	.item-select select {
+		background-color: rgb(46, 62, 75);
+		color: #2ab041;
+	}
+
+	.item-select:after {
+		margin-top: 0px;
+		color: #2ab041;
+	}
+
+	input:focus,
+	input:valid {
+		box-shadow: none;
+		outline: none;
+		background-position: 0 0;
+	}
+
+
+	input:focus::-webkit-input-placeholder,
+	input:valid::-webkit-input-placeholder {
+		color: #2ab041;
+		font-size: 1em;
+		-webkit-transform: translateY(-30px);
+		transform: translateY(-30px);
+		visibility: visible !important;
+	}
+
+	.rzslider {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+		height: 4px;
+		margin: 35px 0 15px 0;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.rzslider.with-legend {
+		margin-bottom: 0px;
+	}
+
+	.rzslider[disabled] {
+		cursor: not-allowed;
+	}
+
+	.rzslider[disabled] .rz-pointer {
+		cursor: not-allowed;
+		background-color: #d8e0f3;
+	}
+
+	.rzslider span {
+		position: absolute;
+		display: inline-block;
+		white-space: nowrap;
+	}
+
+	.rzslider .rz-base {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.rzslider .rz-bar-wrapper {
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 2px;
+		padding-top: 16px;
+		margin-top: -16px;
+		box-sizing: border-box;
+	}
+
+	.rzslider .rz-bar-wrapper.rz-draggable {
+		cursor: move;
+	}
+
+	.rzslider .rz-bar {
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 4px;
+		background: rgb(155, 167, 181);
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+
+	.rzslider .rz-bar.rz-selection {
+		z-index: 2;
+		background: white;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+
+	.rzslider .rz-pointer {
+		top: -9px;
+		z-index: 3;
+		width: 22px;
+		height: 22px;
+		cursor: pointer;
+		background-color: rgb(37, 179, 69);
+		-webkit-border-radius: 16px;
+		-moz-border-radius: 16px;
+		border-radius: 16px;
+	}
+
+	.rzslider .rz-pointer:after {
+		position: absolute;
+		top: 7px;
+		left: 7px;
+		width: 8px;
+		height: 8px;
+		background: rgb(147, 221, 162);
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		content: '';
+	}
+
+	.rzslider .rz-pointer:hover:after {
+		background-color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-pointer.rz-active {
+		z-index: 4;
+	}
+
+	s .rzslider .rz-pointer.rz-active:after {
+		background-color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-bubble {
+		bottom: 14px;
+		padding: 1px 3px;
+		color: rgb(147, 221, 162);
+		cursor: default;
+		font-weight: bold;
+	}
+
+	.rzslider .rz-bubble.rz-selection {
+		top: 16px;
+	}
+
+	.rzslider .rz-bubble.rz-limit {
+		color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-ticks {
+		position: absolute;
+		top: -3px;
+		left: 0;
+		z-index: 1;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		width: 100%;
+		height: 0;
+		padding: 0 11px;
+		margin: 0;
+		list-style: none;
+		box-sizing: border-box;
+		-webkit-justify-content: space-between;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+
+	.rzslider .rz-ticks .rz-tick {
+		width: 10px;
+		height: 10px;
+		text-align: center;
+		cursor: pointer;
+		background: rgb(147, 221, 162);
+		border-radius: 50%;
+	}
+
+	.rzslider .rz-ticks .rz-tick.rz-selected {
+		background: #0db9f0;
+	}
+
+	.rzslider .rz-ticks .rz-tick .rz-tick-value {
+		position: absolute;
+		top: -30px;
+		transform: translate(-50%, 0);
+	}
+
+	.picker-view .picker-content {
+		-moz-column-count: 3;
+		-webkit-column-count: 3;
+		column-count: 3;
+		position: relative;
+		background-color: rgb(42, 62, 82);
+		height: 60%;
+		top: 15px;
+	}
+
+	.rzslider .rz-ticks .rz-tick .rz-tick-legend {
+		position: absolute;
+		top: 24px;
+		max-width: 50px;
+		white-space: normal;
+		transform: translate(-50%, 0);
+	}
+
+	.rzslider .rz-ticks.rz-ticks-values-under .rz-tick-value {
+		top: initial;
+		bottom: -40px;
+	}
+
+	.rzslider.rz-vertical {
+		position: relative;
+		width: 4px;
+		height: 100%;
+		padding: 0;
+		margin: 0 20px;
+		vertical-align: baseline;
+	}
+
+	.rzslider.rz-vertical .rz-base {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.rzslider.rz-vertical .rz-bar-wrapper {
+		top: auto;
+		left: 0;
+		width: 32px;
+		height: 100%;
+		padding: 0 0 0 16px;
+		margin: 0 0 0 -16px;
+	}
+
+	.rzslider.rz-vertical .rz-bar {
+		bottom: 0;
+		left: auto;
+		width: 4px;
+		height: 100%;
+	}
+
+	.rzslider.rz-vertical .rz-pointer {
+		top: auto;
+		bottom: 0;
+		left: -14px !important;
+		color: #2ab041;
+	}
+
+	.rzslider.rz-vertical .rz-bubble {
+		bottom: 0;
+		left: 16px !important;
+		margin-left: 3px;
+	}
+
+	.rzslider.rz-vertical .rz-bubble.rz-selection {
+		top: auto;
+		left: 16px !important;
+	}
+
+	.rzslider.rz-vertical .rz-ticks {
+		top: 0;
+		left: -3px;
+		z-index: 1;
+		width: 0;
+		height: 100%;
+		padding: 11px 0;
+		-webkit-flex-direction: column-reverse;
+		-ms-flex-direction: column-reverse;
+		flex-direction: column-reverse;
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick {
+		vertical-align: middle;
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-value {
+		top: initial;
+		left: 22px;
+		transform: translate(0, -28%);
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-legend {
+		top: initial;
+		right: 24px;
+		max-width: none;
+		white-space: nowrap;
+		transform: translate(0, -28%);
+	}
+
+	.rzslider.rz-vertical .rz-ticks.rz-ticks-values-under .rz-tick-value {
+		right: 12px;
+		bottom: initial;
+		left: initial;
+	}
+
+	.h3.whitetext,
+	h2.whitetext,
+	h1.whitetext,
+	h4.whitetext,
+	h5.whitetext,
+	h6.whitetext,
+	p.whitetext {
+		color: white;
+	}
+
+	.h3.bluetext,
+	h2.bluetext,
+	h1.bluetext,
+	h4.bluetext,
+	h5.bluetext,
+	h6.bluetext,
+	p.bluetext {
+		color: darkblue;
+	}
+
+	.h3.greytext,
+	h2.greytext,
+	h1.greytext,
+	h4.greytext,
+	h5.greytext,
+	h6.greytext,
+	p.greytext {
+		color: gray;
+	}
+
+	.item .item-content1 {
+		background-color: white;
+		color: black;
+		border: rgb(64, 64, 64);
+		border-color: rgb(64, 64, 64);
+	}
+
+
+	.headercolor {
+		background-color: rgb(62, 83, 100);
+		color: white;
+		border-bottom: 2px solid rgb(62, 83, 100);
+		border-top: 3px;
+	}
+
+	input {
+		width: 100%;
+		display: block;
+		border: none;
+		padding: 0px;
+		-webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+		transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+		background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #2ab041 4%);
+		background-position: -200px 0;
+		background-size: 1000px 200%;
+		background-repeat: no-repeat;
+		color: #2ab041;
+	}
+
+	input:focus,
+	input:valid {
+		box-shadow: none;
+		outline: none;
+		background-position: 0 0;
+	}
+
+	input::-webkit-input-placeholder {
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+
+	input:focus::-webkit-input-placeholder,
+	input:valid::-webkit-input-placeholder {
+		color: #2ab041;
+		font-size: 1em;
+		-webkit-transform: translateY(-30px);
+		transform: translateY(-30px);
+		visibility: visible !important;
+	}
+
+	.bar.bar-royal {
+		background-color: rgb(46, 62, 85);
+		border: rgb(46, 62, 85);
+	}
+
+	.filter-bar .filter-bar-wrapper .item-input-inset .icon.placeholder-icon:before {
+		font-size: 26px;
+	}
+
+	.bar .button.button-icon,
+	.bar button.button-icon {
+		color: white;
+	}
+
+	.bar-subheader {
+		display: flex;
+		padding: 0px;
+		margin: 0px;
+		border: 0px;
+	}
+
+	div.popup-body>ul.rating li i {
+		font-size: 40px !important;
+		padding: 2px !important;
+
+	}
+</style>
+
+
+<ion-view view-title="Reserve a Stadium" cache-view="false">
+	<ion-nav-buttons side="secondary">
+		<button class="button button-icon icon ion-ios-search-strong" placeholder="Players, teams, stadiums" ng-click="showFilterBar()"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon ion-android-options" align="right" style="color:white" ng-click="popover.show($event)"></button>
+
+	</ion-nav-buttons>
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left" style="color:white"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+	<div class="bar bar-subheader">
+		<input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;background-color:#2ab041;font-size:16px"
+		 ng-model="search.text">
+
+	</div>
+	<div>
+		32434324
+	</div>
+
+
+	<ion-content style="margin-top:44px;background-color:rgb(46,62,85)">
+
+		<div align="left">
+			<h5 class="whitetext" style="margin-bottom:5px;font-size:12px;text-indent:20px; color:#5f7485">
+				Reservation are made for 90 mins
+			</h5>
+		</div>
+		<script id="templates/my-popover.html" type="text/ng-template">
+			<ion-popover-view style="background-color:rgb(46,62,75);height:100%;width:220px">
+				<ion-content>
+					<div align="center">
+						<h4 style="color:white">Filter by</h4>
+					</div>
+
+					<div class="list" style="margin-bottom:2px">
+
+						<label class="item item-input item-select" style="border-right:1px solid rgb(46,62,75);border-left:1px solid rgb(46,62,75);border-top:1px solid #5f7485;padding-left:5px;padding-bottom:5px;color:rgb(142,156,169);background-color:rgb(46,62,75)">
+								<div class="input-label" style="color:rgb(157,171,184)">
+										Sort By	
+								</div>
+								<select  ng-model="managecolors.sortby">
+								<option >Best</option>
+								<option> Distance</option>
+								<option >Rating</option>
+								<option> Price</option>
+
+								</select>
+							</label>
+
+					</div>
+
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px 10px 5px"> Stadium Type </div>
+					<button class="button button-small" style="background-color: {{managecolors.indoor.backcolor}} ; color:{{managecolors.indoor.color}};line-height:30px;font-size:14px;width:30%;font-weight:bold;border-radius:50px;margin:0 3px;"
+					 ng-click="updatedoortype('indoor')">
+						 Indoor</button>
+					<button class="button button-small" style="background-color: {{managecolors.outdoor.backcolor}} ; color:{{managecolors.outdoor.color}};line-height:30px;font-size:14px;width:30%;font-weight:bold;border-radius:50px"
+					 ng-click="updatedoortype('outdoor')"> 
+						Outdoor</button>
+					<button class="button button-small" style="background-color: {{managecolors.anydoor.backcolor}} ; color:{{managecolors.anydoor.color}};width:30%;line-height:30px;font-size:14px;font-weight:bold;border-radius:50px;margin:0 3px"
+					 ng-click="updatedoortype('anydoor')">
+						Any </button>
+					<br>
+					</div>
+
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px;margin-top:10px">
+						Floor Type </div>
+					<button class="button button-small" style="background-color: {{managecolors.grass.backcolor}} ; color:{{managecolors.grass.color}};line-height:30px;font-size:14px;width:30%;font-weight:bold;border-radius:50px;margin:0 3px;"
+					 ng-click="updategroundtype('grass')">
+						 Grass</button>
+					<button class="button button-small" style="background-color: {{managecolors.ground.backcolor}} ; color:{{managecolors.ground.color}};line-height:30px;font-size:14px;width:30%;font-weight:bold;border-radius:50px"
+					 ng-click="updategroundtype('ground')">
+						Ground</button>
+					<button class="button button-small" style="background-color: {{managecolors.anyground.backcolor}} ; color:{{managecolors.anyground.color}};width:30%;line-height:30px;font-size:14px;font-weight:bold;border-radius:50px;margin:0px 3px"
+					 ng-click="updategroundtype('anyground')">
+						Any </button>
+
+					</div>
+
+					<!---			<ion-checkbox style="color:rgb(142,156,169);background-color:rgb(46,62,75)" ng-model="filter.indoor">Indoor</ion-checkbox>
+						<ion-checkbox style="color:rgb(142,156,169);background-color:rgb(46,62,75)" ng-model="filter.outdoor">Outdoor</ion-checkbox>
+						<ion-checkbox style="color:rgb(142,156,169);background-color:rgb(46,62,75)" ng-model="filter.grass">Grass</ion-checkbox>
+						<ion-checkbox style="color:rgb(142,156,169);background-color:rgb(46,62,75)" ng-model="filter.clay">Clay</ion-checkbox>
+-->
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px 0px 5px;margin-top:10px">
+						Distance (in Km) </div>
+					<div style="padding-left:10px;padding-right:10px;padding-bottom:5px;border-bottom:1px solid #5f7485">
+						<rzslider rz-slider-model="managecolors.distancefrom" rz-slider-high="managecolors.distanceto" rz-slider-options="distanceslider.options"
+						 style="color:white ">
+						</rzslider>
+
+					</div>
+					<div align="left" style=";color:rgb(157,171,184);font-size:15px;padding:10px 5px 0px 5px;margin-top:10px"> Price (in LBP) </div>
+					<div style="padding-left:10px;padding-right:10px;padding-bottom:5px;border-bottom:1px solid #5f7485">
+						<rzslider rz-slider-model="managecolors.pricefrom" rz-slider-high="managecolors.priceto" style="color:white " rz-slider-options="priceslider.options">
+						</rzslider>
+
+					</div>
+					<div class="row">
+
+						<div class="col col-50" align="center">
+							<h4 style="background-color:white;color:#2ab041;border-radius:50px;line-height:30px" ng-click="cancelfilter()">
+								Cancel
+							</h4>
+						</div>
+						<div class="col col-50" align="center">
+							<h4 style="background-color:#2ab041;color:white;border-radius:50px;line-height:30px" ng-click="updatefilter()">
+								Apply
+							</h4>
+						</div>
+					</div>
+					</div>
+
+
+					<!--          <div style="background-color:rgb(90,90,90);color:white ;vertical-align:middle">
+                            <h4 class="title" align="center" style="color:white;vertical-align:bottom">Sort By</h4>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                
+                                <ion-radio ng-model="choice.sort" value="rating">Rating</ion-radio>
+                            </div>
+
+                            <div class="col">
+                                <ion-radio ng-model="choice.sort" value="price">Price</ion-radio>
+                                
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-50">
+                                <ion-radio ng-model="choice.sort" value="players">Players</ion-radio>
+                            </div>
+
+                            <div class="col-50">
+                                <ion-radio ng-model="choice.sort" value="'distance">Distance</ion-radio>
+                            </div>
+                        </div>
+                        
+						-->
+
+
+
+					<!--<button class="button button-full button-positive" ng-click="closePopover()">
+                            OK
+                        </button>-->
+				</ion-content>
+			</ion-popover-view>
+		</script>
+
+
+
+
+
+		<div class="list" ng-repeat="stadiums in filteredStadiums | orderBy :'-points'" style="border-bottom:10px solid rgb(46, 62, 85);background-color:rgb(62,83,100);margin:3px 5px 10px 5px;height: auto">
+			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
+			<div align="center" style="padding-bottom:0px">
+				<img ion-img-cache src="{{stadiums.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums,search:search})">
+			</div>
+
+			<div class="row ">
+				<div class="col col-66" style="padding-top:0px;color:white; font-weight:bold;font-size:14px"> {{stadiums.stadiumname}} &#x25cf {{stadiums.description}}
+				</div>
+
+				<div class="col" align="right" style="padding-top:0px;font-size:12px;color:#5f7485"> PRICE
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col col-66" align="left">
+					<rating style="color:rgb(255,152,18);margin-top:-8px;padding-top:0px" readonly="readOnly" ng-model='stadiums.rating' max="rating.max"
+					 align="left">
+
+					</rating>
+
+				</div>
+
+				<div class="col" align="right" style="padding:3px 0 0 0;color:white;margin-top:-8px;font-size:15px">
+					<b>
+
+						{{stadiums.price}} LL
+					</b>
+				</div>
+			</div>
+
+
+			<div class="row" style="margin-top:5px;font-size:12px;padding-left:0px;padding-bottom:12px">
+				<div align="right" style="font-weight:bold;color:#5f7485;width:18%">
+					<i class="ion-location" style="margin-right:10px;font-size:22px;color:#5f7485"></i>
+				</div>
+				<div align="left" style="font-weight:bold;color:#5f7485;width:18%">
+					{{stadiums.distance | number:2}}KM
+				</div>
+
+				<div align="center" style="color:#5f7485;text-transform:capitalize;width:38%;padding:0px;border-right:1px #5f7485 solid;border-left:1px #5f7485 solid">
+					TYPE
+				</div>
+
+				<div align="center" style="color:#5f7485;width:27%;padding:0px">
+					STADIUM SIZE
+				</div>
+
+			</div>
+
+
+
+			<div class="row" style="margin-top:-12px;padding-left:0px;padding-bottom:12px">
+
+				<div align="center" style="width:36%;font-weight:bold;color:white">
+					{{stadiums.city}}
+				</div>
+
+				<div align="center" style="text-transform:capitalize;width:38%;color:white;padding:0px;border-right:1px #5f7485 solid;border-left:1px #5f7485 solid">
+					<b>
+						{{stadiums.type}} &#8226 {{stadiums.typefloor}}
+					</b>
+				</div>
+
+				<div align="center" style="width:27%;color:white;padding:0px">
+					<b>
+						Max {{stadiums.players}} v {{stadiums.players}}
+					</b>
+				</div>
+
+			</div>
+
+			<div class="row" align="center" style="padding:0 2px 10px 2px;margin:-5px 0px 0px;">
+
+
+				<div ng-repeat="item in stadiums.datetime" class="col" align="center" style="padding:2px">
+
+					<button style="border:1px solid #2ab041;padding-bottom:0px;margin-bottom:0px;line-height:26px;font-size:14px;font-weight:600;background-color:rgb(42,176,65)"
+					 class="button button-block button-balanced button-small" type="submit" ng-disabled="!item.available" ng-click="reserve(search,stadiums,item)">
+
+						<!-- {{stadiums.datetime | date:'short'}} -->
+						{{item.datetime | date:'HH:mm'}} - {{item.datetimeto | date:'HH:mm'}}
+
+					</button>
+					<div class="row" ng-show="item.haspromotion" ng-click="reserve(search,stadiums,item)" style="font-weight:bold;border:2px solid #2ab041;margin-top:-8px;border-radius:0 0 5px 5px; width:inherit;color:#2ab041;background-color: white;padding:5px 0 0 0">
+						<div class="col col-25 icon ion-ios-pricetags" align="right" style="margin-top:5px;font-size:22px;padding:0px;color:#2ab041">
+						</div>
+						<div class="col" style="line-height:30px;margin:0px;padding:0px"> {{item.newprice}} LL</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</ion-content>
+	<ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+		<div align="left" style="padding-left: 5px">
+			<h6 class="whitetext">
+				Oops. You have no internet connection
+			</h6>
+		</div>
+	</ion-footer-bar>
+	<br>
+
+</ion-view>
+
+
+<div class="popup-container popup-showing active" ng-class="cssClass" ng-show="RateLeft" style="background-color:rgba(0,0,0,0.82)">
+	<div class="popup" style="border-bottom:3px solid #2ab041;margin: 0;padding: 0;background-color: rgb(46, 62, 75);border-radius:15px 15px 0 0 !important;height:200px;width: 95%">
+		<div class="popup-body" style="background-color: rgb(46, 62, 75) !important;padding:10px !important;margin: 5px !important">
+			<span style="text-transform:capitalize; margin-top: 10px">Would You Recommend {{CurrentRate.stadiumkey}} {{CurrentRate.ministadiumkey}} To Your Friends? </span>
+
+			<rating style="margin-top:25px;text-align:center;color:rgb(255,152,18);font-size: 50px !important" ng-model="CurrentRate.rate"
+			 max="rating.max" align="left">
+			</rating>
+
+		</div>
+
+		<ion-footer-bar align-title="center" style="background:none; text-align:center; padding-bottom:50px;border-radius:0px;background-color: rgb(46, 62, 75);margin-top:-30px;text-align: center">
+			<button ng-click="CancelRate($event)" class="button ng-binding button-positive" style=" margin-left: 10px; color:#2ab041;font-size:16px;height:35px;border-radius:25px;background-color:white;width:45%">
+				Cancel </button>
+			<button ng-click="RateStadium($event)" class="button ng-binding button-assertive" style="margin-right: 10px;font-size:16px;height:35px;border-radius:25px;background-color:#2ab041;width:45%">
+				Ok </button>
+		</ion-footer-bar>
+
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<ion-view view-title="Choose Favorite Stadium">
+	<style>
+		.list {
+			margin-bottom: 0px;
+		}
+
+		.headercolor {
+			background-color: rgb(62, 83, 100);
+			color: white;
+			border-bottom: 2px solid rgb(62, 83, 100);
+			border-top: 1px;
+		}
+	</style>
+	<ion-nav-buttons side="secondary">
+		<button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+
+
+
+	<ion-content style="background-color:rgb(46,62,75)">
+
+		<div align="center">
+			<ion-spinner ng-show="notloaded" icon="spiral"></ion-spinner>
+		</div>
+
+		<div class="list">
+
+			<div class="row row-center" href="#" collection-repeat="item in filteredStadiums" style="margin-bottom:0px;margin-top:0px;padding-bottom:10px;padding-top:10px;background-color:rgb(62,83,100)">
+				<img src="{{item.photo}}" style="width:50%;height:35vw">
+				<div class="col">
+					<h4 align="center" style="color:white;text-transform: capitalize">{{item.name}}</h4>
+					<div align="center" style="margin-top:20px">
+						<button class="button button-balanced" style="min-width:115px;min-height:30px;line-height:25px;border-radius:50px" ng-click="goback(item)">
+					   Select
+				</button>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</ion-content>
+</ion-view>

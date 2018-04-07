@@ -1,0 +1,74 @@
+<ion-view view-title="Add Mini Stadium" >
+
+    <style>
+
+        .h3, h2, h1, h4, p {
+            color: white;
+        }
+    </style>
+
+
+
+  <ion-content  style="background-color:rgb(30,30,30)" >
+          <label class="item item-input">
+              <span class="input-label">Name :</span>
+              <input type="text" ng-model="ministadium.name" required >
+          </label>
+
+      <label class="item item-input item-select">
+          <div class="input-label">
+              Type :
+          </div>
+          <select ng-model="ministadium.type">
+              <option selected>Indoor</option>
+              <option>Outdoor</option>
+          </select>
+      </label>
+
+
+      <label class="item item-input item-select">
+          <div class="input-label">
+              Typefloor :
+          </div>
+          <select ng-model="ministadium.typefloor">
+              <option selected>Grass</option>
+              <option>Clay</option>
+          </select>
+      </label>
+
+      <label class="item item-input">
+          <span class="input-label">Width:</span>
+          <input type="number" ng-model="ministadium.width" required>
+      </label>
+
+      <label class="item item-input">
+          <span class="input-label">Length:</span>
+          <input type="number" ng-model="ministadium.length" required>
+      </label>
+
+      <label class="item item-input">
+          <span class="input-label">Player/Side:</span>
+          <input type="number" ng-model="ministadium.numplayers" required>
+      </label>
+
+
+      <label class="item item-input">
+          <span class="input-label">Price $:</span>
+          <input type="number" ng-model="ministadium.Price" required>
+      </label>
+
+      <label class="item item-input">
+          <span class="input-label">Photo:</span>
+          <input type="text" ng-model="ministadium.photo" required>
+      </label>
+
+
+
+</ion-content>
+
+    <div class="bar bar-footer " style="background-color:rgb(30,30,30)">
+        <button class="button button-positive" style="background-color:darkorange" ng-click="addministadium()">
+            Add
+        </button>
+    </div>
+</ion-view>

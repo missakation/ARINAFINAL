@@ -1,0 +1,125 @@
+<style>
+	.h3.whitetext,
+	h2.whitetext,
+	h1.whitetext,
+	h4.whitetext,
+	h5.whitetext,
+	h6.whitetext,
+	p.whitetext {
+		color: white;
+		height: 8px
+	}
+	
+	.headercolor {
+		background-color: rgb(62, 83, 100);
+		color: white
+	}
+
+    
+</style>
+<ion-view view-title="Choose Stadium">
+
+
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-bar class="headercolor">
+        <ion-nav-back-button>
+
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+	<ion-content style="background-color:rgb(46,62,75)">
+
+
+
+		<div class="card" ng-repeat="stadiums in allfreestadiums" style="background-color:rgb(100,120,140)">
+			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
+
+			<div align="center">
+				<img src="{{stadiums.photo}}" style="width:100%;height:140px;">
+			</div>
+
+			<div class="row ">
+				<div class="col col-66" style="color:white"> {{stadiums.stadiumname}} / {{stadiums.description}}
+				</div>
+
+				<div class="col" align="right" style="color:lightgray"> Price
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col col-66" align="left">
+					<rating style="color:gold" readonly="readOnly" ng-model=stadiums.rating max="rating.max" align="left">
+
+					</rating>
+
+				</div>
+
+				<div class="col" align="right" style="color:white">
+					<b>
+	
+		{{stadiums.price}} L.L.
+		</b>
+				</div>
+			</div>
+			</br>
+			<div class="row ">
+				<div class="col" style="color:lightgray"> {{stadiums.stadiumname}}
+				</div>
+
+				<div class="col" style="color:lightgray" align="right"> Type
+				</div>
+
+				<div class="col" style="color:lightgray" align="right"> Size
+				</div>
+
+			</div>
+
+
+			<div class="row ">
+
+				<div class="col" style="color:white">
+					<b>
+						2.1km
+						</b>
+				</div>
+
+				<div class="col" align="right" style="color:white">
+					<b>
+						{{stadiums.typefloor}}/{{stadiums.typefloor}}
+						</b>
+				</div>
+
+				<div class="col" align="right" style="color:white">
+					<b>
+						5vs5
+						</b>
+				</div>
+
+			</div>
+
+			<!--			<h3 class="whitetext"> Number: <b>{{stadiums.description}}</b></h3> -->
+
+			<div class="row">
+				<div class="col">
+					<button class="button button-block button-small button-balanced " ng-click="selectreservestadium(stadiums)" style="border-radius:25px"> Select
+</button>
+				</div>
+
+			</div>
+
+
+		</div>
+
+		</br>
+		</br>
+		</br>
+		</br>
+
+	</ion-content>
+</ion-view>

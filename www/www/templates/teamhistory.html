@@ -1,0 +1,190 @@
+<style>
+	.h3.whitetext,
+	h2.whitetext,
+	h1.whitetext,
+	h4.whitetext,
+	h5.whitetext,
+	p.whitetext {
+		color: white
+	}
+
+
+
+	.headercolor {
+		background-color: rgb(62, 83, 100);
+		color: white;
+		border-bottom: 2px solid rgb(62, 83, 100);
+		border-top: 1px;
+	}
+</style>
+<ion-view view-title="Match History">
+
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+
+
+
+	<ion-content style="background-color:rgb(46,62,75)">
+
+		<div class="card" ng-repeat="item in teammatches | orderBy :'-date'" style="background-color:rgb(62, 83, 100);margin:2px 5px 10px;border-radius:5px"
+		 ng-show="item.status!=0">
+
+
+			<div class="col" style="padding:0px">
+
+
+				<div class="row" style="padding:0px">
+
+					<div class="col" style="margin-top:5px;padding:0px" align="center">
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/{{item.team1logo}}.png" style="margin-top:5px;height:70px;width:70px">
+											</a>
+						<div align="center">
+							<h5 align="center" style="text-transform:capitalize;font-weight:bold;color:white"> {{item.team1name}}</h5>
+						</div>
+
+					</div>
+
+					<div class="col" style="margin-top:-3px;padding:0">
+
+						<div align="center">
+							<h6 style="margin-top:5px;font-weight:bold;color:white">{{item.date |date:'MMM d, y h:mm a'}}</h6>
+
+
+							<h3 style="margin:20px 0 0 0;color:white">
+								VS
+							</h3>
+
+							<h6 ng-show="item.status==1" style="font-weight:bold;margin:15px 22px 0;padding:2px 0px;border-radius:5px;background-color:#2ab041;color:white">Win</h6>
+							<h6 ng-show="item.status==2" style="font-weight:bold;margin:15px 22px 0;padding:2px 0px;border-radius:5px;background-color:red;color:white">Loss</h6>
+							<h6 ng-show="item.status==3" style="font-weight:bold;margin:15px 22px 0;padding:2px 0px;border-radius:5px;background-color:orange;color:white">Draw</h6>
+
+
+						</div>
+					</div>
+					<div class="col" style="padding:0px;margin-top:5px" align="center">
+
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/{{item.team2logo}}.png" style="margin-top:5px;height:70px ; width:70px" />
+											</a>
+						<div align="center">
+							<h5 align="center" style="text-transform:capitalize;font-weight:bold;color:white">{{item.team2name}}</h5>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<!-- <div class="card" style="background-color:rgb(62, 83, 100);margin:2px 5px 10px;border-radius:5px">
+
+
+			<div class="col" style="padding:0px">
+
+
+				<div class="row" style="padding:0px">
+
+					<div class="col" style="margin-top:5px;padding:0px" align="center">
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/c15.png" style="margin-top:5px;height:70px;width:70px">
+											</a>
+						<div align="center">
+							<h4 align="center" style="text-transform:capitalize;font-weight:bold;color:white"> {{currentprofile.teamname}}</h4>
+							<h5 align="center" style="margin-top:-5px;font-weight:bold;color:white">404 not found</h5>
+						</div>
+
+					</div>
+
+					<div class="col" style="margin-top:-3px;padding:0">
+
+						<div align="center">
+							<h6 style="margin-top:5px;font-weight:bold;color:white">404 days ago</h6>
+
+
+							<h3 style="margin:20px 0 0 0;color:white">
+								VS
+							</h3>
+
+							<h6 style="font-weight:bold;margin:0 15px;padding:2px 0px;border-radius:5px;background-color:rgb(220,22,23);margin-top:25px;color:white">Loss</h6>
+
+						</div>
+					</div>
+					<div class="col" style="padding:0px;margin-top:5px" align="center">
+
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/d12.png" style="margin-top:5px;height:70px ; width:70px" />
+											</a>
+						<div align="center">
+							<h4 align="center" style="text-transform:capitalize;font-weight:bold;color:white">{{rankedteams[1].teamname}}</h4>
+							<h5 align="center" style="margin-top:-5px;font-weight:bold;color:white">404 not found</h5>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="card" style="background-color:rgb(62, 83, 100);margin:2px 5px 10px;border-radius:5px">
+
+
+			<div class="col" style="padding:0px">
+
+
+				<div class="row" style="padding:0px">
+
+					<div class="col" style="margin-top:5px;padding:0px" align="center">
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/c15.png" style="margin-top:5px;height:70px;width:70px">
+											</a>
+						<div align="center">
+							<h4 align="center" style="text-transform:capitalize;font-weight:bold;color:white"> {{currentprofile.teamname}}</h4>
+							<h5 align="center" style="margin-top:-5px;font-weight:bold;color:white">404 not found</h5>
+						</div>
+
+					</div>
+
+					<div class="col" style="margin-top:-3px;padding:0">
+
+						<div align="center">
+							<h6 style="margin-top:5px;font-weight:bold;color:white">404 days ago</h6>
+
+
+							<h3 style="margin:20px 0 0 0;color:white">
+								VS
+							</h3>
+
+							<h6 style="font-weight:bold;margin:0 15px;padding:2px 0px;border-radius:5px;background-color:rgb(221,162,22);margin-top:25px;color:white">Draw</h6>
+
+						</div>
+					</div>
+					<div class="col" style="padding:0px;margin-top:5px" align="center">
+
+						<a href="#/app/selfprofile">
+												<img src="img/Badges/d12.png" style="margin-top:5px;height:70px ; width:70px" />
+											</a>
+						<div align="center">
+							<h4 align="center" style="text-transform:capitalize;font-weight:bold;color:white">{{rankedteams[1].teamname}}</h4>
+							<h5 align="center" style="margin-top:-5px;font-weight:bold;color:white">404 not found</h5>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div> -->
+
+	</ion-content>
+</ion-view>

@@ -1,0 +1,467 @@
+<ion-view view-title="Choose Your Badge">
+	<style>
+		body {
+			background-color: lightgrey;
+		}
+		
+		img {
+			height: 150px;
+			width: 150px;
+		}
+		
+		.bar {
+			border-width: 0px
+		}
+		
+		.item-input {
+			padding: 0 0 0 0;
+		}
+		
+		.item {
+			background-color: rgb(46, 62, 75);
+		}
+		
+		.headercolor {
+			background-color: rgb(62, 83, 100);
+			color: white;
+		}
+		
+		.h3.whitetext,
+		h2.whitetext,
+		h1.whitetext,
+		h4.whitetext,
+		h5.whitetext,
+		h6.whitetext,
+		p.whitetext {
+			color: white;
+		}
+		
+		.h3.greytext,
+		h2.greytext,
+		h1.greytext,
+		h4.greytext,
+		h5.greytext,
+		h6.greytext,
+		p.greytext {
+			color: rgb(153, 167, 180);
+		}
+	</style>
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear <ion-></ion->navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-buttons side="right">
+			<h5 style="padding-right:10px;color:white;font-weight:bold" ng-click="next()">
+
+				Next
+
+			</h5>
+		</ion-nav-buttons>
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+	<ion-content style="background-color:rgb(45,62,75)">
+		<div style="padding-left: 10px;padding-right:50px ">
+			<h5 style="color:red" ng-show="validate.badge"> Please Select a Badge
+			</h5>
+		</div>
+		<div align="center">
+			<img src="img/Badges/{{badge}}.png" style="margin-top:20px;width:80px;height:80px ">
+		</div>
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+			<div class="col" style="width=100%">
+				<img src="img/Badges/01.png" style="width:50px;height:50px " ng-click="RefreshBadge('01')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/02.png" style="width:50px;height:50px " ng-click="RefreshBadge('02')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/03.png" style="width:50px;height:50px " ng-click="RefreshBadge('03')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/04.png" style="width:50px;height:50px " ng-click="RefreshBadge('04')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/05.png" style="width:50px;height:50px " ng-click="RefreshBadge('05')">
+
+			</div>
+
+		</div>
+
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/10.png" style="width:50px;height:50px " ng-click="RefreshBadge('10')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/06.png" style="width:50px;height:50px " ng-click="RefreshBadge('06')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/07.png" style="width:50px;height:50px " ng-click="RefreshBadge('07')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/08.png" style="width:50px;height:50px " ng-click="RefreshBadge('08')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/09.png" style="width:50px;height:50px " ng-click="RefreshBadge('09')">
+
+			</div>
+
+		</div>
+
+
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/11.png" style="width:50px;height:50px " ng-click="RefreshBadge('11')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/12.png" style="width:50px;height:50px " ng-click="RefreshBadge('12')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/13.png" style="width:50px;height:50px " ng-click="RefreshBadge('13')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/14.png" style="width:50px;height:50px " ng-click="RefreshBadge('14')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/15.png" style="width:50px;height:50px " ng-click="RefreshBadge('15')">
+
+			</div>
+
+
+		</div>
+
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+			<div class="col">
+				<img src="img/Badges/b01.png" style="width:50px;height:50px " ng-click="RefreshBadge('b01')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b02.png" style="width:50px;height:50px " ng-click="RefreshBadge('b02')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b03.png" style="width:50px;height:50px " ng-click="RefreshBadge('b03')">
+
+			</div>
+
+
+			<div class="col">
+				<img src="img/Badges/b04.png" style="width:50px;height:50px " ng-click="RefreshBadge('b04')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/b05.png" style="width:50px;height:50px " ng-click="RefreshBadge('b05')">
+
+			</div>
+		</div>
+
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/b06.png" style="width:50px;height:50px " ng-click="RefreshBadge('b06')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b07.png" style="width:50px;height:50px " ng-click="RefreshBadge('b07')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b08.png" style="width:50px;height:50px " ng-click="RefreshBadge('b08')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b09.png" style="width:50px;height:50px " ng-click="RefreshBadge('b09')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/b10.png" style="width:50px;height:50px " ng-click="RefreshBadge('b10')">
+
+			</div>
+
+
+		</div>
+
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/b11.png" style="width:50px;height:50px " ng-click="RefreshBadge('b11')">
+
+			</div>
+
+
+			<div class="col">
+				<img src="img/Badges/b12.png" style="width:50px;height:50px " ng-click="RefreshBadge('b12')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b13.png" style="width:50px;height:50px " ng-click="RefreshBadge('b13')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/b14.png" style="width:50px;height:50px " ng-click="RefreshBadge('b14')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/b15.png" style="width:50px;height:50px " ng-click="RefreshBadge('b15')">
+
+			</div>
+
+
+		</div>
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/c01.png" style="width:50px;height:50px " ng-click="RefreshBadge('c01')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c02.png" style="width:50px;height:50px " ng-click="RefreshBadge('c02')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c03.png" style="width:50px;height:50px " ng-click="RefreshBadge('c03')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c04.png" style="width:50px;height:50px " ng-click="RefreshBadge('c04')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/c05.png" style="width:50px;height:50px " ng-click="RefreshBadge('c05')">
+
+			</div>
+
+		</div>
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+
+			<div class="col">
+				<img src="img/Badges/c06.png" style="width:50px;height:50px " ng-click="RefreshBadge('c06')">
+
+			</div>
+
+
+			<div class="col">
+				<img src="img/Badges/c07.png" style="width:50px;height:50px " ng-click="RefreshBadge('c07')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c08.png" style="width:50px;height:50px " ng-click="RefreshBadge('c08')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c09.png" style="width:50px;height:50px " ng-click="RefreshBadge('c09')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/c10.png" style="width:50px;height:50px " ng-click="RefreshBadge('c10')">
+
+			</div>
+
+
+		</div>
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+			<div class="col">
+				<img src="img/Badges/c11.png" style="width:50px;height:50px " ng-click="RefreshBadge('c11')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c12.png" style="width:50px;height:50px " ng-click="RefreshBadge('c12')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c13.png" style="width:50px;height:50px " ng-click="RefreshBadge('c13')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/c14.png" style="width:50px;height:50px " ng-click="RefreshBadge('c14')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/c15.png" style="width:50px;height:50px " ng-click="RefreshBadge('c15')">
+
+
+
+			</div>
+		</div>
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+			<div class="col">
+				<img src="img/Badges/d01.png" style="width:50px;height:50px " ng-click="RefreshBadge('d01')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d02.png" style="width:50px;height:50px " ng-click="RefreshBadge('d02')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d03.png" style="width:50px;height:50px " ng-click="RefreshBadge('d03')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/d04.png" style="width:50px;height:50px " ng-click="RefreshBadge('d04')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d05.png" style="width:50px;height:50px " ng-click="RefreshBadge('d05')">
+
+			</div>
+
+		</div>
+
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+			<div class="col">
+				<img src="img/Badges/d06.png" style="width:50px;height:50px " ng-click="RefreshBadge('d06')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d07.png" style="width:50px;height:50px " ng-click="RefreshBadge('d07')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d08.png" style="width:50px;height:50px " ng-click="RefreshBadge('d08')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d09.png" style="width:50px;height:50px " ng-click="RefreshBadge('d09')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/d10.png" style="width:50px;height:50px " ng-click="RefreshBadge('d10')">
+
+			</div>
+
+		</div>
+
+		<div class="row" style="margin:0 0 -8px 0;padding:10px 0 0 5px">
+
+
+			<div class="col">
+				<img src="img/Badges/d11.png" style="width:50px;height:50px " ng-click="RefreshBadge('d11')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d12.png" style="width:50px;height:50px " ng-click="RefreshBadge('d12')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d13.png" style="width:50px;height:50px " ng-click="RefreshBadge('d13')">
+
+			</div>
+
+			<div class="col">
+				<img src="img/Badges/d14.png" style="width:50px;height:50px " ng-click="RefreshBadge('d14')">
+
+			</div>
+			<div class="col">
+				<img src="img/Badges/d15.png" style="width:50px;height:50px " ng-click="RefreshBadge('d15')">
+
+			</div>
+
+
+		</div>
+
+		</div>
+
+		<button class="button button-balanced button-small" ng-disabled="disabledbutton" ng-click="next()" style="width:60%;margin-left:20%;margin-top:10px;font-weight:bold;padding:5px;border-radius:50px">
+               NEXT
+           </button>
+</br>
+	</ion-content>
+
+	<ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+		<div align="left" style="padding-left: 5px">
+			<h6 class="whitetext">
+				Oops. You have no internet connection
+			</h6>
+		</div>
+	</ion-footer-bar>
+
+</ion-view>

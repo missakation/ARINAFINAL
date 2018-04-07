@@ -1,0 +1,110 @@
+<ion-view view-title="Login Page">
+	<style>
+		body {
+			background-color: lightgrey;
+		}
+		
+		h4.titles {
+			color: white;
+			background-color: mediumsea#28b041;
+			text-align: center;
+			height: 25px;
+			border-radius: 20px;
+		}
+					input {
+			width: 90%;
+			display: block;
+			border: none;
+			padding: 0px;
+			-webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+			transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+			background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #2ab041 4%);
+			background-position: -200px 0;
+			background-size: 100px 200%;
+			background-repeat: no-repeat;
+			color: #2ab041;
+		}
+		
+		input:focus,
+		input:valid {
+			box-shadow: none;
+			outline: none;
+			background-position: 0 0;
+		}
+		
+		input::-webkit-input-placeholder {
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		input:focus::-webkit-input-placeholder,
+		input:valid::-webkit-input-placeholder {
+			color: #2ab041;
+			font-size: 12px;
+			-webkit-transform: translateY(-30px);
+			transform: translateY(-30px);
+			visibility: visible !important;
+		}
+	</style>
+
+
+	<body>
+
+
+
+
+	</body>
+	<ion-content style="background-image:url(img/LoginBack.jpg); background-size:120% 100%;">
+
+
+		<!--
+          Below we include the Login Button social plugin. This button uses
+          the JavaScript SDK to present a graphical Login button that triggers
+          the FB.login() function when clicked.
+        -->
+		<div>
+			<br />
+            <br />
+
+		</div>
+
+		<!--  <div style="padding-left:20px">
+            <img src="img/Logo.png" style="height:30%; width:40%">
+        </div>
+      -->
+
+		<hr style="height:9vh;border:hidden">
+		</hr>
+
+    <div align="center">
+
+			<img src="img/loggo.png" style="width:43%;height:13vh">
+
+		</div>
+				<hr style="height:2vh; visibility:hidden;" />
+		<br />
+		
+
+	<div align="center" style="padding-top:10px;padding-bottom:10px">
+			<input placeholder="Please Enter Your Email Address"  ng-model="email.address" style="padding:20px;background-color:rgba(0, 0, 0, 0.4);padding-left:20px;color:#2ab041;border-radius:5px"
+			 placeholder="Enter Your Email Address" type="email" required >
+			<br>
+
+		</div>
+		
+
+		<div class="padding" style="width:100%" align="center">
+			<button style="padding-bottom:0px;min-height:10px;line-height:6.5vh;width:100%;border-radius: 20px" class="button button-balanced small_button"
+			 ng-click="submit()">
+                Reset Password
+            </button>
+
+		</div>
+
+
+
+	</ion-content>
+
+	<!--<div class="bar bar-footer ">
+    </div>-->
+</ion-view>

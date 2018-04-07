@@ -1,0 +1,551 @@
+<ion-view view-title="Welcome To Arina!">
+	<style>
+		.item-select:after {
+			margin-top: 0px;
+			color: #2ab041;
+		}
+
+		.item-select select {
+			background-color: rgb(46, 62, 75);
+			color: #2ab041;
+		}
+
+		.toggle .track {
+			background-color: #C00000;
+		}
+
+		.toggle .handle {
+			background-color: white;
+		}
+
+		.rzslider {
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			height: 4px;
+			margin: 35px 0 15px 0;
+			vertical-align: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.rzslider.with-legend {
+			margin-bottom: 0px;
+		}
+
+		.rzslider[disabled] {
+			cursor: not-allowed;
+		}
+
+		.rzslider[disabled] .rz-pointer {
+			cursor: not-allowed;
+			background-color: #d8e0f3;
+		}
+
+		.rzslider span {
+			position: absolute;
+			display: inline-block;
+			white-space: nowrap;
+		}
+
+		.rzslider .rz-base {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+		}
+
+		.rzslider .rz-bar-wrapper {
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 2px;
+			padding-top: 16px;
+			margin-top: -16px;
+			box-sizing: border-box;
+		}
+
+		.rzslider .rz-bar-wrapper.rz-draggable {
+			cursor: move;
+		}
+
+		.rzslider .rz-bar {
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 4px;
+			background: rgb(155, 167, 181);
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+		}
+
+		.rzslider .rz-bar.rz-selection {
+			z-index: 2;
+			background: white;
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+		}
+
+		.rzslider .rz-pointer {
+			top: -9px;
+			z-index: 3;
+			width: 22px;
+			height: 22px;
+			cursor: pointer;
+			background-color: rgb(37, 179, 69);
+			-webkit-border-radius: 16px;
+			-moz-border-radius: 16px;
+			border-radius: 16px;
+		}
+
+		.rzslider .rz-pointer:after {
+			position: absolute;
+			top: 7px;
+			left: 7px;
+			width: 8px;
+			height: 8px;
+			background: rgb(147, 221, 162);
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			content: '';
+		}
+
+		.rzslider .rz-pointer:hover:after {
+			background-color: rgb(147, 221, 162);
+		}
+
+		.rzslider .rz-pointer.rz-active {
+			z-index: 4;
+		}
+
+		s .rzslider .rz-pointer.rz-active:after {
+			background-color: rgb(147, 221, 162);
+		}
+
+		.rzslider .rz-bubble {
+			bottom: 14px;
+			padding: 1px 3px;
+			color: rgb(147, 221, 162);
+			cursor: default;
+			font-weight: bold;
+		}
+
+		.rzslider .rz-bubble.rz-selection {
+			top: 16px;
+		}
+
+		.rzslider .rz-bubble.rz-limit {
+			color: rgb(147, 221, 162);
+		}
+
+		.rzslider .rz-ticks {
+			position: absolute;
+			top: -3px;
+			left: 0;
+			z-index: 1;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			width: 100%;
+			height: 0;
+			padding: 0 11px;
+			margin: 0;
+			list-style: none;
+			box-sizing: border-box;
+			-webkit-justify-content: space-between;
+			-ms-flex-pack: justify;
+			justify-content: space-between;
+		}
+
+		.rzslider .rz-ticks .rz-tick {
+			width: 10px;
+			height: 10px;
+			text-align: center;
+			cursor: pointer;
+			background: rgb(147, 221, 162);
+			border-radius: 50%;
+		}
+
+		.rzslider .rz-ticks .rz-tick.rz-selected {
+			background: #0db9f0;
+		}
+
+		.rzslider .rz-ticks .rz-tick .rz-tick-value {
+			position: absolute;
+			top: -30px;
+			transform: translate(-50%, 0);
+		}
+
+		.rzslider .rz-ticks .rz-tick .rz-tick-legend {
+			position: absolute;
+			top: 24px;
+			max-width: 50px;
+			white-space: normal;
+			transform: translate(-50%, 0);
+		}
+
+		.rzslider .rz-ticks.rz-ticks-values-under .rz-tick-value {
+			top: initial;
+			bottom: -40px;
+		}
+
+		.rzslider.rz-vertical {
+			position: relative;
+			width: 4px;
+			height: 100%;
+			padding: 0;
+			margin: 0 20px;
+			vertical-align: baseline;
+		}
+
+		.rzslider.rz-vertical .rz-base {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+		}
+
+		.rzslider.rz-vertical .rz-bar-wrapper {
+			top: auto;
+			left: 0;
+			width: 32px;
+			height: 100%;
+			padding: 0 0 0 16px;
+			margin: 0 0 0 -16px;
+		}
+
+		.rzslider.rz-vertical .rz-bar {
+			bottom: 0;
+			left: auto;
+			width: 4px;
+			height: 100%;
+		}
+
+		.rzslider.rz-vertical .rz-pointer {
+			top: auto;
+			bottom: 0;
+			left: -14px !important;
+			color: #2ab041;
+		}
+
+		.rzslider.rz-vertical .rz-bubble {
+			bottom: 0;
+			left: 16px !important;
+			margin-left: 3px;
+		}
+
+		.rzslider.rz-vertical .rz-bubble.rz-selection {
+			top: auto;
+			left: 16px !important;
+		}
+
+		.rzslider.rz-vertical .rz-ticks {
+			top: 0;
+			left: -3px;
+			z-index: 1;
+			width: 0;
+			height: 100%;
+			padding: 11px 0;
+			-webkit-flex-direction: column-reverse;
+			-ms-flex-direction: column-reverse;
+			flex-direction: column-reverse;
+		}
+
+		.rzslider.rz-vertical .rz-ticks .rz-tick {
+			vertical-align: middle;
+		}
+
+		.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-value {
+			top: initial;
+			left: 22px;
+			transform: translate(0, -28%);
+		}
+
+		.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-legend {
+			top: initial;
+			right: 24px;
+			max-width: none;
+			white-space: nowrap;
+			transform: translate(0, -28%);
+		}
+
+		.rzslider.rz-vertical .rz-ticks.rz-ticks-values-under .rz-tick-value {
+			right: 12px;
+			bottom: initial;
+			left: initial;
+		}
+
+		body {
+			background-color: lightgrey;
+		}
+
+		img {
+			height: 150px;
+			width: 150px;
+		}
+
+		img {
+			height: 150px;
+			width: 150px;
+		}
+
+		.item-input {
+			padding: 0 0 0 0;
+		}
+
+		.item {
+			background-color: rgb(46, 62, 75);
+		}
+
+		.headercolor {
+			background-color: rgb(62, 83, 100);
+			color: white;
+			border-bottom: 2px solid rgb(62, 83, 100);
+			border-top: 1px;
+		}
+
+		.h3.whitetext,
+		h2.whitetext,
+		h1.whitetext,
+		h4.whitetext,
+		h5.whitetext,
+		h6.whitetext,
+		p.whitetext {
+			color: white;
+		}
+
+		.h3.greytext,
+		h2.greytext,
+		h1.greytext,
+		h4.greytext,
+		h5.greytext,
+		h6.greytext,
+		p.greytext {
+			color: rgb(153, 167, 180);
+		}
+
+		.my-container {
+			background: linear-gradient(rgba(46, 62, 75, 0.9), rgba(46, 62, 75, 0.90)), url('img/111.jpeg');
+			background-repeat: repeat;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			background-size: cover;
+			height: 100%;
+			width: 100%;
+			border-bottom: transparent;
+			position: absolute;
+		}
+	</style>
+
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear <ion-></ion->navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-buttons side="right">
+			<h5 style="padding-right:10px;color:white;font-weight:bold" ng-click="UpdateUser(currentprofile)">
+
+				Save
+
+			</h5>
+		</ion-nav-buttons>
+
+	</ion-nav-bar>
+
+	<ion-content class="my-container">
+		<h4 align="center" style="padding-top:5px;color:white"> Profile Set Up</h4>
+
+
+
+
+		<div style="border-bottom:1px solid #5f7485;padding:5px 0px" align="left">
+			<div style="padding:0 0 0 10px">
+				<h4 align="center" style="font-size:16px;padding:0px;color:rgb(153,167,180)">
+
+					Are you available to be invited to matches ?
+				</h4>
+			</div>
+
+			<div align="center">
+				<label class="toggle">
+							<input type="checkbox" ng-model="currentprofile.available" ng-click="checkMobileNumber($event)">
+							<div class="track">
+								<div class="handle"></div>
+							</div>
+						</label>
+			</div>
+		</div>
+
+		<div ng-show="currentprofile.available">
+			<h5 style="color:rgb(153,167,180);background-color:transparent;padding-left:10px"> BIRTHDAY </h5>
+			<div align="center" style="padding-bottom:10px">
+
+				<input type="date" required ng-model="currentprofile.age" placeholder="Birthday" style="border:1px solid #96a6b3;padding:5px;padding-left:20px;color:#2ab041;border-radius:5px">
+			</div>
+			<div>
+				<div align="left" style="border-bottom:1px solid #5f7485;padding-bottom:10px;margin-top:15px;padding-left: 10px;padding-right:10px">
+					<h5 style="color:rgb(153,167,180);margin-bottom:0px">POSITION
+					</h5>
+					<div class="button-bar" align="center" style=" width:99%;margin:0 0 0 0px">
+						<button class="button" style="padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;background-color: {{isplayercolors.goalkeeper.backcolor}}; color: {{isplayercolors.goalkeeper.color}};font-size:14px; margin-top:15px;margin-right:5px;font-weight:bold;border-radius:50px"
+						 ng-click="switchcolors(1)">
+					Goalkeeper</button>
+						<button class="button" style="padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;background-color: {{isplayercolors.player.backcolor}}; color: {{isplayercolors.player.color}}; margin-top:15px; margin-left:5px;font-size:14px;font-weight:bold;border-radius:50px"
+						 ng-click="switchcolors(0)">
+					Player </button>
+
+					</div>
+				</div>
+
+
+				<div style="padding-top:5px" ng-click="gochoosestadium(currentprofile)">
+					<div ng-click="gochoosestadium(currentprofile)" align="center" style="color: white">
+						<h5 align=center style="color:rgb(153,167,180)">
+							FAVORITE STADIUM
+						</h5>
+					</div>
+				</div>
+
+			</div>
+			<div align="center">
+				<h5 ng-click="gochoosestadium(currentprofile)" align="center" style="width:50%;background-color:rgba(0, 0, 0, 0.4);padding:10px;color:#2ab041;">
+					{{currentprofile.favstadium| uppercase }}
+				</h5>
+			</diV>
+
+			<div class="row row center" style="margin-top:-5px;padding:0px;border-bottom:1px solid #5f7485">
+				<div align="center" style="width:10%;padding:0px">
+					<i class="ion-ios-information-outline" style="margin-top:5px;font-size:30px;color:#2ab041"></i>
+
+				</div>
+
+				<h6 style="width:90%;padding:0px;color:rgb(153,167,180);font-size:13px" align="left">
+					Info: Favorite stadium will be used as your location
+
+				</h6>
+			</div>
+
+
+			<div align="left" style="margin-bottom:0px;padding-left: 10px;padding-right:10px ">
+				<h5 style="margin-bottom:0px;color:rgb(153,167,180)"> SKILL LEVEL
+				</h5>
+
+
+
+			</div>
+			<div class="button-bar" align="center" style="border-bottom:1px solid #5f7485;padding-right:10px;padding-left:22%">
+
+
+
+				<div class="col">
+
+
+					<rzslider rz-slider-model="currentprofile.skilllevel" rz-slider-options="sliderskill.options " style="text-transform:capitalize;color:white "></rzslider>
+
+				</div>
+
+
+			</div>
+
+			<div class="card" style="margin-top:0px;background-color: transparent;box-shadow:0 0px 0px">
+				<div align="left">
+					<h5 class="whitetext" style="font-size:14px;color:rgb(153,167,180)">
+						AVAILABILITY
+					</h5>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							MON
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startmonday" rz-slider-high="currentprofile.startmondayend " rz-slider-options="slider1.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							TUE
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.starttuesday " rz-slider-high="currentprofile.starttuesdayend " rz-slider-options="slider2.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							WED
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startwednesday " rz-slider-high="currentprofile.startwednesdayend " rz-slider-options="slider3.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							THU
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startthursday " rz-slider-high="currentprofile.startthursdayend " rz-slider-options="slider4.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							FRI
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startfriday " rz-slider-high="currentprofile.startfridayend " rz-slider-options="slider5.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							SAT
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startsaturday " rz-slider-high="currentprofile.startsaturdayend " rz-slider-options="slider6.options "
+						 style="color:white "></rzslider>
+					</div>
+				</div>
+
+				<div class="row row-center" style="padding:0px" align="left">
+					<div class="col col-20">
+						<h5 class="whitetext" style="color:rgb(153,167,180);font-size:14px;padding-top:15px">
+							SUN
+						</h5>
+					</div>
+					<div class="col">
+						<rzslider rz-slider-model="currentprofile.startsunday " rz-slider-high="currentprofile.startsundayend " rz-slider-options="slider7.options "
+						 style="color:white " ng-readonly="currentprofile.amiadmin"></rzslider>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		</div>
+
+	</ion-content>
+
+</ion-view>

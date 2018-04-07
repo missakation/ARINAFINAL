@@ -1,0 +1,139 @@
+<style>
+    .h3.whitetext,
+    h2.whitetext,
+    h1.whitetext,
+    h4.whitetext,
+    h6.whitetext,
+    h6.whitetext,
+    p.whitetext {
+        color: white;
+        height: 8px
+    }
+
+    h5.loading-center {
+        color: #9ba2a8;
+        position: absolute;
+        left: 46%;
+        top: 40%;
+    }
+</style>
+
+<ion-view view-title="My Bookings">
+
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+
+    <ion-nav-bar class="headercolor">
+        <ion-nav-back-button>
+
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+
+    <div class="bar bar-subheader" style="padding:0 5px;border-bottom:0px;border-left:5px solid rgb(46,62,75);border-right:5px solid rgb(46,62,75);border-top:5px solid rgb(46,62,75);padding:0px;background-color:rgb(62,83,100)">
+        <div class="button-bar">
+            <button class="button button-calm" ng-click="switchscreens(1)" style="padding:5px 0 0px 0;font-weight:bold;background-color: transparent;border:none; border-bottom: {{status.Current}};border-color: #2ab041;border-right:1px solid #5f7485">
+                CURRENT BOOKINGS
+            </button>
+            <button class="button button-calm" ng-click="switchscreens(2)" style="padding:5px 0 0px 0;font-weight:bold;background-color: transparent;border:none; border-bottom: {{status.Previous}};border-color: #2ab041">
+                PREVIOUS BOOKINGS
+            </button>
+        </div>
+    </div>
+
+    <ion-content class="has-header has-subheader" style="background-color:rgb(46,62,75)">
+        <div align="center">
+            <ion-spinner ng-show="notloaded" icon="lines"></ion-spinner>
+        </div>
+
+        <h5 class="loading-center" ng-show="!notloaded && selectedbookings.length == 0 && !nointernet">
+            No Bookings
+        </h5>
+        <div class="card" ng-repeat="item in selectedbookings | orderBy: 'date':true" style="margin:10px 5px 10px 5px;background-color:rgb(46,62,75)">
+
+            <div align="center">
+                <img src="{{item.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums.stadiumkey})">
+            </div>
+            <div align="center">
+                <h6 class="whitetext" style="text-transform:uppercase;font-weight:bold;margin-top:0px;color:white"> {{item.date |date:'MMM d, y h:mm a'}} @ {{item.stadiumdescription}} - {{item.ministadiumkey}}
+                </h6>
+            </div>
+            <div align="center">
+
+                <div class="row" style="padding:0px">
+
+                    <div class="col" align="center" style="padding:0px;border-right:1px solid #5f7485;color:#5f7485">
+                        <h6 style="margin-top:0px;color:#5f7485">
+                            PHONE #
+                        </h6>
+
+                        <h6 style="color:white;margin-bottom:0px">
+                            {{item.telephone}}
+                        </h6>
+
+                    </div>
+
+                    <div class="col" align="center" style="padding:0px;margin:0px;border-right:1px solid #5f7485">
+
+
+                        <h6 style="margin-top:0px;color:#5f7485">
+                            DURATION
+                        </h6>
+
+                        <h6 style="color:white;margin-bottom:0px">
+                            1.5 hrs
+                        </h6>
+
+
+                    </div>
+                    <div class="col" align="center" style="margin-top:5px;padding:0px;margin:0px;border-right:1px solid #5f7485">
+                        <h6 style="margin-top:0px;color:#5f7485">
+                            PRICE
+                        </h6>
+
+                        <h6 style="color:white;margin-bottom:0px">
+                            {{item.price}}L.L.
+                        </h6>
+                    </div>
+                    <div class="col" align="center" style="color:#5f7485;margin-top:5px;padding:0px;margin:0px">
+                        <h6 style="margin-top:0px;color:#5f7485">
+                            RES. #
+                        </h6>
+
+                        <h6 style="color:white;margin-bottom:0px">
+                            {{item.reservationnumber}}
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row row-top" style="padding-bottom:0px">
+                    <div class="col" style="padding-bottom:0px">
+
+                        <div class="col" style="padding-bottom:0px">
+
+                            <button ng-show="tabs.Current" class="button button-block button-full" style="padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;color:#2ab041;background-color:white;border-radius: 50px;line-height:24px"
+                                ng-click="CancelBooking(item)"> Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+        <div align="left" style="padding-left: 5px">
+            <h6 class="whitetext">
+                Oops. You have no internet connection
+            </h6>
+        </div>
+    </ion-footer-bar>
+</ion-view>

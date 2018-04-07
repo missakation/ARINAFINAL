@@ -1,0 +1,104 @@
+<style>
+    .bar .button.button-icon, .bar button.button-icon {
+			color:white;
+		}
+
+	.h3.whitetext,
+	h2.whitetext,
+	h1.whitetext,
+	h4.whitetext,
+	h5.whitetext,
+	p.whitetext {
+		color: white
+	}
+	
+	.h3.graytext,
+	h2.grayetext,
+	h1.graytext,
+	h4.graytext,
+	h5.graytext,
+	p.graytext {
+		color: lightgray
+	}
+	
+	.headercolor {
+		background-color: rgb(62, 83, 100);
+		color: white;
+		border-bottom: 2px solid rgb(62, 83, 100);
+		border-top: 1px;
+	}
+	
+	.spinner svg {
+		width: 10% !important;
+		height: 100px !important;
+		stroke: #fff;
+		fill: #2ab041;
+	}
+</style>
+<ion-view view-title="Invite Members">
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+    </ion-nav-buttons>
+
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+
+
+
+	<ion-content style="background-color:rgb(46,62,75)">
+
+		<div class="spinner" align="center">
+			<ion-spinner name="bubbles" style="color:white" ng-show="notloaded" icon="circles"></ion-spinner>
+		</div>
+
+
+		<div class="card" style="background-color:rgb(62,83,100)" ng-repeat="item in filteredPlayers">
+			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
+
+			<div class="row" style="padding:10px 0 0 0">
+				<div class="col" align="center" style="padding:0px">
+					<img src="{{item.photo}}" style="border-radius:50px;width:80px;height:80px;">
+					<h5 class="whitetext" style="margin-top:0px;font-weight:bold"> {{item.firstname}} {{item.lastname}} </h5>
+					<h6 style="margin-top:-7px;color:#5f7485"> ID {{item.identity}} </h6>
+				</div>
+
+				<div class="col" align="center" style="padding:0px">
+					<div style="border-left:1px solid #5f7485;margin-top:10px;padding:0px;color:#5f7485"> AGE
+						<div style="color:white"> {{item.age}}
+							<div style="margin-top:30px;color:#5f7485" align="center"> FAVORITE STADIUM
+								<div align="center" style="padding:0px;color:white"> {{item.favstadiumname}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div align="center">
+				<button class="button" type="submit" ng-click="InvitePlayerToTeam(item)"
+				 style="margin-top:10px;background-color:{{item.backcolor}};margin-bottom:5px;min-width:200px;min-height:33px;border-radius:50px">
+				<h5 style="color:{{item.color}};padding:0px;margin:0px"> {{item.status}}
+				</h5>
+				</button>
+			</div>
+
+		</div>
+
+
+
+
+		</div>
+
+
+	</ion-content>
+</ion-view>

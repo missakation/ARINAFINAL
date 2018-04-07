@@ -1,0 +1,567 @@
+<style>
+	.bar.bar-royal {
+		background-color: rgb(46, 62, 85);
+		border: rgb(46, 62, 85);
+	}
+
+	.filter-bar .filter-bar-wrapper .item-input-inset .icon.placeholder-icon:before {
+		font-size: 26px;
+	}
+
+	.bar .button.button-icon,
+	.bar button.button-icon {
+		color: white;
+	}
+
+	.h3.whitetext,
+	h2.whitetext,
+	h1.whitetext,
+	h4.whitetext,
+	h5.whitetext,
+	p.whitetext {
+		color: white
+	}
+
+	.h3.graytext,
+	h2.grayetext,
+	h1.graytext,
+	h4.graytext,
+	h5.graytext,
+	p.graytext {
+		color: lightgray
+	}
+
+	.rzslider {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+		height: 4px;
+		margin: 35px 0 15px 0;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.rzslider.with-legend {
+		margin-bottom: 0px;
+	}
+
+	.rzslider[disabled] {
+		cursor: not-allowed;
+	}
+
+	.rzslider[disabled] .rz-pointer {
+		cursor: not-allowed;
+		background-color: #d8e0f3;
+	}
+
+	.rzslider span {
+		position: absolute;
+		display: inline-block;
+		white-space: nowrap;
+	}
+
+	.rzslider .rz-base {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.rzslider .rz-bar-wrapper {
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 2px;
+		padding-top: 16px;
+		margin-top: -16px;
+		box-sizing: border-box;
+	}
+
+	.rzslider .rz-bar-wrapper.rz-draggable {
+		cursor: move;
+	}
+
+	.rzslider .rz-bar {
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 4px;
+		background: rgb(155, 167, 181);
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+
+	.rzslider .rz-bar.rz-selection {
+		z-index: 2;
+		background: white;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+
+	.rzslider .rz-pointer {
+		top: -9px;
+		z-index: 3;
+		width: 22px;
+		height: 22px;
+		cursor: pointer;
+		background-color: rgb(37, 179, 69);
+		-webkit-border-radius: 16px;
+		-moz-border-radius: 16px;
+		border-radius: 16px;
+	}
+
+	.rzslider .rz-pointer:after {
+		position: absolute;
+		top: 7px;
+		left: 7px;
+		width: 8px;
+		height: 8px;
+		background: rgb(147, 221, 162);
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		content: '';
+	}
+
+	.rzslider .rz-pointer:hover:after {
+		background-color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-pointer.rz-active {
+		z-index: 4;
+	}
+
+	s .rzslider .rz-pointer.rz-active:after {
+		background-color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-bubble {
+		bottom: 14px;
+		padding: 1px 3px;
+		color: rgb(147, 221, 162);
+		cursor: default;
+		font-weight: bold;
+	}
+
+	.rzslider .rz-bubble.rz-selection {
+		top: 16px;
+	}
+
+	.rzslider .rz-bubble.rz-limit {
+		color: rgb(147, 221, 162);
+	}
+
+	.rzslider .rz-ticks {
+		position: absolute;
+		top: -3px;
+		left: 0;
+		z-index: 1;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		width: 100%;
+		height: 0;
+		padding: 0 11px;
+		margin: 0;
+		list-style: none;
+		box-sizing: border-box;
+		-webkit-justify-content: space-between;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+
+	.rzslider .rz-ticks .rz-tick {
+		width: 10px;
+		height: 10px;
+		text-align: center;
+		cursor: pointer;
+		background: rgb(147, 221, 162);
+		border-radius: 50%;
+	}
+
+	.rzslider .rz-ticks .rz-tick.rz-selected {
+		background: #0db9f0;
+	}
+
+	.rzslider .rz-ticks .rz-tick .rz-tick-value {
+		position: absolute;
+		top: -30px;
+		transform: translate(-50%, 0);
+	}
+
+	.rzslider .rz-ticks .rz-tick .rz-tick-legend {
+		position: absolute;
+		top: 24px;
+		max-width: 50px;
+		white-space: normal;
+		transform: translate(-50%, 0);
+	}
+
+	.rzslider .rz-ticks.rz-ticks-values-under .rz-tick-value {
+		top: initial;
+		bottom: -40px;
+	}
+
+	.rzslider.rz-vertical {
+		position: relative;
+		width: 4px;
+		height: 100%;
+		padding: 0;
+		margin: 0 20px;
+		vertical-align: baseline;
+	}
+
+	.rzslider.rz-vertical .rz-base {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.rzslider.rz-vertical .rz-bar-wrapper {
+		top: auto;
+		left: 0;
+		width: 32px;
+		height: 100%;
+		padding: 0 0 0 16px;
+		margin: 0 0 0 -16px;
+	}
+
+	.rzslider.rz-vertical .rz-bar {
+		bottom: 0;
+		left: auto;
+		width: 4px;
+		height: 100%;
+	}
+
+	.rzslider.rz-vertical .rz-pointer {
+		top: auto;
+		bottom: 0;
+		left: -14px !important;
+		color: #2ab041;
+	}
+
+	.rzslider.rz-vertical .rz-bubble {
+		bottom: 0;
+		left: 16px !important;
+		margin-left: 3px;
+	}
+
+	.rzslider.rz-vertical .rz-bubble.rz-selection {
+		top: auto;
+		left: 16px !important;
+	}
+
+	.rzslider.rz-vertical .rz-ticks {
+		top: 0;
+		left: -3px;
+		z-index: 1;
+		width: 0;
+		height: 100%;
+		padding: 11px 0;
+		-webkit-flex-direction: column-reverse;
+		-ms-flex-direction: column-reverse;
+		flex-direction: column-reverse;
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick {
+		vertical-align: middle;
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-value {
+		top: initial;
+		left: 22px;
+		transform: translate(0, -28%);
+	}
+
+	.rzslider.rz-vertical .rz-ticks .rz-tick .rz-tick-legend {
+		top: initial;
+		right: 24px;
+		max-width: none;
+		white-space: nowrap;
+		transform: translate(0, -28%);
+	}
+
+	.rzslider.rz-vertical .rz-ticks.rz-ticks-values-under .rz-tick-value {
+		right: 12px;
+		bottom: initial;
+		left: initial;
+	}
+
+	.item.item-dark {
+		background-color: #2ab041;
+		color: white;
+		border: transparent;
+	}
+
+	.item {
+		background-color: rgb(46, 62, 75);
+	}
+
+	.item-select select {
+		background-color: rgb(46, 62, 75);
+		color: #2ab041;
+	}
+
+	.item-select:after {
+		margin-top: 0px;
+		color: #2ab041;
+	}
+
+	input {
+		width: 90%;
+		display: block;
+		border: none;
+		padding: 0px;
+		-webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+		transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+		background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #2ab041 4%);
+		background-position: -200px 0;
+		background-size: 1000px 200%;
+		background-repeat: no-repeat;
+		color: #2ab041;
+	}
+
+	input:focus,
+	input:valid {
+		box-shadow: none;
+		outline: none;
+		background-position: 0 0;
+	}
+
+	input::-webkit-input-placeholder {
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+
+	input:focus::-webkit-input-placeholder,
+	input:valid::-webkit-input-placeholder {
+		color: #2ab041;
+		font-size: 1em;
+		-webkit-transform: translateY(-30px);
+		transform: translateY(-30px);
+		visibility: visible !important;
+	}
+
+	.picker-view .picker-content {
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+		position: relative;
+		background-color: rgb(42, 62, 82);
+		height: 60%;
+		top: 15px;
+	}
+</style>
+
+<ion-view view-title="Player Finder" cache-view="false">
+	<ion-nav-buttons side="secondary">
+		<button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-icon ion-android-options" align="right" style="color:white" ng-click="popover.show($event)"></button>
+
+	</ion-nav-buttons>
+
+	<ion-nav-back-button>
+	</ion-nav-back-button>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left" style="color:white"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-bar class="headercolor">
+		<ion-nav-back-button>
+
+		</ion-nav-back-button>
+	</ion-nav-bar>
+	<ion-content style="background-color:rgb(46,62,75)">
+
+		<script id="templates/player-popover.html" type="text/ng-template">
+			<ion-popover-view style="background-color:rgb(46,62,75);height:100%;width:220px">
+				<ion-content>
+					<div align="center">
+						<h4 style="color:white">Filter by</h4>
+					</div>
+
+					<div class="list" style="margin-bottom:2px">
+
+						<label class="item item-input item-select" style="border-top:1px solid #5f7485;padding-left:5px;padding-bottom:5px;color:rgb(142,156,169);background-color:rgb(46,62,75)">
+								<div class="input-label" style="color:rgb(157,171,184)">
+										Sort By	
+								</div>
+								<select  ng-model="choice.sort">
+								<option >Best</option>
+								<option >Last Seen</option>
+								<option> Distance</option>
+								</select>
+							</label>
+
+					</div>
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px">
+						POSITION </div>
+					<button class="button" style="padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;font-size:12px;background-color: {{managecolors.grass.backcolor}} ; color:{{managecolors.grass.color}};line-height:30px;font-size:14px;width:47%;font-weight:bold;border-radius:50px;margin:0 3px 10px 3px"
+					 ng-click="updategroundtype('grass')">
+						 Goalkeeper</button>
+					<button class="button" style="padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;background-color: {{managecolors.ground.backcolor}} ; color:{{managecolors.ground.color}};line-height:30px;font-size:14px;width:47%;font-weight:bold;border-radius:50px"
+					 ng-click="updategroundtype('ground')">
+						Player</button>
+
+					</div>
+
+
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px 0px 5px">
+						Skill </div>
+					<div style="padding-left:10px;padding-right:10px;padding-bottom:5px">
+						<rzslider rz-slider-model="filter.skill " rz-slider-options="sliderskill.options " style="color:white ">
+						</rzslider>
+
+					</div>
+					</div>
+
+					<div align="left" style="border-top:1px solid #5f7485;color:rgb(157,171,184);font-size:15px;padding:10px 5px 0px 5px">
+						Distance (in Kms) </div>
+					<div style="padding-left:10px;padding-right:10px;padding-bottom:5px;border-bottom:1px solid #5f7485">
+						<rzslider rz-slider-model="filter.distancefrom" rz-slider-high="filter.distanceto" style="color:white ">
+						</rzslider>
+
+					</div>
+					<div align="left" style=";color:rgb(157,171,184);font-size:15px;padding:10px 5px 0px 5px;margin-top:10px"> Last Seen (in days) </div>
+					<div style="padding-left:10px;padding-right:10px;padding-bottom:5px;border-bottom:1px solid #5f7485">
+						<rzslider rz-slider-model="filter.money " rz-slider-high="250000" style="color:white ">
+						</rzslider>
+
+					</div>
+					<div class="row">
+
+						<div class="col col-50" align="center">
+							<h4 style="background-color:white;color:#2ab041;border-radius:50px;line-height:30px" ng-click="cancelfilter()">
+								Cancel
+							</h4>
+						</div>
+						<div class="col col-50" align="center">
+							<h4 style="background-color:#2ab041;color:white;border-radius:50px;line-height:30px" ng-click="updatefilter()">
+								Apply
+							</h4>
+						</div>
+					</div>
+					</div>
+
+				</ion-content>
+			</ion-popover-view>
+		</script>
+
+		<!--<div class="item item-dark" ion-datetime-picker ng-model="search.date" minute-step="15" ng-change="checkfree()">
+			<!--{{search.date| date: "yyyy-MM-dd H:mm"}}-->
+		<!--</div>-->
+		<div align="center">
+			<!--<p style="background-color:lightgray">Date</p>-->
+			<!--<label class="item item-input">-->
+
+
+			<input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#2ab041"
+			 ng-model="search.text">
+			<!--<input type="datetime-local" step="30"  ng-model="search.date" ng-change="checkfree()">-->
+			<!--</label>-->
+		</div>
+
+		<ion-item style="background-color:rgb(62,83,100);padding:0px;border-radius:5px;border: 7px solid rgb(46,62,75)" collection-repeat="item in filteredPlayers| orderBy: 'points':false">
+			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
+
+			<div class="row" style="margin-top:5px;padding:6px 0 0 0">
+				<div class="col col-50" style="border-right:1px solid #5f7485;	padding:0px" align="center">
+					<img src="{{item.photo}}" style="padding:0px;border-radius:50px;width:80px;height:80px;" ui-sref="app.profileview({key: item.key})">
+
+					<h5 class="whitetext" style="margin-bottom:0px;margin-top:5px;text-transform: capitalize;padding:0px;font-weight:bold;font-size:14px"> {{item.firstname}} {{item.lastname}} </h5>
+
+				</div>
+
+
+				<div ng-click="gototeam(item.teamkey)" class="col col-50" style="padding:0px" align="center">
+					<img style="width:80px;height:80px" src="img/Badges/{{item.teambadge}}.png">
+					<h4 class="whitetext" style="margin-bottom:0px;margin-top:5px;text-transform: capitalize;padding:0px;font-weight:bold;font-size:14px"> {{item.teamname}} </h4>
+
+				</div>
+
+			</div>
+
+			<div class="row" style="margin-bottom:8px;padding:0px">
+
+				<div class="col col-50" style="padding:0px" align="center">
+					<h5 align="center" style="font-size:12px;margin-top:5px;color:white">
+						<i class="ion-location" style="padding-right:3px;font-size:18px;color:#5f7485"></i> {{item.distance}} km
+					</h5>
+				</div>
+
+				<div ng-show="item.teamexists" class="col col-50" style="margin-top:5px;padding:0px" align="center">
+					<h6 style="font-size:12px;margin-top:5px;color:darkturquoise"> Rank {{item.rankdescription}} </h6>
+				</div>
+			</div>
+
+			<div class="row" style="font-size:13px;margin-top:10px;padding:0px">
+
+				<h4  align="center" style="width:25%;color:#5f7485;padding:0px">POSITION
+
+				</h4>
+
+				<h4  align="center" style="width:25%;border-left:1px solid #5f7485;color:#5f7485;padding:0px"> SKILL
+
+				</h4>
+
+				<h4 align="center" style="width:15%;color:#5f7485;border-right:1px solid #5f7485;border-left:1px solid #5f7485;padding:0px"> AGE
+
+				</h4>
+
+				<h4  align="center" style="width:35%;color:#5f7485;padding:0px">LAST SEEN
+
+				</h4>
+
+			</div>
+
+
+			<div class="row" style="font-size:14px;padding:0px;padding-top:0px">
+				<div align="center" style="font-size:15px;width:25%;color:white;padding:0px"> {{item.playposition}}
+
+				</div>
+
+				<div  align="center" style="font-size:15px;width:25%;border-left:1px solid #5f7485;color:white;padding:0px">
+					{{item.skilllevel}}
+
+				</div>
+
+				<div style="font-size:15px;width:15%;color:white;border-right:1px solid #5f7485;border-left:1px solid #5f7485;padding:0px"
+				 align="center"> {{item.age}}
+
+				</div>
+
+				<div align="center" style="font-size:15px;width:35%;color:white;padding:0px">
+
+					{{item.lastseen.text}}
+				</div>
+			</div>
+
+			<p class="whitetext" style="font-style:italic;margin-top:5px;padding-left:10px">
+				{{item.comments}}
+			</p>
+
+			<div class="row" style="padding-top:0px">
+				<div class="col" style="padding-top:0px">
+					<button class="button button-block button-light" style="font-size:13px;padding:2px 4px 1px;min-width:28px;min-height:30px;line-height:26px;color:#2ab041;background-color: {{item.backcolor}};border-radius:25px"
+					 type="submit" ng-click="requestnumber(item)">
+			<h5 style="font-size:14px;color:{{item.color}}"> {{item.statusdesc}}
+			</h5>
+		</button>
+				</div>
+
+			</div>
+
+
+
+
+		</ion-item>
+
+
+	</ion-content>
+</ion-view>

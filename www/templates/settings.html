@@ -1,0 +1,119 @@
+<style>
+    .headercolor {
+        background-color: rgb(62, 83, 100);
+        color: white
+    }
+
+    .whitecheck {
+        background-color: transparent;
+        color: white;
+        border: none
+    }
+
+    .headercolor {
+        background-color: rgb(62, 83, 100);
+        color: white;
+        border-bottom: 2px solid rgb(62, 83, 100);
+        border-top: 3px;
+    }
+
+    .toggle .track {
+        background-color: #C00000;
+        border-color: #c00000;
+    }
+
+    .toggle .handle {
+        background-color: white;
+    }
+
+    .toggle input:checked+.track {
+        border-color: #28b041;
+        background-color: #28b041;
+    }
+</style>
+
+<ion-view view-title="Settings">
+
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-bar class="headercolor">
+        <ion-nav-back-button>
+
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content style="background-color:rgb(46,62,75)">
+
+
+        <ion-list>
+
+            <div class="row row-center">
+                <div class="col col-75" style="margin-left:10px;color:White;font-size:16px">
+                    Allow Notification
+                </div>
+                <div class="col col-25">
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filter.notification" ng-change="saveNotificationData(filter.notification)">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="row row-center">
+                <div class="col col-75" style="margin-left:10px;color:White;font-size:16px">
+                    Reminder 3 hours before game
+                </div>
+                <div class="col col-25">
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filter.reminder_3hours" ng-change="saveReminderData(filter.reminder_3hours)">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row row-center">
+                <div class="col col-75" style="margin-left:10px;color:White;font-size:16px">
+                    Phone Number Verified
+                </div>
+                <div class="col col-25">
+                    <label class="toggle">
+                        <input type="checkbox" ng-disabled="true" ng-model="filter.smsVerified">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row row-center">
+                <div class="col col-75" style="margin-left:10px;color:White;font-size:16px">
+                    Email Verified
+                </div>
+                <div class="col col-25">
+                    <label class="toggle">
+                        <input type="checkbox" ng-disabled="true" ng-model="filter.emailVerified">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </ion-list>
+
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+        <div align="left" style="padding-left: 5px">
+            <h6 class="whitetext">
+                Oops. You have no internet connection
+            </h6>
+        </div>
+    </ion-footer-bar>
+</ion-view>
