@@ -87,16 +87,12 @@ angular.module('football.controllers')
 
             var difference = (item.date - $scope.currentdate) / 1000 / 60 / 60;
 
-            firebase.database().ref('/stadiumsinfo/' + item.stadiumkey + '/ministadiums/' + item.ministadiumkey + '/cancellation').on('value', function (snapshot) {
-
+            firebase.database().ref('/stadiumsinfo/' + item.stadiumkey + '/ministadiums/' + item.ministadiumkey + '/cancellation').once('value').then(function (snapshot) {
 
                 var user = firebase.auth().currentUser;
-
                 var id = user.uid;
 
                 if (id !== null || id == '' || id === undefined) {
-
-
 
                     if (difference < snapshot.val()) {
                         var confirmPopup = $ionicPopup.alert({
@@ -106,7 +102,7 @@ angular.module('football.controllers')
                     }
                     else {
 
-                        firebase.database().ref('/playersinfo/' + id).on('value', function (playersnapshot) {
+                        firebase.database().ref('/playersinfo/' + id).once('value').then(function (playersnapshot) {
 
                             firebase.database().ref('/stadiumsinfo/' + item.stadiumkey).once('value', function (stadiumsinfo) {
 
@@ -124,7 +120,7 @@ angular.module('football.controllers')
                                         BookingStore.DeleteBookingByID(res).then(function () {
 
 
-                                            LoginStore.SendNotification("Booking on " + item.date.toString() + "Has Been Canceled By " + playersnapshot.val().firstname + " " + res.telephone, stadiumsinfo.val().devicetoken, null);
+                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + res.telephone, stadiumsinfo.val().devicetoken, null);
 
                                             $ionicLoading.hide();
                                             var alertPopup = $ionicPopup.alert({

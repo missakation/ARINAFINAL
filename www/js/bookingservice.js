@@ -7,13 +7,13 @@
             GetMyUpcomingBookings: function (callback) {
 
                 try {
-                    
+
                     var user = firebase.auth().currentUser;
                     var id = user.uid;
 
                     if (id !== null || id == '' || id === undefined) {
 
-                        firebase.database().ref('/players/' + id + '/upcomingmatches').on('value', function (snapshot) {
+                        firebase.database().ref('/players/' + id + '/upcomingmatches').once('value').then(function (snapshot) {
                             Temp = [];
                             snapshot.forEach(function (childSnapshot) {
 
@@ -155,12 +155,12 @@
 
             DeleteBookingByID: function (booking) {
                 console.log(booking);
-                
+
                 /*LoginStore.CancelNotification(firebase.database.ref('/stadiums/' + booking.stadiumkey
                     + '/ministadiums/' + booking.ministadiumkey
                     + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + booking.key + "/notificationID").val());
                      console.booking.notificationID;*/
-                     
+
                 var updates = {};
 
                 var user = firebase.auth().currentUser;

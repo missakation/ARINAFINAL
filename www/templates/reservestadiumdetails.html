@@ -86,7 +86,7 @@
 
         </ion-nav-back-button>
     </ion-nav-bar>
-    <div class="bar bar-subheader" style="border-bottom:0px;background-color:#2ab041">
+    <div class="bar bar-subheader" style="border-bottom:0px;background-color:#2ab041;background-image:none">
         <input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="background-color:#2ab041;color:white;width:100%;line-height:30px;font-size:16px"
             ng-model="search.text">
 
@@ -103,7 +103,7 @@
 
 
             <div class="row " style="padding-top:0px;padding-bottom:0px;margin-bottom:0px">
-                <div class="col col-75" style="padding-left:0px;padding-top: 0px;font-weight:bold;padding-bottom:0px;color:white"> {{CurrentStadium.stadiumname}} &#x25cf {{CurrentStadium.description}}
+                <div class="col col-75" style="padding-left:0px;padding-top: 0px;font-weight:bold;padding-bottom:0px;color:white"> {{CurrentStadium.stadiumname}} &#8226 {{CurrentStadium.description}}
                 </div>
 
                 <div class="col" align="right" style="padding-top:0px;padding-bottom:0px;font-size:12px;color:#5f7485"> PRICE
@@ -113,9 +113,14 @@
 
             <div class="row" style="padding-bottom:0px">
                 <div class="col col-66" style="padding-left:0px;padding-top: 4px" align="left">
-                    <rating style="font-size:18px;color:orange" readonly="readOnly" ng-model="CurrentStadium.rating" align="left">
-                    </rating>
 
+                    <div style="float: left">
+                        <rating style="font-size:18px;color:orange" readonly="readOnly" ng-model="CurrentStadium.rating" align="left">
+                        </rating>
+                    </div>
+                    <div style="float: left;color:white">
+                        &nbsp{{CurrentStadium.numberofrating}}&nbsp
+                    </div>
                 </div>
 
                 <div class="col" align="right" style="padding-top: 4px;color:white">
@@ -184,7 +189,16 @@
                         {{item.datetime | date:'HH:mm'}} - {{item.datetimeto | date:'HH:mm'}}
 
                     </button>
-                    <div class="row" ng-show="item.haspromotion" ng-click="reserve(search,CurrentStadium,item)" style="font-weight:bold;border:2px solid #2ab041;margin-top:-8px;border-radius:0 0 5px 5px; width:inherit;color:#2ab041;background-color: white;padding:5px 0 0 0">
+                    <div class="row" ng-show="item.haspromotion" ng-click="reserve(search,Currentstadiums,item)" ng-style="
+					{'opacity':item.available? '1': '0.4',
+					'font-weight':'bold',
+					'border':'2px solid #2ab041',
+					'margin-top':'-3px',
+					'border-radius':'0 0 5px 5px',
+					'width':'inherit',
+					'color':'#2ab041',
+					'background-color': 'white',
+					'padding':'0px'}">
                         <div class="col col-25 icon ion-ios-pricetags" align="right" style="margin-top:5px;font-size:22px;padding:0px;color:#2ab041">
                         </div>
                         <div class="col" style="line-height:30px;margin:0px;padding:0px"> {{item.newprice}} LL</div>
@@ -265,7 +279,8 @@
             </div>
             <div align="left">
                 <p class="whitetext" style="margin: 3px 0 8px 0;margin-left:10px;">
-                        {{CurrentStadium.stadiumname}} stadium requires {{CurrentStadium.cancelationpolicy}} hours cancellation notice prior to your scheduled booking
+                    {{CurrentStadium.stadiumname}} stadium requires {{CurrentStadium.cancelationpolicy}} hours cancellation notice prior to your
+                    scheduled booking
                 </p>
             </div>
         </div>

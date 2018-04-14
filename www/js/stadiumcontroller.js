@@ -685,7 +685,7 @@ angular.module('football.controllers')
         //works
 
         /*navigator.geolocation.getCurrentPosition(function (position) {
-            alert("TEST");
+            
             $scope.latitude = position.coords.latitude;
             $scope.longitude = position.coords.longitude;
  
@@ -705,7 +705,7 @@ angular.module('football.controllers')
  
  
         }, function (error) {
-            alert("TEST");
+            
             $scope.checkfree();
         });*/
 
@@ -729,7 +729,7 @@ angular.module('football.controllers')
 
         $scope.reserve = function (search, stadiums, item) {
 
-            if (!$scope.nointernet) {
+            if (!$scope.nointernet && item.available) {
 
                 var userId = firebase.auth().currentUser.uid;
                 $ionicLoading.show({
@@ -749,11 +749,17 @@ angular.module('football.controllers')
                     } else {
                         try {
 
+                            if (item.newprice == undefined)
+                                item.newprice = stadiums.price;
+                            else
+                                stadiums.price = item.newprice;
 
                             var confirmPopup = $ionicPopup.confirm({
                                 cssClass: 'custom-class',
                                 title: 'Reserve Stadium',
-                                template: 'Are you sure you want to reserve the stadium on ' + item.datetime.toLocaleString() + " for " + stadiums.price + " L.L." + '</br>'
+                                template: 'Are you sure you want to reserve the stadium on '
+                                    + item.datetime.toLocaleString()
+                                    + " for " + item.newprice + " L.L." + '</br>'
                             });
 
 
@@ -786,7 +792,7 @@ angular.module('football.controllers')
                                                     var minute = OriginalBookDate.getMinutes();
                                                     var subkey = stadiums.ministadiumkey;
                                                     var newkey = subkey + year.toString() + month.toString() + day.toString() + hour.toString() + minute.toString();
-                                                    
+
                                                     var path = '/stadiums/' + stadiums.stadiumkey + '/ministadiums/' + stadiums.ministadiumkey + '/schedules/' + year + '/' + month + '/' + day + '/' + newkey;
 
                                                     if (currentplayer.settings.reminder_3hours) {
@@ -1043,10 +1049,6 @@ angular.module('football.controllers')
         $scope.CurrentStadium = $stateParams.stadiumid;
         $scope.search = $stateParams.search;
 
-        $scope.CurrentStadium.datetime.forEach(item => {
-            item.newprice = $scope.CurrentStadium.price;
-        });
-
         $scope.Photos = [];
 
         if ($scope.CurrentStadium.photo != null || $scope.CurrentStadium.photo != undefined) {
@@ -1130,7 +1132,7 @@ angular.module('football.controllers')
                             console.log(selectedDate);
                         }
                         $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
-                        $scope.search.players = (output[2].split(" "))[1];
+                        $scope.search.players = $scope.CurrentStadium.players;
                         console.log($scope.search.date);
                         $scope.search.text = output.join(" - ");
                         $scope.checkfree();
@@ -1159,9 +1161,6 @@ angular.module('football.controllers')
 
                     $scope.globalstadiums.forEach(element => {
                         element.datetime.forEach(item => {
-
-
-                            item.newprice = element.price;
 
                             item.datetimeto = new Date();
 
@@ -1199,8 +1198,6 @@ angular.module('football.controllers')
 
                                             element.datetime.forEach(bookdate => {
 
-
-
                                                 var starttime = new Date();
                                                 var endtime = new Date();
 
@@ -1224,7 +1221,6 @@ angular.module('football.controllers')
                                                                 && (bookdate.datetime.getHours() * 60 + bookdate.datetime.getMinutes() <= PromotionItem.endhour * 60 + PromotionItem.endminute)) {
                                                                 bookdate.haspromotion = true;
                                                                 bookdate.newprice = PromotionItem.newprice;
-
                                                             }
                                                         }
 
@@ -1242,7 +1238,6 @@ angular.module('football.controllers')
                                                                 && (bookdate.datetime.getHours() * 60 + bookdate.datetime.getMinutes() <= PromotionItem.endhour * 60 + PromotionItem.endminute)) {
                                                                 bookdate.haspromotion = true;
                                                                 bookdate.newprice = PromotionItem.newprice;
-
                                                             }
                                                         }
 
@@ -1256,7 +1251,6 @@ angular.module('football.controllers')
                                                             bookdate.haspromotion = true;
                                                             bookdate.newprice = PromotionItem.newprice;
 
-
                                                         }
 
                                                     }
@@ -1267,9 +1261,80 @@ angular.module('football.controllers')
 
                                     }
                                 }
-                                $scope.CurrentStadium = $scope.globalstadiums[0];
-                                $scope.$apply();
+
                             });
+                            if ($scope.gotlocation) {
+                                /** Converts numeric degrees to radians */
+
+                                for (var i = 0; i < leagues.length; i++) {
+                                    var lat1 = $scope.latitude;
+                                    var lon1 = $scope.longitude;
+
+                                    var lat2 = $scope.globalstadiums[i].latitude;
+                                    var lon2 = $scope.globalstadiums[i].longitude;
+
+
+                                    var R = 6371; // km 
+                                    //has a problem with the .toRad() method below.
+                                    var x1 = lat2 - lat1;
+
+                                    var dLat = x1.toRad();
+
+                                    var x2 = lon2 - lon1;
+                                    var dLon = x2.toRad();
+                                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                                        Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+                                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                                    var d = R * c; // Distance in km
+
+                                    $scope.globalstadiums[i].distance = d;
+                                    // LOGIC FOR POINTS START
+                                    var distancePoint = $scope.globalstadiums[i].distance * 1.5;
+                                    var ratingPoint = (5 - (parseInt($scope.globalstadiums[i].rating))) * 3;
+                                    var diff = Math.abs(new Date($scope.globalstadiums[i].datetime[1].datetime) - new Date());
+                                    var minutes = Math.floor((diff / 1000) / 60);
+                                    var timePoint = (minutes / 30) * 5;
+                                    var favouritePoint = 0;
+                                    var favstadiumname = profileInfoSnapshot.child("favstadiumname").val();
+                                    if (favstadiumname === $scope.globalstadiums[i].stadiumname) {
+                                        favouritePoint = -10;
+                                    }
+                                    var totlPoints = Math.floor(distancePoint + ratingPoint + timePoint + favouritePoint);
+                                    $scope.globalstadiums[i].points = -totlPoints;
+
+                                }
+                                
+                                $scope.CurrentStadium.datetime = $scope.globalstadiums[0].datetime;
+
+                                $scope.$apply();
+
+                                // LOGIC FOR POINTS ENDS
+                            }
+                            else {
+
+                                for (var i = 0; i < leagues.length; i++) {
+
+                                    $scope.globalstadiums[i].distance = 0;
+                                    // LOGIC FOR POINTS START
+                                    var distancePoint = 0;
+                                    var ratingPoint = (5 - (parseInt($scope.globalstadiums[i].rating))) * 3;
+                                    var diff = Math.abs(new Date($scope.globalstadiums[i].datetime[1].datetime) - new Date());
+                                    var minutes = Math.floor((diff / 1000) / 60);
+                                    var timePoint = (minutes / 30) * 5;
+                                    var favouritePoint = 0;
+                                    var favstadiumname = profileInfoSnapshot.child("favstadiumname").val();
+                                    if (favstadiumname === $scope.globalstadiums[i].stadiumname) {
+                                        favouritePoint = -10;
+                                    }
+                                    var totlPoints = Math.floor(distancePoint + ratingPoint + timePoint + favouritePoint);
+                                    $scope.globalstadiums[i].points = -totlPoints;
+
+                                    $scope.CurrentStadium.datetime = $scope.globalstadiums[0].datetime;
+
+                                    $scope.$apply();
+                                }
+                            }
 
                         })
 
@@ -1286,7 +1351,7 @@ angular.module('football.controllers')
 
         $scope.reserve = function (search, stadiums, item) {
 
-            if (!$scope.nointernet) {
+            if (!$scope.nointernet && item.available) {
 
                 var userId = firebase.auth().currentUser.uid;
                 $ionicLoading.show({
@@ -1309,7 +1374,9 @@ angular.module('football.controllers')
                             var confirmPopup = $ionicPopup.confirm({
                                 cssClass: 'custom-class',
                                 title: 'Reserve Stadium',
-                                template: 'Are you sure you want to reserve the stadium on ' + item.datetime.toLocaleString() + " for " + item.newprice + " L.L." + '</br>'
+                                template: 'Are you sure you want to reserve the stadium on '
+                                    + item.datetime.toLocaleString()
+                                    + " for " + item.newprice + " L.L." + '</br>'
                             });
 
 

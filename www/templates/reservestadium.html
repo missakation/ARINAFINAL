@@ -404,6 +404,22 @@
 		padding: 2px !important;
 
 	}
+
+	/* Container holding the image and the text */
+
+	.container {
+		position: relative;
+		text-align: center;
+		color: white;
+	}
+
+	/* Bottom left text */
+
+	.bottom-left {
+		position: absolute;
+		top: 8px;
+		right: 16px;
+	}
 </style>
 
 
@@ -573,8 +589,12 @@
 
 		<div class="list" ng-repeat="stadiums in filteredStadiums | orderBy :managecolors.sortby" style="border-bottom:10px solid rgb(46, 62, 85);background-color:rgb(62,83,100);margin:3px 5px 10px 5px;height: auto">
 			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
-			<div align="center" style="padding-bottom:0px">
-				<img ion-img-cache src="{{stadiums.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums,search:search})">
+			<div class="container" align="center" style="padding-bottom:0px">
+				<img src="{{stadiums.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums,search:search})">
+				<img class="bottom-left" src="img/info-icon.png" style="width:20px; height:20px;border: 1px black solid;
+				border-radius: 50%;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums,search:search})">
+
+
 			</div>
 
 			<div class="row ">
@@ -593,8 +613,8 @@
 						 align="left">
 						</rating>
 					</div>
-					<div style="float: left;color:white;margin-top: -7px;font-size: 11px;padding-left: 4px;">
-						(&nbsp{{stadiums.numberofrating}}&nbsp)
+					<div style="float: left;color:white;margin-top: -7px;font-size: 13px;padding-left: 4px;">
+						&nbsp{{stadiums.numberofrating}}&nbsp
 					</div>
 
 
@@ -661,7 +681,16 @@
 						{{item.datetime | date:'HH:mm'}} - {{item.datetimeto | date:'HH:mm'}}
 
 					</button>
-					<div class="row" ng-show="item.haspromotion" ng-click="reserve(search,stadiums,item)" style="font-weight:bold;border:2px solid #2ab041;margin-top:-8px;border-radius:0 0 5px 5px; width:inherit;color:#2ab041;background-color: white;padding:5px 0 0 0">
+					<div class="row" ng-show="item.haspromotion" ng-click="reserve(search,stadiums,item)" ng-style="
+					{'opacity':item.available? '1': '0.4',
+					'font-weight':'bold',
+					'border':'2px solid #2ab041',
+					'margin-top':'-3px',
+					'border-radius':'0 0 5px 5px',
+					'width':'inherit',
+					'color':'#2ab041',
+					'background-color': 'white',
+					'padding':'0px'}">
 						<div class="col col-25 icon ion-ios-pricetags" align="right" style="margin-top:5px;font-size:22px;padding:0px;color:#2ab041">
 						</div>
 						<div class="col" style="line-height:30px;margin:0px;padding:0px"> {{item.newprice}} LL</div>
