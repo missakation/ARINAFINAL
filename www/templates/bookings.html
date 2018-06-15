@@ -12,11 +12,10 @@
 
     h5.loading-center {
         color: #9ba2a8;
+        top: 15%;
         position: absolute;
-        left: 46%;
-        top: 40%;
+        left: 28%;
     }
-
 </style>
 
 <ion-view view-title="My Bookings">
@@ -26,19 +25,19 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
     </ion-nav-buttons>
 
-    <ion-nav-back-button>
-    </ion-nav-back-button>
+    <!-- <ion-nav-back-button>
+    </ion-nav-back-button> -->
 
 
     <ion-nav-bar class="headercolor">
-        <ion-nav-back-button>
+        <!-- <ion-nav-back-button>
 
-        </ion-nav-back-button>
+        </ion-nav-back-button> -->
     </ion-nav-bar>
 
 
-    <div class="bar bar-subheader" style="padding:0 5px;border-bottom:0px;border-left:5px solid rgb(46,62,75);border-right:5px solid rgb(46,62,75);border-top:5px solid rgb(46,62,75);padding:0px;background-color:rgb(62,83,100)">
-        <div class="button-bar" style="background-color:rgb(62,83,100)">
+    <div class="bar bar-subheader" style="  background-image:none !important;padding:0 5px;border-bottom:0px;border-left:5px solid rgb(46,62,75);border-right:5px solid rgb(46,62,75);border-top:5px solid rgb(46,62,75);padding:0px;background-color:rgb(62,83,100)">
+        <div class="button-bar" style="background-image:none !important;background-color:rgb(62,83,100)">
             <button class="button button-calm" ng-click="switchscreens(1)" style="padding:5px 0 0px 0;font-weight:bold;background-color: transparent;border:none; border-bottom: {{status.Current}};border-color: #2ab041;border-right:1px solid #5f7485">
                 CURRENT BOOKINGS
             </button>
@@ -53,8 +52,8 @@
             <ion-spinner ng-show="notloaded" icon="lines"></ion-spinner>
         </div>
 
-        <h5 class="loading-center" ng-show="!notloaded && selectedbookings.length == 0 && !nointernet">
-            No Bookings
+        <h5 align="center" class="loading-center" ng-show="!notloaded && selectedbookings.length == 0 && !nointernet">
+            You have No Bookings Yet !
         </h5>
         <div class="card" ng-repeat="item in selectedbookings | orderBy: 'date':true" style="margin:10px 5px 10px 5px;background-color:rgb(46,62,75)">
 

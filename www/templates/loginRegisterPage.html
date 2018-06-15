@@ -55,7 +55,7 @@
 	</style>
 
 
-	<ion-content style="background-image:url(img/LoginBack.jpg); background-size:120% 100%;" ng-controller="LoginController">
+	<ion-content style="background-image:url(img/LoginBack2.jpg); background-size:120% 100%;" ng-controller="LoginController">
 
 
 		<div>
@@ -68,12 +68,17 @@
             <img src="img/Logo.png" style="height:30%; width:40%">
         </div>
       -->
-		<div style="text-align: center">
+		<!--<div style="text-align: center">
 			<h4 class="whitetext">
 				REGISTER FOR A NEW ACCOUNT
 			</h4>
-		</div>
+		</div>-->
 
+		<div align="center">
+
+				<img src="img/loggo.png" style="width:40%;height:75px">
+	
+			</div>
 
 		<br>
 		<div style="padding-left:20px">
@@ -103,13 +108,17 @@
 
 
 		<div class="padding" align="center">
-			<button class="button button-balanced small_button" style="min-height:6vh;line-height:6vh;width:100%;color:white;background-color:#2ab041;border-radius: 20px;border-top:-5px"
+			<button ng-disabled="Loading" class="button button-balanced small_button" style="line-height: 35px;min-height:35px;width:100%;color:white;background-color:#2ab041;border-radius: 20px;border-top:-5px"
 			 ng-click="Register()">
 				Register
 			</button>
 
 		</div>
-
+		<div align="center">
+			<h6 style="color:white" ng-click="GoToLoginPage()">
+				Already have an account? Log in
+			</h6>
+		</div>
 
 
 	</ion-content>

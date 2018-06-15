@@ -2,7 +2,7 @@
 angular.module('football.controllers')
 
 
-    .controller('HomeController', function ($scope, $interval, $ionicPush, $http, $ionicSlideBoxDelegate, HomeStore, LoginStore, TeamStores, $state, $timeout, $ionicPopup, $ionicLoading, $cordovaSocialSharing) {
+    .controller('HomeController', function ($scope, $interval, $http, $ionicSlideBoxDelegate, HomeStore, LoginStore, TeamStores, $state, $timeout, $ionicPopup, $ionicLoading, $cordovaSocialSharing) {
 
 
 

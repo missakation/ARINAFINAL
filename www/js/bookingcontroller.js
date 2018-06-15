@@ -3,6 +3,8 @@ angular.module('football.controllers')
 
     .controller('BookingController', function ($scope, $http, LoginStore, $timeout, BookingStore, $ionicPopup, $ionicLoading) {
 
+
+        
         $scope.tabs =
             {
                 Current: false,
@@ -163,7 +165,9 @@ angular.module('football.controllers')
                     $scope.status.Current = "solid";
 
                     $scope.selectedbookings = $scope.currentbookings;
-                    $scope.$apply();
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
                     break;
 
                 case 2:
@@ -175,8 +179,11 @@ angular.module('football.controllers')
 
                     $scope.status.Previous = "solid";
                     $scope.selectedbookings = $scope.previousbookings;
-                    $scope.$apply();
-                    $scope.$digest();
+
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                        $scope.$digest();
+                    }
 
                     break;
             }

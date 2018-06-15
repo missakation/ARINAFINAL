@@ -13,8 +13,10 @@ angular.module('football.controllers')
     notificationRef.on('value', function (snapshot) {
       var data = snapshot.val();
 
-      $scope.filter.notification = data.settings.notification;
-      $scope.filter.reminder_3hours = data.settings.reminder_3hours;
+      if (data.settings) {
+        $scope.filter.notification = data.settings.notification;
+        $scope.filter.reminder_3hours = data.settings.reminder_3hours;
+      }
       $scope.filter.emailVerified = firebase.auth().currentUser.emailVerified;
       $scope.filter.smsVerified = data.isMobileVerified;
     });

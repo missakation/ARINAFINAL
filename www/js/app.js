@@ -6,19 +6,19 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers', 'jett.ionic.filter.bar', "ion-datetime-picker", "ionicLazyLoad", "ion-floating-menu", 'ngCordova', 'ionic.rating', 'rzModule'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, $cordovaSplashscreen) {
         $ionicPlatform.ready(function () {
 
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
-            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+            if ('cordova' in window && cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
 
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleDefault();
+                StatusBar.styleBlackOpaque();
             }
 
             try {
@@ -26,17 +26,25 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
                 };
 
-                window.plugins.OneSignal.setLogLevel(4, 4);
+                if ('cordova' in window) {
 
-                window.plugins.OneSignal
-                    .startInit("233d6f63-8ead-4ee7-8e69-03f4088a075a")
-                    .handleNotificationOpened(notificationOpenedCallback)
-                    .endInit();
 
-                window.plugins.OneSignal.getIds(function (ids) {
-                    //alert(ids.userId);
-                });
+                    window.plugins.OneSignal
+                        .startInit("233d6f63-8ead-4ee7-8e69-03f4088a075a")
+                        .handleNotificationOpened(notificationOpenedCallback)
+                        .endInit();
 
+                    //window.plugins.OneSignal.setSubscription(true);
+
+                    window.plugins.OneSignal.getIds(function (ids) {
+                        //alert(ids.userId);
+                    });
+
+                    // window.plugins.OneSignal.setLogLevel(4, 4);
+
+                }
+
+                $cordovaSplashscreen.hide();
             } catch (error) {
                 alert((error));
             }
@@ -49,7 +57,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
 
 
         });
-        $ionicPlatform.onHardwareBackButton(function (event) {
+        /*$ionicPlatform.onHardwareBackButton(function (event) {
             if ($rootScope.$viewHistory.backView) {
                 $rootScope.$viewHistory.backView.go();
             } else {
@@ -71,7 +79,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
             }
         }, 200);
         //  // This hooks all auth events to check everything as soon as the app starts
-        //auth.hookEvents();
+        //auth.hookEvents();*/
 
 
 
@@ -101,7 +109,8 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
 
     .config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider /*ionicImgCacheProvider*/, $ionicFilterBarConfigProvider) {
         $ionicConfigProvider.views.maxCache(0);
-
+        $ionicConfigProvider.views.transition(ionic.Platform.isAndroid() ? 'android' : 'ios');
+        $ionicConfigProvider.views.swipeBackEnabled(false);
         $ionicFilterBarConfigProvider.theme('royal');
 
         $stateProvider

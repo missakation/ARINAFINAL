@@ -1,4 +1,5 @@
 <style>
+
     .col-50 {
         border: thick;
         border-color: black;
@@ -115,10 +116,11 @@
                 <div class="col col-66" style="padding-left:0px;padding-top: 4px" align="left">
 
                     <div style="float: left">
-                        <rating style="font-size:18px;color:orange" readonly="readOnly" ng-model="CurrentStadium.rating" align="left">
+                        <rating style="font-size:18px;color:orange" readonly="true" ng-model='CurrentStadium.rating' max="rating.max" align="left">
                         </rating>
                     </div>
-                    <div style="float: left;color:white">
+                    <div style="float: left;color:white;margin-top:2px;font-size: 14px;
+                    margin-left: 3px;">
                         &nbsp{{CurrentStadium.numberofrating}}&nbsp
                     </div>
                 </div>

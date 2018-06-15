@@ -1,6 +1,6 @@
 ﻿
 angular.module('football.controllers')
-    .controller('stadiumcontroller', function ($scope, LoginStore, $ionicScrollDelegate, $http, $ionicPopover, $interval, $ionicHistory, ReservationFact, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaDatePicker, pickerView, SMSService, $ionicFilterBar) {
+    .controller('stadiumcontroller', function ($scope, LoginStore, $ionicPlatform, $ionicScrollDelegate, $http, $ionicPopover, $interval, $ionicHistory, ReservationFact, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaDatePicker, pickerView, SMSService, $ionicFilterBar) {
 
 
 
@@ -82,6 +82,19 @@ angular.module('football.controllers')
                 });
             }
         };
+
+        $ionicPlatform.registerBackButtonAction(function (e) {
+
+            if (pickerView.isShowing()) {
+                e.preventDefault();
+                pickerView.close();
+            }
+            else {
+                $ionicHistory.goBack();
+            }
+
+
+        }, 100);
 
         $scope.CurrentRate = {};
         $scope.notratedstadiums = [];
@@ -680,52 +693,57 @@ angular.module('football.controllers')
             showDelay: 0
         });
 
-        $scope.checkfree();
+        //$scope.checkfree();
 
         //works
 
-        /*navigator.geolocation.getCurrentPosition(function (position) {
-            
+        navigator.geolocation.getCurrentPosition(function (position) {
+
             $scope.latitude = position.coords.latitude;
             $scope.longitude = position.coords.longitude;
- 
+
             $scope.gotlocation = true;
- 
+
             // Simple GET request example:
             $http({
                 method: 'GET',
                 url: 'https://us-central1-project-6346119287623064588.cloudfunctions.net/date'
             }).then(function successCallback(response) {
+
                 $scope.checkfree();
+
             }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
- 
+
+
             });
- 
- 
+
+
         }, function (error) {
-            
+
             $scope.checkfree();
-        });*/
+        }, {
+                enableHighAccuracy: false,
+                timeout: 2500,
+                maximumAge: 0
+            });
 
 
 
-        setInterval(function () {
-            if ($state.current.name == 'app.reservestadium') {
+        /*setInterval(function () {
+            if ($state.current.name == 'app.homepage') {
                 if (!$scope.popupopen) {
                     var alertPopup = $ionicPopup.alert({
                         title: 'Refresh',
                         template: 'Please Refresh Page'
                     });
-
+        
                     $scope.popupopen = true;
                     alertPopup.then(function (res) {
                         $scope.checkfree();
                     });
                 }
             }
-        }, 600000)
+        }, 600000)*/
 
         $scope.reserve = function (search, stadiums, item) {
 
@@ -1034,7 +1052,7 @@ angular.module('football.controllers')
 
     })
 
-    .controller('stadiumdetailscontroller', function ($scope, LoginStore, $ionicHistory, pickerView, $stateParams, $ionicPopover, ReservationFact, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaDatePicker, SMSService) {
+    .controller('stadiumdetailscontroller', function ($scope, LoginStore, $ionicPlatform, $ionicHistory, pickerView, $stateParams, $ionicPopover, ReservationFact, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaDatePicker, SMSService) {
 
         //alert(JSON.stringify(firebase.database.ServerValue.TIMESTAMP));
 
@@ -1045,6 +1063,10 @@ angular.module('football.controllers')
             maxWidth: 200,
             showDelay: 0
         });
+
+        $scope.rating = {};
+        $scope.rating.rate = 3;
+        $scope.rating.max = 5;
 
         $scope.CurrentStadium = $stateParams.stadiumid;
         $scope.search = $stateParams.search;
@@ -1094,13 +1116,27 @@ angular.module('football.controllers')
                 ReservationFact.GetStadiumsByID($scope.CurrentStadium.stadiumkey, function (leagues) {
                     $ionicLoading.hide();
                     $scope.stadiums = leagues;
-                    $scope.$apply();
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
                 })
             }
             catch (error) {
 
             }
         }
+
+        $ionicPlatform.registerBackButtonAction(function (e) {
+
+            if (pickerView.isShowing()) {
+                e.preventDefault();
+                pickerView.close();
+            }
+            else {
+                $ionicHistory.goBack();
+            }
+
+        }, 100);
 
         $scope.openPickerView = function openPickerView() {
 
@@ -1304,7 +1340,7 @@ angular.module('football.controllers')
                                     $scope.globalstadiums[i].points = -totlPoints;
 
                                 }
-                                
+
                                 $scope.CurrentStadium.datetime = $scope.globalstadiums[0].datetime;
 
                                 $scope.$apply();

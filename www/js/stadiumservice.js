@@ -424,7 +424,7 @@ angular.module('football.controllers')
                                         "color": "green",
                                         "backcolor": "white",
                                         "rating": rating,
-                                        "numberofrating":NumberOfChildren,
+                                        "numberofrating": NumberOfChildren,
                                         //"freetimes": freetimes,
                                         "SortPoints": 0,
                                         "latitude": mainstadiumSnapshot.child("cordovalatitude").val(),
@@ -438,10 +438,10 @@ angular.module('football.controllers')
                                         "ClosingHour": mainstadiumSnapshot.child("ClosingHour").val(),
                                         "OpeningMinute": mainstadiumSnapshot.child("OpeningMinute").val(),
                                         "ClosingMinute": mainstadiumSnapshot.child("ClosingMinute").val(),
-                                        "RestrictedHour1": mainstadiumSnapshot.child("RestrictedHour1").val(),
-                                        "RestrictedMinute2": mainstadiumSnapshot.child("RestrictedMinute2").val(),
-                                        "RestrictedHour2": mainstadiumSnapshot.child("RestrictedHour2").val(),
-                                        "RestrictedMinute2": mainstadiumSnapshot.child("RestrictedMinute2").val(),
+                                        "RestrictedHour1": RestrictedHour1,
+                                        "RestrictedMinute1": RestrictedMinute1,
+                                        "RestrictedHour2": RestrictedHour2,
+                                        "RestrictedMinute2": RestrictedMinute2,
                                         "specialfeatures": mainstadiumSnapshot.child("specialfeatures").val() != null ? mainstadiumSnapshot.child("specialfeatures").val().split("|") : "",
                                         "directions": mainstadiumSnapshot.child("directions").val(),
                                         "cancelationpolicy": mainstadiumSnapshot.child("cancelationpolicy").val(),
@@ -799,8 +799,10 @@ angular.module('football.controllers')
                         var OpeningMinute = Stadium.OpeningMinute;
                         var ClosingMinute = Stadium.ClosingMinute;
 
-
-                        console.log(stadiumsnapshot.key);
+                        var RestrictedHour1 = Stadium.RestrictedHour1;
+                        var RestrictedMinute1 = Stadium.RestrictedMinute1;
+                        var RestrictedHour2 = Stadium.RestrictedHour2;
+                        var RestrictedMinute2 = Stadium.RestrictedMinute2;
 
                         var available1 = true;
                         var available2 = true;
@@ -832,15 +834,25 @@ angular.module('football.controllers')
 
                                     //if ((temphour + tempminute / 60 >= OpeningHour + OpeningMinute / 60) && (ClosingHour + ClosingMinute / 60) - (temphour + tempminute / 60) > 1.5) {
 
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour1 * 60 + minute1)) < 90) || ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)) {
+                                    if ((Math.abs((temphour * 60 + tempminute) - (hour1 * 60 + minute1)) < 90)
+                                        || ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
+                                            || (ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
+                                        || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
+
                                         available1 = false;
+
                                     }
 
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour2 * 60 + minute2)) < 90) || ((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)) {
+                                    if ((Math.abs((temphour * 60 + tempminute) - (hour2 * 60 + minute2)) < 90)
+                                        || ((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
+                                            || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
+                                        || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
                                         available2 = false;
                                     }
 
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour3 * 60 + minute3)) < 90) || ((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)) {
+                                    if ((Math.abs((temphour * 60 + tempminute) - (hour3 * 60 + minute3)) < 90)
+                                        || ((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
+                                        || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
                                         available3 = false;
                                     }
 
@@ -863,6 +875,24 @@ angular.module('football.controllers')
                         }
 
                         // if ((available1 || available2 || available3) && (players == search.players || players1 == search.players)) {
+
+                        if ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
+                            || ((ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
+                            || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
+                            available1 = false;
+                        }
+
+                        if (((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
+                            || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
+                            || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
+                            available2 = false;
+                        }
+
+                        if (((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60)
+                            || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
+                            || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
+                            available3 = false;
+                        }
 
                         var rating = 0;
                         var NumberOfChildren = 0;
