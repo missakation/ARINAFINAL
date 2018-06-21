@@ -4,7 +4,7 @@ angular.module('football.controllers')
     .controller('BookingController', function ($scope, $http, LoginStore, $timeout, BookingStore, $ionicPopup, $ionicLoading) {
 
 
-        
+
         $scope.tabs =
             {
                 Current: false,
@@ -108,6 +108,16 @@ angular.module('football.controllers')
 
                             firebase.database().ref('/stadiumsinfo/' + item.stadiumkey).once('value', function (stadiumsinfo) {
 
+                                /// PLAYER TOKENS
+                                var Tokens = [];
+                                if (stadiumsinfo.val().hasOwnProperty("devicetoken")) {
+                                    for (var k in stadiumsinfo.val().devicetoken) {
+                                        if (stadiumsinfo.val().devicetoken.hasOwnProperty(k)) {
+                                            Tokens.push(k);
+                                        }
+                                    }
+                                }
+
                                 $ionicLoading.show({
                                     content: 'Loading',
                                     animation: 'fade-in',
@@ -122,7 +132,7 @@ angular.module('football.controllers')
                                         BookingStore.DeleteBookingByID(res).then(function () {
 
 
-                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + res.telephone, stadiumsinfo.val().devicetoken, null);
+                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + res.telephone, Tokens, null);
 
                                             $ionicLoading.hide();
                                             var alertPopup = $ionicPopup.alert({

@@ -1533,7 +1533,9 @@ angular.module('football.controllers', [])
         var notificationtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjMzM2FhYy1jNjBjLTQyNTItYjI1ZS05MmY0ZGQ5OGRhNmYifQ.QCuKlXbH3CczgW-bScCoPVVhPcdf_peZadTRIZFL4j0';
         var notificationurl = 'https://onesignal.com/api/v1/notifications';
         var notificationprofile = 'arinaprofile';
-        var appid = "3c52e01f-0945-4334-aff0-25ff0b5fb7ad";
+        //var appid = "3c52e01f-0945-4334-aff0-25ff0b5fb7ad";
+        var appid = "233d6f63-8ead-4ee7-8e69-03f4088a075a";
+        
         return {
 
             AddUser: function (newuser, registerdata) {
@@ -1785,7 +1787,7 @@ angular.module('football.controllers', [])
                     contents: { "en": message },
                     small_icon: "drawable-ldpi-icon.png",
                     large_icon: "drawable-xxxhdpi-icon.png",
-                    include_player_ids: [devicetokens]
+                    include_player_ids: devicetokens
                 };
 
                 var headers = {
@@ -2267,21 +2269,39 @@ angular.module('football.controllers', [])
         $scope.logout = function () {
 
             try {
-                firebase.auth().signOut().then(function () {
-                    $state.go('signin');
-                }, function (error) {
 
-                });
+                var user = firebase.auth().currentUser;
 
+                if (!(user === null || user == '' || user === undefined)) {
 
-                //window.plugins.OneSignal.setSubscription(false)
+                    LoginStore.UpdateLastSeen();
+
+                    window.plugins.OneSignal.getIds(function (ids) {
+
+                        var updates = {};
+
+                        updates['/players/' + user.uid + '/devicetoken/' + ids.userId] = null;
+                        updates['/playersinfo/' + user.uid + '/devicetoken/' + ids.userId] = null;
+
+                        firebase.database().ref().update(updates).then(function () {
+
+                            firebase.auth().signOut().then(function () {
+
+                                $state.go('signin');
+
+                            }, function (error) {
+
+                            });
+                        });
+                    });
+
+                }
 
             }
-            catch (error) {
+            catch (err) {
 
             }
         }
-
 
     })
 

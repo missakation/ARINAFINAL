@@ -8,7 +8,7 @@ angular.module('football.controllers')
 
         var updates = {};
 
-        
+
 
         /*updates['players/3dZ7UAGpCPRIifdKMe4UQA6o6hU2/favlatitude'] = 33.886721;
         updates['players/4fOYLCVpYdO06prqr2lybyExSo32/favlatitude'] = 33.876721;
@@ -395,7 +395,7 @@ angular.module('football.controllers')
 
                 }
                 catch (error) {
-                    
+
                     LoginStore.PostError(error);
                 }
             }, 700)
@@ -417,7 +417,7 @@ angular.module('football.controllers')
 
 
         } catch (error) {
-            
+
             LoginStore.PostError(error);
         }
 
@@ -438,7 +438,7 @@ angular.module('football.controllers')
 
 
                         } catch (error) {
-                            
+
                             LoginStore.PostError(error);
                         }
 
@@ -521,7 +521,16 @@ angular.module('football.controllers')
                                     var devicetoken = snapshot.val().devicetoken;
 
                                     if (snapshot.val().settings.notification) {
-                                        LoginStore.SendNotification(challenge.team1name + ' declined your challenge', devicetoken);
+                                        /// PLAYER TOKENS
+                                        var Tokens = [];
+                                        if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                            for (var k in snapshot.val().devicetoken) {
+                                                if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                    Tokens.push(k);
+                                                }
+                                            }
+                                        }
+                                        LoginStore.SendNotification(challenge.team1name + ' declined your challenge', Tokens);
                                     }
 
                                 }
@@ -540,7 +549,7 @@ angular.module('football.controllers')
                             $ionicSlideBoxDelegate.update();
                             $scope.$apply();
                         }, function (error) {
-                            
+
                             LoginStore.PostError(error);
                         })
                     }
@@ -548,7 +557,7 @@ angular.module('football.controllers')
                 })
 
             } catch (error) {
-                
+
                 LoginStore.PostError(error);
             }
         }
@@ -571,7 +580,7 @@ angular.module('football.controllers')
                             $scope.$apply();
                             $ionicSlideBoxDelegate.update();
                         }, function (error) {
-                            
+
                             LoginStore.PostError(error);
                         })
                     }
@@ -579,7 +588,7 @@ angular.module('football.controllers')
                 })
 
             } catch (error) {
-                
+
                 LoginStore.PostError(error);
             }
         }
@@ -598,8 +607,16 @@ angular.module('football.controllers')
                                     firebase.database().ref('/playersinfo/' + invitation.adminkey).on('value', function (shot) {
                                         if (shot.exists()) {
                                             if (shot.val().settings.notification) {
-                                                var devicetoken = shot.val().devicetoken;
-                                                LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " has accepted to join " + snapshot.val().teamname, devicetoken);
+                                                /// PLAYER TOKENS
+                                                var Tokens = [];
+                                                if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                                    for (var k in snapshot.val().devicetoken) {
+                                                        if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                            Tokens.push(k);
+                                                        }
+                                                    }
+                                                }
+                                                LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " has accepted to join " + snapshot.val().teamname, Tokens);
                                             }
                                         }
                                     })
@@ -628,7 +645,7 @@ angular.module('football.controllers')
                                         });
 
                                     }, function (error) {
-                                       
+
                                         LoginStore.PostError(error);
                                     })
                                 }, function (error) {
@@ -648,16 +665,24 @@ angular.module('football.controllers')
                                 return el.key !== invitation.key;
 
                             });
-                            firebase.database().ref('/playersinfo/' + invitation.adminkey).on('value', function (shot) {
+                            firebase.database().ref('/playersinfo/' + invitation.adminkey).on('value', function (snapshot) {
                                 if (shot.exists()) {
                                     if (shot.val().settings.notification) {
-                                        var devicetoken = shot.val().devicetoken;
-                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " has declined your invitation to join " + invitation.teamname, devicetoken);
+                                        /// PLAYER TOKENS
+                                        var Tokens = [];
+                                        if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                            for (var k in snapshot.val().devicetoken) {
+                                                if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                    Tokens.push(k);
+                                                }
+                                            }
+                                        }
+                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " has declined your invitation to join " + invitation.teamname, Tokens);
                                     }
                                 }
                             })
                         }, function (error) {
-                            
+
                             LoginStore.PostError(error);
                         })
                         break;
@@ -668,7 +693,7 @@ angular.module('football.controllers')
                 $scope.teaminvitationoperation = false;
 
             } catch (error) {
-                
+
                 LoginStore.PostError(error);
             }
 
@@ -688,11 +713,19 @@ angular.module('football.controllers')
                             });
                             $ionicSlideBoxDelegate.update();
 
-                            firebase.database().ref('/playersinfo/' + user.uid).on('value', function (shot) {
+                            firebase.database().ref('/playersinfo/' + user.uid).on('value', function (snapshot) {
                                 if (shot.exists()) {
                                     if (shot.val().settings.notification) {
-                                        var devicetoken = shot.val().devicetoken;
-                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " accepted your phone number request.", devicetoken);
+                                        /// PLAYER TOKENS
+                                        var Tokens = [];
+                                        if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                            for (var k in snapshot.val().devicetoken) {
+                                                if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                    Tokens.push(k);
+                                                }
+                                            }
+                                        }
+                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " accepted your phone number request.", Tokens);
                                     }
                                 }
                             })
@@ -709,17 +742,25 @@ angular.module('football.controllers')
                             });
                             $ionicSlideBoxDelegate.update();
 
-                            firebase.database().ref('/playersinfo/' + user.uid).on('value', function (shot) {
+                            firebase.database().ref('/playersinfo/' + user.uid).on('value', function (snapshot) {
                                 if (shot.exists()) {
                                     if (shot.val().settings.notification) {
-                                        var devicetoken = shot.val().devicetoken;
-                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " declined your phone number request", devicetoken);
+                                        /// PLAYER TOKENS
+                                        var Tokens = [];
+                                        if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                            for (var k in snapshot.val().devicetoken) {
+                                                if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                    Tokens.push(k);
+                                                }
+                                            }
+                                        }
+                                        LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " declined your phone number request", Tokens);
                                     }
                                 }
                             })
 
                         }, function (error) {
-                            
+
                             LoginStore.PostError(error);
                         })
                         break;
@@ -730,7 +771,7 @@ angular.module('football.controllers')
                 $scope.teaminvitationoperation = false;
 
             } catch (error) {
-               
+
                 LoginStore.PostError(error);
             }
 
@@ -750,7 +791,7 @@ angular.module('football.controllers')
                             $ionicSlideBoxDelegate.update();
                             $scope.$apply();
                         }, function (error) {
-                           
+
                             LoginStore.PostError(error);
                         })
                         break;
@@ -764,7 +805,7 @@ angular.module('football.controllers')
                             $ionicSlideBoxDelegate.update();
                             $scope.$apply();
                         }, function (error) {
-                            
+
                             LoginStore.PostError(error);
                         })
                         break;
@@ -775,7 +816,7 @@ angular.module('football.controllers')
                 $scope.$apply();
             }
             catch (error) {
-               
+
                 LoginStore.PostError(error);
             }
 
@@ -954,7 +995,7 @@ angular.module('football.controllers')
                         $ionicSlideBoxDelegate.update();
                         $scope.$apply();
                     }, function (error) {
-                        
+
                         LoginStore.PostError(error);
                     })
 
@@ -964,7 +1005,7 @@ angular.module('football.controllers')
 
                 })
             } catch (error) {
-                
+
                 LoginStore.PostError(error);
             }
         }
@@ -1112,8 +1153,16 @@ angular.module('football.controllers')
                                             firebase.database().ref('/playersinfo/' + $scope.challenge.team2adminid).on('value', function (snapshot) {
                                                 if (snapshot.exists()) {
                                                     if (snapshot.val().settings.notification) {
-                                                        var devicetoken = snapshot.val().devicetoken;
-                                                        LoginStore.SendNotification("It's game time! " + $scope.challenge.team1name + ' accepted your challenge', devicetoken);
+                                                        /// PLAYER TOKENS
+                                                        var Tokens = [];
+                                                        if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                                            for (var k in snapshot.val().devicetoken) {
+                                                                if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                                    Tokens.push(k);
+                                                                }
+                                                            }
+                                                        }
+                                                        LoginStore.SendNotification("It's game time! " + $scope.challenge.team1name + ' accepted your challenge', Tokens);
                                                     }
                                                 }
                                             })

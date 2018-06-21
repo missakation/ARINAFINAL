@@ -136,40 +136,40 @@ angular.module('football.controllers')
         $scope.managecolors =
             {
                 five:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 six:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 seven:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 eight:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 nine:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 ten:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                },
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    },
                 eleven:
-                {
-                    color: "#28b041",
-                    backcolor: "white"
-                }
+                    {
+                        color: "#28b041",
+                        backcolor: "white"
+                    }
             }
 
         $scope.$on("$ionicView.afterEnter", function (event, data) {
@@ -747,7 +747,7 @@ angular.module('football.controllers')
 
         try {
             TeamStores.GetTeamByKey($stateParams.teamid, function (myprofile) {
-                
+
 
                 $ionicLoading.hide();
                 $scope.notloaded = true;
@@ -1510,7 +1510,18 @@ angular.module('football.controllers')
                     player.status = "Invitation Sent";
                     if (player.devicetoken != undefined && player.devicetoken != "") {
                         if (player.settings.notification) {
-                            LoginStore.SendNotification("Would you like to join " + $scope.myteam.teamname + '?', player.devicetoken);
+
+                            var Tokens = [];
+                            if (player.hasOwnProperty("devicetoken")) {
+                                for (var k in player.devicetoken) {
+                                    if (player.devicetoken.hasOwnProperty(k)) {
+                                        Tokens.push(k);
+                                    }
+                                }
+                                LoginStore.SendNotification("Would you like to join " + $scope.myteam.teamname + '?', Tokens).then(function (res) {
+
+                                })
+                            }
                         }
 
                     }

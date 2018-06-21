@@ -3,6 +3,22 @@ angular.module('football.controllers')
     .controller('stadiumcontroller', function ($scope, LoginStore, $ionicPlatform, $ionicScrollDelegate, $http, $ionicPopover, $interval, $ionicHistory, ReservationFact, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaDatePicker, pickerView, SMSService, $ionicFilterBar) {
 
 
+        /*var userId = firebase.auth().currentUser.uid;
+        firebase.database().ref('/players/' + userId).once('value').then(function (snapshot) {
+
+            var Tokens = [];
+            var UserProfile = snapshot.val();
+            if (UserProfile.hasOwnProperty("devicetoken")) {
+                for (var k in UserProfile.devicetoken) {
+                    if (UserProfile.devicetoken.hasOwnProperty(k)) {
+                        Tokens.push(k);
+                    }
+                }
+                LoginStore.SendNotification("Testation", Tokens).then(function (res) {
+                })
+            }
+
+        })*/
 
         $scope.$on("$ionicView.afterEnter", function (event, data) {
             // handle event
@@ -20,8 +36,8 @@ angular.module('football.controllers')
 
                         window.plugins.OneSignal.getIds(function (ids) {
                             var updates = {};
-                            updates['/players/' + user.uid + '/devicetoken'] = ids.userId;
-                            updates['/playersinfo/' + user.uid + '/devicetoken'] = ids.userId;
+                            updates['/players/' + user.uid + '/devicetoken/' + ids.userId] = true;
+                            updates['/playersinfo/' + user.uid + '/devicetoken/' + ids.userId] = true;
                             firebase.database().ref().update(updates).then(function () {
                             });
                         });
@@ -759,8 +775,30 @@ angular.module('football.controllers')
                 });
                 firebase.database().ref('/players/' + userId).once('value').then(function (snapshot) {
                     $ionicLoading.hide();
+
                     var currentplayer = snapshot.val();
-                    if (!snapshot.val().isMobileVerified) {
+
+                    var Tokens = [];
+                    var StadiumTokens = [];
+
+                    /// PLAYER TOKENS
+                    if (currentplayer.hasOwnProperty("devicetoken")) {
+                        for (var k in currentplayer.devicetoken) {
+                            if (currentplayer.devicetoken.hasOwnProperty(k)) {
+                                Tokens.push(k);
+                            }
+                        }
+                    }
+                    // STADIUM TOKENS
+                    if (stadium.hasOwnProperty("devicetoken")) {
+                        for (var k in stadium.devicetoken) {
+                            if (stadium.devicetoken.hasOwnProperty(k)) {
+                                StadiumTokens.push(k);
+                            }
+                        }
+                    }
+
+                    if (!currentplayer.isMobileVerified) {
 
                         SMSService.verifyUserMobile($scope, $scope.reserve, [search, stadiums])
 
@@ -818,7 +856,7 @@ angular.module('football.controllers')
                                                         //creating One Signal scheduled notifications
                                                         var diff = -180;	//reminder before match
                                                         var matchReminderDate = new Date($scope.search.date.getTime() + diff * 60000);
-                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", currentplayer.devicetoken, matchReminderDate).then(function (res) {
+                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, matchReminderDate).then(function (res) {
 
                                                             if (res.status == 200) {
                                                                 var notificationID = res.data.id;
@@ -862,7 +900,7 @@ angular.module('football.controllers')
                                                                     diff = 10; 	//delay in minutes													
                                                                     var afterMatchNotificationDate = new Date(OriginalBookDate + diff * 60000);
 
-                                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", currentplayer.devicetoken, afterMatchNotificationDate).then(function (res) {
+                                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate).then(function (res) {
 
                                                                         if (res.status == 200) {
                                                                             var notificationID = res.data.id;
@@ -1399,7 +1437,30 @@ angular.module('football.controllers')
                 });
                 firebase.database().ref('/players/' + userId).once('value').then(function (snapshot) {
                     $ionicLoading.hide();
+
                     var currentplayer = snapshot.val();
+
+                    var Tokens = [];
+                    var StadiumTokens = [];
+
+                    /// PLAYER TOKENS
+                    if (currentplayer.hasOwnProperty("devicetoken")) {
+                        for (var k in currentplayer.devicetoken) {
+                            if (currentplayer.devicetoken.hasOwnProperty(k)) {
+                                Tokens.push(k);
+                            }
+                        }
+                    }
+
+                    // STADIUM TOKENS
+                    if (stadium.hasOwnProperty("devicetoken")) {
+                        for (var k in stadium.devicetoken) {
+                            if (stadium.devicetoken.hasOwnProperty(k)) {
+                                StadiumTokens.push(k);
+                            }
+                        }
+                    }
+
                     if (!snapshot.val().isMobileVerified) {
 
                         SMSService.verifyUserMobile($scope, $scope.reserve, [search, stadiums])
@@ -1439,14 +1500,14 @@ angular.module('football.controllers')
                                                     //creating One Signal scheduled notifications
                                                     var diff = -180;	//reminder before match
                                                     var matchReminderDate = new Date($scope.search.date.getTime() + diff * 60000);
-                                                    LoginStore.SendNotification("Your Game Will Start In 3 Hours", currentplayer.devicetoken, afterMatchNotificationDate);
+                                                    LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, afterMatchNotificationDate);
 
-                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), stadiums.devicetoken, undefined);
+                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), StadiumTokens, undefined);
 
                                                     diff = 10; 	//delay in minutes													
                                                     var afterMatchNotificationDate = new Date($scope.search.date.getTime() + diff * 60000);
 
-                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", currentplayer.devicetoken, afterMatchNotificationDate);
+                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate);
 
 
                                                     var userid = firebase.auth().currentUser.uid;
@@ -1483,7 +1544,7 @@ angular.module('football.controllers')
                                                                         diff = 10; 	//delay in minutes													
                                                                         var afterMatchNotificationDate = new Date($scope.search.date.getTime() + diff * 60000);
 
-                                                                        LoginStore.SendNotification("How Was Your Match? Rate Your Experience", currentplayer.devicetoken, afterMatchNotificationDate);
+                                                                        LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate);
 
                                                                     }
                                                                     if (currentplayer.settings.reminder_3hours) {
@@ -1491,7 +1552,7 @@ angular.module('football.controllers')
                                                                         //creating One Signal scheduled notifications
                                                                         var diff = -180;	//reminder before match
                                                                         var matchReminderDate = new Date($scope.search.date.getTime() + diff * 60000);
-                                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", currentplayer.devicetoken, matchReminderDate);
+                                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, matchReminderDate);
                                                                     }
                                                                 }
                                                             }

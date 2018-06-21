@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers', 'jett.ionic.filter.bar', "ion-datetime-picker", "ionicLazyLoad", "ion-floating-menu", 'ngCordova', 'ionic.rating', 'rzModule'])
+angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers', 'jett.ionic.filter.bar', "ion-floating-menu", 'ngCordova', 'ionic.rating', 'rzModule'])
 
     .run(function ($ionicPlatform, $cordovaSplashscreen) {
         $ionicPlatform.ready(function () {

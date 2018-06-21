@@ -1,7 +1,7 @@
 ﻿
 angular.module('football.controllers')
 
-    .controller('SearchController', function ($scope, SearchStore,$state, ReservationFact, LoginStore, $ionicPopup, $ionicPopover, $timeout, $ionicLoading, pickerView, SMSService, $ionicFilterBar) {
+    .controller('SearchController', function ($scope, SearchStore, $state, ReservationFact, LoginStore, $ionicPopup, $ionicPopover, $timeout, $ionicLoading, pickerView, SMSService, $ionicFilterBar) {
         /** picker view stuff **/
         function getDateFromDayName(selectedDay) {
             var selectedDate = new Date();
@@ -242,7 +242,7 @@ angular.module('football.controllers')
                                 var R = 6371; // km 
                                 //has a problem with the .toRad() method below.
                                 var x1 = lat2 - lat1;
-                                
+
                                 var dLat = x1.toRad();
 
 
@@ -255,7 +255,7 @@ angular.module('football.controllers')
                                 var d = R * c;
 
                                 element.distance = d.toFixed(2);
-                                element.points = d + (element.seendifference/60/5);
+                                element.points = d + (element.seendifference / 60 / 5);
                                 /*$scope.allfreestadiums = $scope.allfreestadiums.sort(function (a, b) {
                                     return a.distance - b.distance;
                                 });*/
@@ -344,8 +344,17 @@ angular.module('football.controllers')
 
         $scope.requestnumber = function (player) {
 
-            if (!(player == null || player == undefined || player == []) && !($scope.myprofile == null || $scope.myprofile == undefined || $scope.myprofile == [])) {
+            /// PLAYER TOKENS
+            var Tokens = [];
+            if (player.hasOwnProperty("devicetoken")) {
+                for (var k in player.devicetoken) {
+                    if (player.devicetoken.hasOwnProperty(k)) {
+                        Tokens.push(k);
+                    }
+                }
+            }
 
+            if (!(player == null || player == undefined || player == []) && !($scope.myprofile == null || $scope.myprofile == undefined || $scope.myprofile == [])) {
 
                 if (!player.status > 0) {
 
@@ -358,6 +367,9 @@ angular.module('football.controllers')
                         showDelay: 0
                     });
                     firebase.database().ref('/players/' + userId).once('value').then(function (snapshot) {
+
+
+
                         $ionicLoading.hide();
                         if (!snapshot.val().isMobileVerified) {
                             SMSService.verifyUserMobile($scope, $scope.requestnumber, [player])
@@ -370,7 +382,7 @@ angular.module('football.controllers')
 
                                 console.log($scope.myprofile);
                                 console.log(player);
-                                LoginStore.SendNotification("Hello, I am " + $scope.myprofile.firstname + " " + $scope.myprofile.lastname + " . Can I invite you to a match?", player.devicetoken);
+                                LoginStore.SendNotification("Hello, I am " + $scope.myprofile.firstname + " " + $scope.myprofile.lastname + " . Can I invite you to a match?", Tokens);
 
                                 $scope.$apply();
 

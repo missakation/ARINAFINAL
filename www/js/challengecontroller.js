@@ -444,7 +444,7 @@ angular.module('football.controllers')
             };
 
         $scope.myteam = $state.params.myteam;
-        
+
         ReservationFact.FindFreeStadiums($state.params, function (leagues) {
 
             $scope.globalstadiums = leagues;
@@ -520,7 +520,7 @@ angular.module('football.controllers')
 
             $scope.filteredStadiums = $scope.allfreestadiums;
 
-            
+
             if (typeof (Number.prototype.toRad) === "undefined") {
                 Number.prototype.toRad = function () {
                     return this * Math.PI / 180;
@@ -596,9 +596,19 @@ angular.module('football.controllers')
 
                                                 firebase.database().ref('/playersinfo/' + element.teamadmin).on('value', function (snapshot) {
 
+                                                    /// PLAYER TOKENS
+                                                    var Tokens = [];
+                                                    if (snapshot.val().hasOwnProperty("devicetoken")) {
+                                                        for (var k in snapshot.val().devicetoken) {
+                                                            if (snapshot.val().devicetoken.hasOwnProperty(k)) {
+                                                                Tokens.push(k);
+                                                            }
+                                                        }
+                                                    }
+
                                                     if (snapshot.val().devicetoken) {
                                                         if (snapshot.val().settings.notification) {
-                                                            LoginStore.SendNotification($scope.myteam.teamname + ' challenges you to play a game at ' + $state.params.date + ' vs your team ' + element.teamname, snapshot.val().devicetoken);
+                                                            LoginStore.SendNotification($scope.myteam.teamname + ' challenges you to play a game at ' + $state.params.date + ' vs your team ' + element.teamname, Tokens);
                                                         }
                                                     } else {
                                                     }
