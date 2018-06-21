@@ -790,7 +790,7 @@ angular.module('football.controllers')
                         }
                     }
                     // STADIUM TOKENS
-                    if (stadium.hasOwnProperty("devicetoken")) {
+                    if (stadiums.hasOwnProperty("devicetoken")) {
                         for (var k in stadiums.devicetoken) {
                             if (stadiums.devicetoken.hasOwnProperty(k)) {
                                 StadiumTokens.push(k);
@@ -1453,7 +1453,7 @@ angular.module('football.controllers')
                     }
 
                     // STADIUM TOKENS
-                    if (stadium.hasOwnProperty("devicetoken")) {
+                    if (stadiums.hasOwnProperty("devicetoken")) {
                         for (var k in stadiums.devicetoken) {
                             if (stadiums.devicetoken.hasOwnProperty(k)) {
                                 StadiumTokens.push(k);

@@ -1535,7 +1535,7 @@ angular.module('football.controllers', [])
         var notificationprofile = 'arinaprofile';
         //var appid = "3c52e01f-0945-4334-aff0-25ff0b5fb7ad";
         var appid = "233d6f63-8ead-4ee7-8e69-03f4088a075a";
-        
+
         return {
 
             AddUser: function (newuser, registerdata) {
@@ -1550,67 +1550,67 @@ angular.module('football.controllers', [])
                         var identity = identity.toString() + date.getDay().toString() + date.getSeconds().toString() + date.getMilliseconds().toString();
 
                         var usertoadd =
+                        {
+                            uid: newuser.uid,
+                            email: newuser.email,
+                            winstreak: 0,
+                            userdescription: "",
+                            telephone: "",
+                            enableinvitations: true,
+                            highestrating: 1500,
+                            firstname: registerdata.firstname,
+                            lastname: registerdata.lastname,
+                            status: "0",
+                            playposition: "Defender",
+                            displayname: registerdata.displayname,
+                            favouritesport: "football",
+                            middlename: "",
+                            ranking: 100,
+                            cancelled: 0,
+                            cancelledweather: 0,
+                            didnotshowup: 0,
+                            startmonday: 7,
+                            startmondayend: 23,
+                            starttuesday: 7,
+                            starttuesdayend: 23,
+                            startwednesday: 7,
+                            startwednesdayend: 23,
+                            startthursday: 7,
+                            startthursdayend: 23,
+                            startfriday: 7,
+                            startfridayend: 23,
+                            startsaturday: 7,
+                            startsaturdayend: 23,
+                            startsunday: 7,
+                            startsundayend: 23,
+                            favstadium: "",
+                            favstadiumname: "",
+                            favstadiumphoto: "",
+                            photoURL: "",
+                            comments: "",
+                            ageset: 0,
+                            ageyear: 1990,
+                            agemonth: 1,
+                            ageday: 1,
+                            identity: identity,
+                            playerstatus: true,
+                            available: false,
+                            isplayer: true,
+                            teamdisplayed: "",
+                            teamdisplayedkey: "none",
+
+                            skillevel: "newbie",
+                            isbanned: false,
+                            isMobileVerified: false,
+                            settings:
                             {
-                                uid: newuser.uid,
-                                email: newuser.email,
-                                winstreak: 0,
-                                userdescription: "",
-                                telephone: "",
-                                enableinvitations: true,
-                                highestrating: 1500,
-                                firstname: registerdata.firstname,
-                                lastname: registerdata.lastname,
-                                status: "0",
-                                playposition: "Defender",
-                                displayname: registerdata.displayname,
-                                favouritesport: "football",
-                                middlename: "",
-                                ranking: 100,
-                                cancelled: 0,
-                                cancelledweather: 0,
-                                didnotshowup: 0,
-                                startmonday: 7,
-                                startmondayend: 23,
-                                starttuesday: 7,
-                                starttuesdayend: 23,
-                                startwednesday: 7,
-                                startwednesdayend: 23,
-                                startthursday: 7,
-                                startthursdayend: 23,
-                                startfriday: 7,
-                                startfridayend: 23,
-                                startsaturday: 7,
-                                startsaturdayend: 23,
-                                startsunday: 7,
-                                startsundayend: 23,
-                                favstadium: "",
-                                favstadiumname: "",
-                                favstadiumphoto: "",
-                                photoURL: "",
-                                comments: "",
-                                ageset: 0,
-                                ageyear: 1990,
-                                agemonth: 1,
-                                ageday: 1,
-                                identity: identity,
-                                playerstatus: true,
-                                available: false,
-                                isplayer: true,
-                                teamdisplayed: "",
-                                teamdisplayedkey: "none",
+                                notification: true,
+                                reminder_3hours: true,
+                            },
+                            favlatitude: 0,
+                            favlongitude: 0
 
-                                skillevel: "newbie",
-                                isbanned: false,
-                                isMobileVerified: false,
-                                settings:
-                                    {
-                                        notification: true,
-                                        reminder_3hours: true,
-                                    },
-                                favlatitude: 0,
-                                favlongitude: 0
-
-                            }
+                        }
 
                         // Write the new post's data simultaneously in the posts list and the user's post list.
                         var updates = {};
@@ -1663,67 +1663,67 @@ angular.module('football.controllers', [])
                         var identity = "" + String.fromCharCode(newuser.email[0]);
                         identity = identity + date.getDay() + date.getSeconds() + date.getMilliseconds();
                         var usertoadd =
+                        {
+                            uid: id,
+                            email: newuser.email == null ? "" : newuser.email,
+                            winstreak: 0,
+                            userdescription: "",
+                            telephone: "",
+                            enableinvitations: true,
+                            highestrating: 1500,
+                            firstname: newuser.displayName == null ? "" : newuser.displayName,
+                            lastname: "",
+                            status: "0",
+                            playposition: "Defender",
+                            displayname: newuser.displayName == null ? "" : newuser.displayName,
+                            favouritesport: "football",
+                            middlename: "",
+                            ranking: 100,
+                            cancelled: 0,
+                            cancelledweather: 0,
+                            didnotshowup: 0,
+                            startmonday: 7,
+                            startmondayend: 23,
+                            starttuesday: 7,
+                            starttuesdayend: 23,
+                            startwednesday: 7,
+                            startwednesdayend: 23,
+                            startthursday: 7,
+                            startthursdayend: 23,
+                            startfriday: 7,
+                            startfridayend: 23,
+                            startsaturday: 7,
+                            startsaturdayend: 23,
+                            startsunday: 7,
+                            startsundayend: 23,
+                            favstadium: "",
+                            favstadiumname: "",
+                            favstadiumphoto: "",
+                            photoURL: newuser.photoURL == null ? "" : newuser.photoURL,
+                            comments: "",
+                            ageset: 0,
+                            ageyear: 1990,
+                            agemonth: 1,
+                            ageday: 1,
+                            identity: identity,
+                            playerstatus: true,
+
+                            available: false,
+                            isplayer: true,
+                            teamdisplayed: "",
+                            teamdisplayedkey: "none",
+                            skillevel: "newbie",
+                            isbanned: false,
+                            isMobileVerified: false,
+                            settings:
                             {
-                                uid: id,
-                                email: newuser.email == null ? "" : newuser.email,
-                                winstreak: 0,
-                                userdescription: "",
-                                telephone: "",
-                                enableinvitations: true,
-                                highestrating: 1500,
-                                firstname: newuser.displayName == null ? "" : newuser.displayName,
-                                lastname: "",
-                                status: "0",
-                                playposition: "Defender",
-                                displayname: newuser.displayName == null ? "" : newuser.displayName,
-                                favouritesport: "football",
-                                middlename: "",
-                                ranking: 100,
-                                cancelled: 0,
-                                cancelledweather: 0,
-                                didnotshowup: 0,
-                                startmonday: 7,
-                                startmondayend: 23,
-                                starttuesday: 7,
-                                starttuesdayend: 23,
-                                startwednesday: 7,
-                                startwednesdayend: 23,
-                                startthursday: 7,
-                                startthursdayend: 23,
-                                startfriday: 7,
-                                startfridayend: 23,
-                                startsaturday: 7,
-                                startsaturdayend: 23,
-                                startsunday: 7,
-                                startsundayend: 23,
-                                favstadium: "",
-                                favstadiumname: "",
-                                favstadiumphoto: "",
-                                photoURL: newuser.photoURL == null ? "" : newuser.photoURL,
-                                comments: "",
-                                ageset: 0,
-                                ageyear: 1990,
-                                agemonth: 1,
-                                ageday: 1,
-                                identity: identity,
-                                playerstatus: true,
+                                notification: true,
+                                reminder_3hours: true,
+                            },
+                            favlatitude: 0,
+                            favlongitude: 0
 
-                                available: false,
-                                isplayer: true,
-                                teamdisplayed: "",
-                                teamdisplayedkey: "none",
-                                skillevel: "newbie",
-                                isbanned: false,
-                                isMobileVerified: false,
-                                settings:
-                                    {
-                                        notification: true,
-                                        reminder_3hours: true,
-                                    },
-                                favlatitude: 0,
-                                favlongitude: 0
-
-                            }
+                        }
 
                         // Write the new post's data simultaneously in the posts list and the user's post list.
                         var updates = {};
@@ -1745,14 +1745,14 @@ angular.module('football.controllers', [])
                     var id = user.uid;
 
                     var errortoadd =
-                        {
-                            uid: newuser.uid,
-                            errorcode: error.code,
-                            errordescription: error.message,
-                            date: new Date(),
-                            linenumber: linenumber,
-                            filename: filename
-                        };
+                    {
+                        uid: newuser.uid,
+                        errorcode: error.code,
+                        errordescription: error.message,
+                        date: new Date(),
+                        linenumber: linenumber,
+                        filename: filename
+                    };
                     var newPostKey = firebase.database().ref().child('errors').push().key;
                     var updates = {};
                     updates['/errors/' + newPostKey] = errortoadd;
@@ -1832,7 +1832,9 @@ angular.module('football.controllers', [])
                 return $http(req);
             },
             UpdateLastSeen: function () {
+
                 var user = firebase.auth().currentUser;
+
                 if (!(user === null || user == '' || user === undefined)) {
 
                     var updates = {};
@@ -2265,7 +2267,7 @@ angular.module('football.controllers', [])
     })
 
     //add $ionicPush
-    .controller('MenuController', function ($scope, $state, $stateParams, $ionicPopup, $ionicLoading) {
+    .controller('MenuController', function ($scope, $state, $stateParams, $ionicPopup, $ionicLoading, LoginStore) {
         $scope.logout = function () {
 
             try {
@@ -2274,8 +2276,14 @@ angular.module('football.controllers', [])
 
                 if (!(user === null || user == '' || user === undefined)) {
 
-                    LoginStore.UpdateLastSeen();
+                    /*LoginStore.UpdateLastSeen();
+                    firebase.auth().signOut().then(function () {
 
+                        $state.go('signin');
+
+                    }, function (error) {
+
+                    });*/
                     window.plugins.OneSignal.getIds(function (ids) {
 
                         var updates = {};
@@ -2293,7 +2301,9 @@ angular.module('football.controllers', [])
 
                             });
                         });
-                    });
+                    }, function (error) {
+                            $state.go('signin');
+                        });
 
                 }
 
@@ -2376,15 +2386,15 @@ angular.module('football.controllers', [])
 
         $scope.isplayercolors = {
             player:
-                {
-                    color: '#2ab041',
-                    backcolor: 'white'
-                },
+            {
+                color: '#2ab041',
+                backcolor: 'white'
+            },
             goalkeeper:
-                {
-                    color: '#2ab041',
-                    backcolor: 'white'
-                }
+            {
+                color: '#2ab041',
+                backcolor: 'white'
+            }
         }
 
         if ($scope.currentprofile.isplayer) {
