@@ -791,8 +791,8 @@ angular.module('football.controllers')
                     }
                     // STADIUM TOKENS
                     if (stadium.hasOwnProperty("devicetoken")) {
-                        for (var k in stadium.devicetoken) {
-                            if (stadium.devicetoken.hasOwnProperty(k)) {
+                        for (var k in stadiums.devicetoken) {
+                            if (stadiums.devicetoken.hasOwnProperty(k)) {
                                 StadiumTokens.push(k);
                             }
                         }
@@ -1454,8 +1454,8 @@ angular.module('football.controllers')
 
                     // STADIUM TOKENS
                     if (stadium.hasOwnProperty("devicetoken")) {
-                        for (var k in stadium.devicetoken) {
-                            if (stadium.devicetoken.hasOwnProperty(k)) {
+                        for (var k in stadiums.devicetoken) {
+                            if (stadiums.devicetoken.hasOwnProperty(k)) {
                                 StadiumTokens.push(k);
                             }
                         }
@@ -1994,7 +1994,7 @@ function getDateFromDayName(selectedDay) {
         selectedDate.setDate(selectedDate.getDate());
         return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
     }
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
         if (weekdayFull[selectedDate.getDay()] == selectedDay)
             return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
         selectedDate.setDate(selectedDate.getDate() + 1);
