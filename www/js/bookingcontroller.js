@@ -132,7 +132,7 @@ angular.module('football.controllers')
                                         BookingStore.DeleteBookingByID(res).then(function () {
 
 
-                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + res.telephone, Tokens, null);
+                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + playersnapshot.val().telephone, Tokens, null);
 
                                             $ionicLoading.hide();
                                             var alertPopup = $ionicPopup.alert({
