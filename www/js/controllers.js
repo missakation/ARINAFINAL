@@ -1783,7 +1783,7 @@ angular.module('football.controllers', [])
 
                 var notID = null;
                 var message = {
-                    app_id: appid,
+                    app_id: "233d6f63-8ead-4ee7-8e69-03f4088a075a",
                     contents: { "en": message },
                     small_icon: "drawable-ldpi-icon.png",
                     large_icon: "drawable-xxxhdpi-icon.png",
@@ -1792,7 +1792,7 @@ angular.module('football.controllers', [])
 
                 var headers = {
                     "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": "Basic MzUzM2UzZTQtNWRkOS00ZjZiLWExZTctYTgyYTIwNjMzOGU5"
+                    "Authorization": "Basic MTg2NTRmZmUtOTBiYS00OGI3LWJmOTUtNzNiMzU1NTFkZGYy"
                 };
 
                 if (atTime === undefined) {
@@ -1808,11 +1808,24 @@ angular.module('football.controllers', [])
                     method: 'POST',
                     url: notificationurl,
                     headers: headers,
-                    data: message
+                    data: message,
+                    headings: { "en": "English Title", "es": "Spanish Title" }
 
                 }
 
-                return $http(req);
+                message.app_id = '3c52e01f-0945-4334-aff0-25ff0b5fb7ad';
+                headers.Authorization = "Basic MzUzM2UzZTQtNWRkOS00ZjZiLWExZTctYTgyYTIwNjMzOGU5"
+
+                var req1 = {
+                    method: 'POST',
+                    url: notificationurl,
+                    headers: headers,
+                    data: message,
+                    headings: { "en": "English Title", "es": "Spanish Title" }
+
+                }
+
+                return $q.all([$http(req), $http(req1)]);
             },
             CancelNotification: function (notificationID) {
 
@@ -2302,8 +2315,8 @@ angular.module('football.controllers', [])
                             });
                         });
                     }, function (error) {
-                            $state.go('signin');
-                        });
+                        $state.go('signin');
+                    });
 
                 }
 

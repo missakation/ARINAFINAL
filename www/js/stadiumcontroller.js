@@ -245,41 +245,41 @@ angular.module('football.controllers')
         $scope.managecolors =
             {
                 indoor:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: false
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: false
+                },
                 outdoor:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: false
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: false
+                },
                 anydoor:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: true
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: true
+                },
                 grass:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: false
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: false
+                },
                 ground:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: false
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: false
+                },
                 anyground:
-                    {
-                        color: "#28b041",
-                        backcolor: "white",
-                        selected: true
-                    },
+                {
+                    color: "#28b041",
+                    backcolor: "white",
+                    selected: true
+                },
                 sortby: "-points",
                 sortbyfilter: "-points",
                 distancefrom: 0,
@@ -868,7 +868,9 @@ angular.module('football.controllers')
                                                         });
                                                     }
 
-                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), stadiums.devicetoken, undefined);
+                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), StadiumTokens, undefined).then(function (res) {
+                                                        console.log(res);
+                                                    });;
 
                                                     var userid = firebase.auth().currentUser.uid;
                                                     firebase.database().ref('/players/' + userid + "/rated/" +
@@ -1500,14 +1502,20 @@ angular.module('football.controllers')
                                                     //creating One Signal scheduled notifications
                                                     var diff = -180;	//reminder before match
                                                     var matchReminderDate = new Date($scope.search.date.getTime() + diff * 60000);
-                                                    LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, afterMatchNotificationDate);
+                                                    LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, afterMatchNotificationDate).then(function (res) {
+                                                        console.log(res);
+                                                    });;
 
-                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), StadiumTokens, undefined);
+                                                    LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), StadiumTokens, undefined).then(function (res) {
+                                                        console.log(res);
+                                                    });;
 
                                                     diff = 10; 	//delay in minutes													
                                                     var afterMatchNotificationDate = new Date($scope.search.date.getTime() + diff * 60000);
 
-                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate);
+                                                    LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate).then(function (res) {
+                                                        console.log(res);
+                                                    });;
 
 
                                                     var userid = firebase.auth().currentUser.uid;
@@ -1544,7 +1552,9 @@ angular.module('football.controllers')
                                                                         diff = 10; 	//delay in minutes													
                                                                         var afterMatchNotificationDate = new Date($scope.search.date.getTime() + diff * 60000);
 
-                                                                        LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate);
+                                                                        LoginStore.SendNotification("How Was Your Match? Rate Your Experience", Tokens, afterMatchNotificationDate).then(function (res) {
+                                                                            console.log(res);
+                                                                        });;
 
                                                                     }
                                                                     if (currentplayer.settings.reminder_3hours) {
@@ -1552,7 +1562,9 @@ angular.module('football.controllers')
                                                                         //creating One Signal scheduled notifications
                                                                         var diff = -180;	//reminder before match
                                                                         var matchReminderDate = new Date($scope.search.date.getTime() + diff * 60000);
-                                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, matchReminderDate);
+                                                                        LoginStore.SendNotification("Your Game Will Start In 3 Hours", Tokens, matchReminderDate).then(function (res) {
+                                                                            console.log(res);
+                                                                        });;
                                                                     }
                                                                 }
                                                             }
@@ -1971,7 +1983,7 @@ dateArrayThingy.push("Today");
 dateArrayThingy.push("Tomorrow");
 //alert(nesheDate.getDay());
 nesheDate.setDate(nesheDate.getDate() + 1);
-for (i = 0; i < 7; i++) {
+for (i = 0; i < 5; i++) {
     nesheDate.setDate(nesheDate.getDate() + 1);
     dateArrayThingy.push(weekdayFull[nesheDate.getDay()]);
 }

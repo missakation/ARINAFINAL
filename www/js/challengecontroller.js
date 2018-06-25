@@ -608,7 +608,9 @@ angular.module('football.controllers')
 
                                                     if (snapshot.val().devicetoken) {
                                                         if (snapshot.val().settings.notification) {
-                                                            LoginStore.SendNotification($scope.myteam.teamname + ' challenges you to play a game at ' + $state.params.date + ' vs your team ' + element.teamname, Tokens);
+                                                            LoginStore.SendNotification($scope.myteam.teamname + ' challenges you to play a game at ' + $state.params.date + ' vs your team ' + element.teamname, Tokens).then(function (res) {
+                                                                console.log(res);
+                                                            });;
                                                         }
                                                     } else {
                                                     }
