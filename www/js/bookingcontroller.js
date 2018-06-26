@@ -132,7 +132,7 @@ angular.module('football.controllers')
                                         BookingStore.DeleteBookingByID(res).then(function () {
 
 
-                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - tel:  " + playersnapshot.val().telephone, Tokens, null).then(function (res) {
+                                            LoginStore.SendNotification("Booking on " + item.date.toString() + " Has Been Canceled By " + playersnapshot.val().firstname + " - Tel:  " + playersnapshot.val().telephone, Tokens, null).then(function (res) {
                                                 console.log(res);
                                             });;
 
