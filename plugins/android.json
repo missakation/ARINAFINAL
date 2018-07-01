@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
@@ -21,44 +24,41 @@
             "APP_NAME": "FootballChallenge",
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "cordova-plugin-x-socialsharing": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
-        "phonegap-plugin-push": {
-            "SENDER_ID": "597359579523",
-            "PACKAGE_NAME": "com.ionicframework.Arina"
-        },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.Arina"
+        },
         "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.ionicframework.Arina"
         },
-        "cordova-plugin-geolocation": {
+        "phonegap-plugin-push": {
+            "SENDER_ID": "597359579523",
             "PACKAGE_NAME": "com.ionicframework.Arina"
         }
     },
