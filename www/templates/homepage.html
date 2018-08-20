@@ -148,7 +148,8 @@
 
                         <div align="center" style="border-right:1px solid #5f7485">
                             <a href="#/app/selfprofile">
-                            <img ion-img-cache  image-lazy-src="{{profile.photo}}" style="border-radius:50%;border:none ; height:60px ; width:60px" height="50" />
+							<img src="{{profile.photo}}" style="padding:0px;border-radius:50px;width:80px;height:80px;"/>
+                            <!-- <img ion-img-cache  image-lazy-src="{{profile.photo}}" style="border-radius:50%;border:none ; height:60px ; width:60px" height="50" /> -->
                         </a>
                             <h5 class="whitetext" style="font-weight:bold;text-transform:capitalize">Hello {{profile.firstname}} !</h5>
 
@@ -160,8 +161,9 @@
 
                     <div class="col" align="center" style="padding-bottom:0px">
 
-                        <img ion-img-cache image-lazy-src="img/Badges/{{teamdisplayed.picture}}.png" style="height:60px ; width:60px" height="50"
-                            ng-click="gototeam(teamdisplayed.key)">
+                        <!-- <img ion-img-cache image-lazy-src="img/Badges/{{teamdisplayed.picture}}.png" style="height:60px ; width:60px" height="50" -->
+                            <!-- ng-click="gototeam(teamdisplayed.key)"> -->
+							<img style="width:80px;height:80px" src="img/Badges/{{teamdisplayed.picture}}.png">
                         <div align="center">
                             <h5 class="whitetext" style="text-transform:capitalize">{{teamdisplayed.name}}</h5>
                             <p style="margin-top:-8px;color:darkturquoise" ng-hide="teamdisplayed.key==''">{{teamdisplayed.rank}}</p>

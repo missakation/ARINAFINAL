@@ -122,7 +122,15 @@ angular.module('football.controllers')
     })
 
     .controller('TeamAddController', function ($scope, SearchStore, $cordovaToast, $ionicHistory, $ionicPopover, ReservationFact, $state, $ionicLoading, $ionicPopup, TeamStores) {
-
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $scope.teamsizecounter = 0;
 
         $scope.validate =
@@ -171,6 +179,9 @@ angular.module('football.controllers')
                         backcolor: "white"
                     }
             }
+			
+				console.log($scope.teamsizecounter);
+            
 
         $scope.$on("$ionicView.afterEnter", function (event, data) {
             // handle event
@@ -185,6 +196,98 @@ angular.module('football.controllers')
                 myteam: adduser
             })
         }
+		
+		if (!$scope.adduser.five) 
+		{
+			$scope.managecolors.five.color = "#28b041";
+			$scope.managecolors.five.backcolor = "White";
+			$scope.adduser.five = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.five.color = "white";
+			$scope.managecolors.five.backcolor = "#28b041";
+			$scope.adduser.five = true;
+		}
+		if (!$scope.adduser.six) 
+		{
+			$scope.managecolors.six.color = "#28b041";
+			$scope.managecolors.six.backcolor = "White";
+			$scope.adduser.six = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.six.color = "white";
+			$scope.managecolors.six.backcolor = "#28b041";
+			$scope.adduser.six = true;
+		}
+		if (!$scope.adduser.seven) 
+		{
+			$scope.managecolors.seven.color = "#28b041";
+			$scope.managecolors.seven.backcolor = "White";
+			$scope.adduser.seven = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.seven.color = "white";
+			$scope.managecolors.seven.backcolor = "#28b041";
+			$scope.adduser.seven = true;
+		}
+		if (!$scope.adduser.eight) 
+		{
+			$scope.managecolors.eight.color = "#28b041";
+			$scope.managecolors.eight.backcolor = "White";
+			$scope.adduser.eight = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.eight.color = "white";
+			$scope.managecolors.eight.backcolor = "#28b041";
+			$scope.adduser.eight = true;
+		}
+		if (!$scope.adduser.nine) 
+		{
+			$scope.managecolors.nine.color = "#28b041";
+			$scope.managecolors.nine.backcolor = "White";
+			$scope.adduser.nine = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.nine.color = "white";
+			$scope.managecolors.nine.backcolor = "#28b041";
+			$scope.adduser.nine = true;
+		}
+		if (!$scope.adduser.ten) 
+		{
+			$scope.managecolors.ten.color = "#28b041";
+			$scope.managecolors.ten.backcolor = "White";
+			$scope.adduser.ten = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.ten.color = "white";
+			$scope.managecolors.ten.backcolor = "#28b041";
+			$scope.adduser.ten = true;
+		}
+		if (!$scope.adduser.eleven) 
+		{
+			$scope.managecolors.eleven.color = "#28b041";
+			$scope.managecolors.eleven.backcolor = "White";
+			$scope.adduser.eleven = false;
+		}
+		else 
+		{
+			$scope.teamsizecounter++;
+			$scope.managecolors.eleven.color = "white";
+			$scope.managecolors.eleven.backcolor = "#28b041";
+			$scope.adduser.eleven = true;
+		}
 
 
         $scope.next = function (adduser) {
@@ -248,7 +351,7 @@ angular.module('football.controllers')
                         counter = $scope.adduser.ten ? counter + 1 : counter;
                         counter = $scope.adduser.eleven ? counter + 1 : counter;
 
-                        if (counter < 2 && !$scope.validate.teamsize) {
+                        if (counter > 2 && !$scope.validate.teamsize) {
                             $scope.validate.teamsizemax = true;
                             error = true;
                         }
@@ -405,6 +508,7 @@ angular.module('football.controllers')
                         }
                         break;
                 }
+				console.log($scope.teamsizecounter);
             }
             else {
                 if ($scope.teamsizecounter == 2) {
@@ -1174,14 +1278,10 @@ angular.module('football.controllers')
 
     })
 
-    .controller('TeamHistoryController', function ($scope, $ionicHistory, $ionicLoading, $ionicPopup, $stateParams, $state) {
-
-
+    .controller('TeamHistoryController', function ($scope, $ionicHistory, $ionicLoading, $ionicPopup, $stateParams, $state) 
+	{
         $scope.teammatches = $state.params.teammatches;
         console.log($scope.teammatches);
-
-
-
     })
 
     .controller('TeamEditController', function ($scope, $ionicHistory, $ionicPopover, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores) {

@@ -267,6 +267,8 @@
                     };
 
                     var updates = {};
+					
+					
 
                     if (id !== null || id == '' || id === undefined) {
 
@@ -283,7 +285,14 @@
 
                         updates['/teamnames/' + contact.teamname] = id;
 
-
+						firebase.database().ref('/players/' + id + '/teams').once('value', function (snapshot) 
+						{
+							if (!snapshot.exists()) 
+							{
+								updates['/players/' + id +'/teamdisplayedkey/'] = newPostKey;
+								updates['/players/' + id +'/teamdisplayed/'] = newteam.teamname;
+							}
+						});
 
                     }
                     return firebase.database().ref().update(updates);
@@ -609,8 +618,10 @@
 
             DeleteTeamByKey: function (team) {
 
+			
                 try {
-
+					var user = firebase.auth().currentUser;
+                    var id = user.uid;
                     var members = team.players;
 
 
@@ -625,12 +636,52 @@
                     }
                     updates['/teamnames/' + team.teamname] = null;
 
-
+					
 
                     // updates['/players/' + id + '/teams/' + newPostKey] = contact;
                     // updates['/teampoints/' + newPostKey] = teamstats;
 
-                    return firebase.database().ref().update(updates);
+									
+					
+					//set the teamdisplayed after changes
+					var deletedTeamDisplayed = false;
+					
+					
+					firebase.database().ref('/players/' + id + '/teamdisplayedkey').on('value', function(snapshot)
+						{
+							if(snapshot.exists() && snapshot.val() == team.key)
+								deletedTeamDisplayed = true;
+						}
+					);
+					
+					console.log("DeletedDisplayedTeam: " + deletedTeamDisplayed);
+					if(deletedTeamDisplayed)
+					{
+						
+						firebase.database().ref('/players/' + id + '/teams').on('value', function (snapshot) 
+						{
+							if (!snapshot.exists()) 
+							{
+								
+								updates['/players/' + id +'/teamdisplayedkey/'] = null;
+								updates['/players/' + id +'/teamdisplayed/'] = null;
+							}
+							else
+							{
+								snapshot.forEach(function (childSnapshot) {
+									if(childSnapshot.child("teamname").val() != team.teamname)
+									{
+										updates['/players/' + id +'/teamdisplayedkey/'] = childSnapshot.child("key").val();
+										updates['/players/' + id +'/teamdisplayed/'] = childSnapshot.child("teamname").val();
+									}
+								});
+								
+							}
+						});
+					}
+					
+					
+                    return firebase.database().ref().update(updates);;
                 }
                 catch (error) {
                     alert(error.message);

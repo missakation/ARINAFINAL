@@ -37,7 +37,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                     //window.plugins.OneSignal.setSubscription(true);
 
                     window.plugins.OneSignal.getIds(function (ids) {
-                        //alert(ids.userId);
+                        alert(ids.userId);
                     });
 
                     // window.plugins.OneSignal.setLogLevel(4, 4);
@@ -183,7 +183,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                     }
                 }
             })
-            /*.state('app.homepage', {
+            .state('app.homepage', {
                 url: '/homepage',
                 views: {
                     'menuContent': {
@@ -191,17 +191,17 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                         controller: 'HomeController'
                     }
                 }
-            })*/
-
-            .state('app.homepage', {
-                url: '/homepage',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/reservestadium.html',
-                        controller: 'stadiumcontroller'
-                    }
-                }
             })
+
+            // .state('app.homepage', {
+                // url: '/homepage',
+                // views: {
+                    // 'menuContent': {
+                        // templateUrl: 'templates/reservestadium.html',
+                        // controller: 'stadiumcontroller'
+                    // }
+                // }
+            // })
 
 
 

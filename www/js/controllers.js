@@ -2001,7 +2001,7 @@ angular.module('football.controllers', [])
                                                 });
 
                                                 alertPopup.then(function () {
-                                                    $state.go('app.homepage');
+                                                    $state.go('app.firsttimelogin');
                                                 });
                                             }, function (error) {
                                                 $scope.Loading = false;

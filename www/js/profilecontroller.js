@@ -52,7 +52,8 @@ angular.module('football.controllers')
                             $scope.currentprofile.teamdisplayed = favteam.teamname;
 
                         }
-                        else {
+                        else 
+						{
                             $scope.teamdisplayed.name = "";
                             $scope.teamdisplayed.picture = "defaultteam";
                             $scope.teamdisplayed.rank = "";
@@ -508,7 +509,14 @@ angular.module('football.controllers')
                 }
             }
 
-            if ($scope.currentprofile.favstadium != undefined && $scope.currentprofile.favstadium != null && $scope.currentprofile.hasOwnProperty("favstadium")) {
+			if (!$scope.currentprofile.available)
+			{
+				$scope.currentprofile.favstadium = "";
+				$scope.currentprofile.favstadiumname = "";
+				
+			}
+			
+            if (!$scope.currentprofile.available || ($scope.currentprofile.available && $scope.currentprofile.favstadium != undefined && $scope.currentprofile.favstadium != null && $scope.currentprofile.hasOwnProperty("favstadium"))) {
                 ProfileStore1.UpdateProfile($scope.currentprofile, true).then(function (result) {
 
                     $ionicHistory.goBack();

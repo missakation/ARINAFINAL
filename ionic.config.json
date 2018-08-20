@@ -1,4 +1,14 @@
 {
   "name": "ARINA",
-  "app_id": "de07ef7c"
+  "app_id": "de07ef7c",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }

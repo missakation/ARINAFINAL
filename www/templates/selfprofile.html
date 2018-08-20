@@ -59,8 +59,8 @@
 			<!--  <a class="item item-thumbnail-left" ng-href="#/app/reservestadiumdetails/{{stadiums.stadiumkey}}"> -->
 
 			<div class="row" style="margin-top:5px;padding:6px 0 0 0">
-				<div class="col col-50" style="border-right:1px solid #5f7485;	padding:0px" align="center">
-					<img src="{{currentprofile.photo}}" ng-click="goupdate(currentprofile)" style="padding:0px;border-radius:50px;width:80px;height:80px;">
+				<div class="col col-50" style="border-right:1px solid #5f7485;	padding:0px" align="center"/>
+					<img src="{{currentprofile.photo}}" ng-click="goupdate(currentprofile)" style="padding:0px;border-radius:50px;width:80px;height:80px;"/>
 					<div class="row" style="padding:0px">
 
 						<div class="col" style="padding:0px" align="center">
@@ -140,7 +140,7 @@
 
 				</div>
 
-				<div align="center" style="width:37%;padding:0px;color:white"> {{currentprofile.favstadiumname}}
+				<div align="center" style="width:37%;padding:0px;color:white"> {{(currentprofile.favstadiumname != "" && currentprofile.favstadiumname != undefined && currentprofile.favstadiumname != null) ? currentprofile.favstadiumname : "None" }}
 				</div>
 			</div>
 

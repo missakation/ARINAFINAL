@@ -307,36 +307,36 @@ angular.module('football.controllers')
         }
 */
         var updates = {};
-        var data = {
-            ClosingTime: "23:00",
-            OpeningTime: "8:00",
-            RestrictedTime1: "20:00",
-            RestrictedTime2: "21:30",
-            admin: "ZhMK4rUZSeXktZrnrA9ISOGKUxA3",
-            cancelationpolicy: "sometext",
-            cordovaaccuracy: 0,
-            cordovaaltitude: 0,
-            cordovaaltitudeAccuracy: 0,
-            cordovalatitude: 33.910675,
-            cordovalongitude: 35.584254,
-            description: "long description",
-            email: "test@arina.com",
-            indoor: 1,
-            locationarea: "beirut",
-            locationcity: "beirut",
-            locationtelephone: "01555666",
-            name: "FOOTERS",
-            numberofstadium: 4,
-            outdoor: 1,
-            photo: "",
-            rating: 8,
-            telephone: "03333333"
-        }
+        // var data = {
+            // ClosingTime: "23:00",
+            // OpeningTime: "8:00",
+            // RestrictedTime1: "20:00",
+            // RestrictedTime2: "21:30",
+            // admin: "ZhMK4rUZSeXktZrnrA9ISOGKUxA3",
+            // cancelationpolicy: "sometext",
+            // cordovaaccuracy: 0,
+            // cordovaaltitude: 0,
+            // cordovaaltitudeAccuracy: 0,
+            // cordovalatitude: 33.910675,
+            // cordovalongitude: 35.584254,
+            // description: "long description",
+            // email: "test@arina.com",
+            // indoor: 1,
+            // locationarea: "beirut",
+            // locationcity: "beirut",
+            // locationtelephone: "01555666",
+            // name: "FOOTERS",
+            // numberofstadium: 4,
+            // outdoor: 1,
+            // photo: "",
+            // rating: 8,
+            // telephone: "03333333"
+        // }
 
-        updates['/stadiums/FOOTERS'] = data;
-        updates['/stadiumsinfo/FOOTERS'] = data;
+        // updates['/stadiums/FOOTERS'] = data;
+        // updates['/stadiumsinfo/FOOTERS'] = data;
 
-        firebase.database().ref().update(updates);
+        //firebase.database().ref().update(updates);
 
 
         $scope.nointernet = false;
@@ -350,24 +350,29 @@ angular.module('football.controllers')
 
                     var user = firebase.auth().currentUser;
 
-                    if (!(user === null || user == '' || user === undefined)) {
+                    if (!(user === null || user == '' || user === undefined)) 
+					{
 
                         LoginStore.UpdateLastSeen();
-
-                        window.plugins.OneSignal.getIds(function (ids) {
-                            var updates = {};
-                            updates['/players/' + user.uid + '/devicetoken'] = ids.userId;
-                            updates['/playersinfo/' + user.uid + '/devicetoken'] = ids.userId;
-                            firebase.database().ref().update(updates).then(function () {
-                            });
-                        });
+						
+						if('cordova' in window)
+						{
+							window.plugins.OneSignal.getIds(function (ids) {
+								var updates = {};
+								updates['/players/' + user.uid + '/devicetoken'] = ids.userId;
+								updates['/playersinfo/' + user.uid + '/devicetoken'] = ids.userId;
+								firebase.database().ref().update(updates).then(function () {
+								});
+						});}
 
 
                         var id = user.uid;
 
-                        if (!(id === null || id == '' || id === undefined)) {
+                        if (!(id === null || id == '' || id === undefined)) 
+						{
 
-                            if (!($scope.profile === null || $scope.profile == '' || $scope.profile === undefined)) {
+                            if (!($scope.profile === null || $scope.profile == '' || $scope.profile === undefined)) 
+							{
 
                                 if ($scope.profile.id !== id) {
                                     $scope.profile = [];
@@ -910,7 +915,7 @@ angular.module('football.controllers')
                     }, this);
 
 
-                    console.log($scope.profile);
+                    console.log("Profile: " + $scope.profile);
 
                     if ($scope.profile.photo.trim() == "") {
                         $scope.profile.photo = "img/PlayerProfile.png"

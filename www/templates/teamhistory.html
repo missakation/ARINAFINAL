@@ -16,6 +16,12 @@
 		border-bottom: 2px solid rgb(62, 83, 100);
 		border-top: 1px;
 	}
+	h5.loading-center {
+        color: #9ba2a8;
+        top: 15%;
+        position: absolute;
+        left: 28%;
+    }
 </style>
 <ion-view view-title="Match History">
 
@@ -36,7 +42,12 @@
 
 
 	<ion-content style="background-color:rgb(46,62,75)">
-
+		<div align="center">
+            <ion-spinner ng-show="notloaded" icon="lines"></ion-spinner>
+        </div>
+		<h5 align="center" class="loading-center" ng-show="!notloaded && teammatches.length == 0 && !nointernet">
+            You have No matches Yet :(
+        </h5>
 		<div class="card" ng-repeat="item in teammatches | orderBy :'-date'" style="background-color:rgb(62, 83, 100);margin:2px 5px 10px;border-radius:5px"
 		 ng-show="item.status!=0">
 
