@@ -671,7 +671,7 @@
 								snapshot.forEach(function (childSnapshot) {
 									if(childSnapshot.child("teamname").val() != team.teamname)
 									{
-										updates['/players/' + id +'/teamdisplayedkey/'] = childSnapshot.child("key").val();
+										updates['/players/' + id +'/teamdisplayedkey/'] = childSnapshot.key;
 										updates['/players/' + id +'/teamdisplayed/'] = childSnapshot.child("teamname").val();
 									}
 								});
