@@ -1,6 +1,5 @@
 {
   "name": "ARINA",
-  "app_id": "de07ef7c",
   "integrations": {
     "cordova": {}
   },
@@ -10,5 +9,6 @@
     "www/**/*",
     "!www/lib/**/*",
     "!www/**/*.map"
-  ]
+  ],
+  "pro_id": "de07ef7c"
 }

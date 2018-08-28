@@ -1583,7 +1583,7 @@ angular.module('football.controllers')
             $scope.allplayers = leagues;
 
 
-            $scope.filteredPlayers = $scope.allplayers;
+            $scope.filteredPlayers = $scope.allplayers.filter(p=>p.key.charAt(0)!='-');
 
 
             var date = new Date();

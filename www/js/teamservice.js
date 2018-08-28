@@ -470,8 +470,8 @@
 
                                 //STATS
                                 "numberofmatches": numberofmatches,
-                                "wins": 1,
-                                "winstreak": 1,
+                                "wins": snapshot.child("wins").val(),
+                                "winstreak": snapshot.child("winstreak").val(),
 
 
                                 "teamoffive": snapshot.child("teamoffive").val(),
