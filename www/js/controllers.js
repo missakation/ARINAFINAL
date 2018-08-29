@@ -1308,6 +1308,11 @@ angular.module('football.controllers', [])
                                 datehour: invitation.hour,
                                 dateminute: invitation.minute
                             };
+						if(myprofile.teamdisplayedkey == null || myprofile.teamdisplayed == null || myprofile.teamdisplayedkey === undefined || myprofile.teamdisplayed === undefined || myprofile.teamdisplayedkey == '' || myprofile.teamdisplayed == '')
+						{
+							updates['/players/' + id +'/teamdisplayedkey/'] = invitation.key;
+							updates['/players/' + id +'/teamdisplayed/'] = invitation.teamname;
+						}
                     }
                     return firebase.database().ref().update(updates);
                 }

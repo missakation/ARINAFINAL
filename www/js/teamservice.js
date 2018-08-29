@@ -270,7 +270,7 @@
 					
 					
 
-                    if (id !== null || id == '' || id === undefined) {
+                    if (id !== null && id !== '' && id !== undefined) {
 
 
                         updates['/teams/' + newPostKey] = contact;

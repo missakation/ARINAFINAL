@@ -621,6 +621,7 @@ angular.module('football.controllers')
                                                         }
                                                     }
                                                 }
+												
                                                 LoginStore.SendNotification(shot.val().firstname + " " + shot.val().lastname + " has accepted to join " + snapshot.val().teamname, Tokens);
                                             }
                                         }
@@ -957,10 +958,7 @@ angular.module('football.controllers')
                             }
 
 
-                            //Get the first 4 ranked teams
-                            HomeStore.GetFirstFour(function (leagues) {
-                                $scope.rankedteams = leagues;
-                            })
+                            
 
                         })
                     }
@@ -971,7 +969,14 @@ angular.module('football.controllers')
                         $scope.teamdisplayed.key = "";
                     }
                     //$scope.profile.upcominteamgmatches.push($scope.profile.upcomingmatches);
+					
 
+					//Get the first 4 ranked teams
+					HomeStore.GetFirstFour(function (leagues) {
+						$scope.rankedteams = leagues;
+					})
+					
+					
                     if ($scope.profile.challenges.length > 0) {
                         for (var i = 0; i < $scope.profile.challenges.length; i++) {
                             if (($scope.profile.challenges[i].date - todaydate) / 36e5 < 12 || ($scope.profile.challenges[i].date > todaydate)) {
