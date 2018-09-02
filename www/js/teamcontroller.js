@@ -1289,6 +1289,7 @@ angular.module('football.controllers')
 
 
         $scope.currentprofile = $state.params.myteam;
+		$scope.currentprofile = $stateParams.myteam;
 
         // .fromTemplate() method
         var template = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
@@ -1699,6 +1700,14 @@ angular.module('football.controllers')
 
         $scope.goback = function (stadium) {
 
+			console.log($stateParams);
+			$stateParams.myteam.favstadium = stadium.key;
+            $stateParams.myteam.favstadiumphoto = stadium.photo;
+            $stateParams.myteam.favstadiumname = stadium.name;
+                  
+            $stateParams.myteam.favlatitude = stadium.latitude;
+            $stateParams.myteam.favlongitude = stadium.longitude;
+			
             $state.params.myteam.favstadium = stadium.key;
             $state.params.myteam.favstadiumphoto = stadium.photo;
             $state.params.myteam.favstadiumname = stadium.name;

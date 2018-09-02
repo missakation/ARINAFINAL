@@ -281,6 +281,7 @@ angular.module('football.controllers')
                     }
                 });
             }
+			$scope.$apply();
         };
 
 

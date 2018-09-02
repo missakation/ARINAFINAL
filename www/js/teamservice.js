@@ -425,6 +425,8 @@
                                         
 
                                     }
+									if(matchdata.status==0)
+										numberofmatches--;
                                     upcomingmatches.push(matchdata);
 
                                 })
@@ -469,7 +471,8 @@
                                 "favstadiumname": "",
 
                                 //STATS
-                                "numberofmatches": numberofmatches,
+                                //"numberofmatches": numberofmatches,
+								"numberofmatches": snapshot.child("numberofgames").val(),
                                 "wins": snapshot.child("wins").val(),
                                 "winstreak": snapshot.child("winstreak").val(),
 
