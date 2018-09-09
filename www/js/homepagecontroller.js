@@ -505,6 +505,8 @@ angular.module('football.controllers')
                         teamid: id
                     })
             }
+			else
+				$state.go("app.teammanagement");
         }
 
         $scope.declineinvitation = function (challenge) {
@@ -951,9 +953,9 @@ angular.module('football.controllers')
 
                             }
                             else {
-                                $scope.teamdisplayed.name = "";
+                                $scope.teamdisplayed.name = "No Team";
                                 $scope.teamdisplayed.picture = "defaultteam";
-                                $scope.teamdisplayed.rank = "";
+                                $scope.teamdisplayed.rank = "No team rank";
                                 $scope.teamdisplayed.key = "";
                             }
 

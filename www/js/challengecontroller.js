@@ -50,7 +50,7 @@ angular.module('football.controllers')
 
         $scope.search = {
             date: tomorrow,
-            text: "Tomorrow, 9:00PM - 5 Vs 5",
+            text: "Tomorrow, 9:00PM - 5 VS 5 " ,
             players: 5
         };
 
@@ -100,6 +100,10 @@ angular.module('football.controllers')
             }
         });
 
+		$scope.search.text = "Tomorrow, 9:00PM - " + numofplayersArr[0];
+		
+		
+		
         $scope.openPickerView = function openPickerView() {
 
             var picker = pickerView.show({
@@ -110,7 +114,7 @@ angular.module('football.controllers')
                     values: dateArrayThingy,
                     defaultIndex: 0
                 }, {
-                    values: [' 7:00 AM ', ' 7:30 AM ', ' 8:00 AM ', ' 8:30 AM ', ' 9:00 AM ', '9:30 AM ', ' 10:00 AM ', ' 10:30 AM', ' 11:00 AM ', ' 11:30 AM ', ' Noon ', ' 1:00 PM ', ' 1:30 PM ', ' 2:00 PM ', ' 2:30 PM ', ' 3:00 PM ', ' 3:30 PM ', ' 4:00 PM ', ' 4:30 PM ', ' 5:00 PM ', ' 5:30 PM ', ' 6:00 PM ', ' 6:30 PM ', ' 7:00 PM ', ' 7:30 PM ', ' 8:00 PM', ' 8:30 PM ', ' 9:00 PM ', ' 9:30 PM ', ' 10:00 PM ', ' 10:30 PM ', ' 11:00 PM', '11:30 PM ', ' Midnight ',],
+                    values: [' 7:00 AM ', ' 7:30 AM ', ' 8:00 AM ', ' 8:30 AM ', ' 9:00 AM ', '9:30 AM ', ' 10:00 AM ', ' 10:30 AM', ' 11:00 AM ', ' 11:30 AM ', ' 12:00 PM ', ' 1:00 PM ', ' 1:30 PM ', ' 2:00 PM ', ' 2:30 PM ', ' 3:00 PM ', ' 3:30 PM ', ' 4:00 PM ', ' 4:30 PM ', ' 5:00 PM ', ' 5:30 PM ', ' 6:00 PM ', ' 6:30 PM ', ' 7:00 PM ', ' 7:30 PM ', ' 8:00 PM', ' 8:30 PM ', ' 9:00 PM ', ' 9:30 PM ', ' 10:00 PM ', ' 10:30 PM ', ' 11:00 PM', '11:30 PM ', ' 12:00 AM ',],
                     defaultIndex: 27
                 }, {
                     //values: [" 5 Vs 5", " 6 Vs 6", " 7 Vs 7", " 8 Vs 8", " 9 Vs 9", " 10 Vs 10", " 11 Vs 11"],
@@ -361,8 +365,9 @@ angular.module('football.controllers')
 
                         {
                             date: $scope.search.date,
-                            numplayers: $scope.search.players,
+                            players: $scope.search.players,
                             visualText: $scope.search.text,
+							gabig: "vardig",
                             teams: $scope.selectedteams,
                             myteam: $scope.myteam
                         });
@@ -434,7 +439,6 @@ angular.module('football.controllers')
 
 
     .controller('challengestadiumcontroller', function ($http, $scope, $ionicHistory, LoginStore, ChallengeStore, HomeStore, ReservationFact, $state, $stateParams, $ionicPopup, $ionicLoading, $ionicPopover, $ionicFilterBar) {
-
         $scope.selectedstadiums = [];
         $scope.challengestatus = false;
         $scope.selecteddate =

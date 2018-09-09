@@ -751,7 +751,7 @@ angular.module('football.controllers')
 
     })
 
-    .controller('TeamProfileController', function ($scope, ReservationFact, $ionicHistory, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores) {
+    .controller('TeamProfileController', function ($scope, ReservationFact, LoginStore , $ionicHistory, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores) {
 
         $scope.doibelong = false;
 
@@ -1089,13 +1089,32 @@ angular.module('football.controllers')
 
 
             try {
-                if ($scope.currentprofile.players.length < 14) {
+                if ($scope.currentprofile.players.length < 14) 
+				{
+					var Tokens = [];
 
+                    /// PLAYERs TOKENS
+					
+					for(p in $scope.currentprofile.players)
+					{
+						if (p.hasOwnProperty("devicetoken")) 
+						{
+							for (var k in p.devicetoken) {
+								if (p.hasOwnProperty(k)) 
+								{
+									Tokens.push(k);
+								}
+							}
+						}
+					}
+					
                     $state.go('app.inviteteamplayers',
-
                         {
                             myteam: $scope.currentprofile
-                        });
+                        }).then(function()
+						{
+							LoginStore.SendNotification("You have been invited to a team ", Tokens, undefined);
+						});
                 }
                 else {
                     var alertPopup = $ionicPopup.alert({

@@ -360,8 +360,7 @@ angular.module('football.controllers')
                                 }
 
                                 if ((available1 || available2 || available3) && (players == search.players || players1 == search.players)) {
-
-                                    var rating = 0;
+								    var rating = 0;
                                     var NumberOfChildren = 0;
 
                                     if (stadiumsnapshot.child("rated").exists()) {
