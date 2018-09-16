@@ -761,8 +761,52 @@
 
 
                 try {
+					
                     var updates = {};
-
+					
+					//set the teamdisplayed after changes
+					var removedFromTeamDisplayed = false;
+					var removedFromOnlyTeam = false;
+					var fallbackTeam = "";
+					var fallbackTeamKey = "";
+					
+					firebase.database().ref('/players/' + player.key + '/teamdisplayedkey').on('value', function(snapshot)
+						{
+							if(snapshot.exists() && snapshot.val() == team.key)
+								removedFromTeamDisplayed = true;
+						}
+					);
+					
+					console.log("DeletedDisplayedTeam: " + removedFromTeamDisplayed);
+					if(removedFromTeamDisplayed)
+					{
+						firebase.database().ref('/players/' + player.key + '/teams').on('value', function (snapshotTeams) 
+						{
+							var teams = [];
+							
+							snapshotTeams.forEach(function(childSnapshot){
+								alert("sikish ere esem");
+								teams.push(childSnapshot.child("teamname").val());
+							});
+							
+							if (teams.length == 1) 
+							{					
+								removedFromOnlyTeam = true;								
+							}
+							else
+							{
+								snapshotTeams.forEach(function (childSnapshot) {
+									if(childSnapshot.child("teamname").val() != team.teamname)
+									{
+										fallbackTeam = childSnapshot.child("teamname").val();
+										fallbackTeamKey = childSnapshot.key;										
+									}
+								});										
+							}
+						});
+					}
+							
+							
                     switch (operation) {
                         case 1: //promote
                             updates['/teams/' + team.key + '/players/' + player.key + '/isadmin'] = true;
@@ -774,6 +818,19 @@
                             updates['/teams/' + team.key + '/players/' + player.key] = null;
                             updates['/teams/' + team.key + '/admins/' + player.key] = null;
                             updates['/players/' + player.key + '/teams/' + team.key] = null;
+							if(removedFromTeamDisplayed)
+							{
+								if(removedFromOnlyTeam)
+								{
+									updates['/players/' + player.key +'/teamdisplayedkey/'] = null;
+									updates['/players/' + player.key +'/teamdisplayed/'] = null;
+								}
+								else
+								{
+									updates['/players/' + player.key +'/teamdisplayedkey/'] = fallbackTeamKey;
+									updates['/players/' + player.key +'/teamdisplayed/'] = fallbackTeam;
+								}
+							}
                             break;
                         case 4: //add
                             updates['/teams/' + team.key + '/players/' + player.key] = player;

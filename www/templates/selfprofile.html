@@ -49,7 +49,7 @@
 	<ion-content style="background-color:rgb(46,62,75)">
 
 		<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
-		</ion-refresher>
+        </ion-refresher>
 
 
 
@@ -98,7 +98,7 @@
 
 				<div ng-hide="currentprofile.teamdisplayedkey=='none' || !notloaded " class="col col-50" style="margin-top:5px;padding:0px;color:darkturquoise"
 				 align="center">
-					Rank {{teamdisplayed.rank}}th
+					{{teamdisplayed.rank}}
 				</div>
 			</div>
 

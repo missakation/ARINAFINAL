@@ -40,13 +40,30 @@ angular.module('football.controllers')
                     $scope.currentprofile.photo = "img/PlayerProfile.png"
                 }
 
-                if (myprofile.teamdisplayedkey !== "none") {
+                if (myprofile.teamdisplayedkey !== "none" && myprofile.teamdisplayedkey != "") {
                     TeamStores.GetTeamInfoByKey(myprofile.teamdisplayedkey, function (favteam) {
                         if (favteam !== null || favteam !== undefined) {
 
                             $scope.teamdisplayed.name = favteam.teamname;
                             $scope.teamdisplayed.picture = favteam.badge;
                             $scope.teamdisplayed.rank = favteam.rank;
+							
+							switch ($scope.teamdisplayed.rank) {
+                                    case 1:
+                                        $scope.teamdisplayed.rank = $scope.teamdisplayed.rank + 'st';
+                                        break;
+                                    case 2:
+                                        $scope.teamdisplayed.rank = $scope.teamdisplayed.rank + 'nd';
+                                        break;
+                                    case 3:
+                                        $scope.teamdisplayed.rank = $scope.teamdisplayed.rank + 'rd';
+                                        break;
+
+                                    default:
+                                        $scope.teamdisplayed.rank = $scope.teamdisplayed.rank + 'th';
+                                        break;
+                                }
+								
                             $scope.teamdisplayed.key = favteam.key;
 
                             $scope.currentprofile.teamdisplayed = favteam.teamname;
@@ -104,6 +121,8 @@ angular.module('football.controllers')
                         teamid: key
                     })
             }
+			else
+				$state.go("app.teammanagement");
         }
 
 
