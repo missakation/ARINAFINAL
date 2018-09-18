@@ -748,8 +748,8 @@
                     updates['teaminfo/' + id + '/favlatitude'] = profile.favlatitude;
                     updates['teaminfo/' + id + '/favlongitude'] = profile.favlongitude;
 
-
-                    return firebase.database().ref().update(updates);
+					
+					return firebase.database().ref().update(updates);
                 }
                 catch (error) {
                     alert(error.message)

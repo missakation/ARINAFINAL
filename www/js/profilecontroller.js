@@ -210,10 +210,24 @@ angular.module('football.controllers')
 
 
     })
-    .controller('ProfileEditController', function ($cordovaImagePicker, $scope, SMSService, $ionicHistory, ProfileStore1, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores, FirebaseStorageService) {
+    .controller('ProfileEditController', function ($cordovaImagePicker,$rootScope, $scope, SMSService, $ionicHistory, ProfileStore1, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores, FirebaseStorageService) {
 
         $scope.currentprofile = $state.params.myprofile;
 
+		if($rootScope.newstadium !== undefined && $rootScope.newstadium != null)
+		{
+			console.log("new stadium selected:");
+			console.log($state.params.newstadium);
+			
+			$scope.currentprofile.favstadium 		= $rootScope.newstadium.favstadium;
+            $scope.currentprofile.favstadiumphoto 	= $rootScope.newstadium.favstadiumphoto;
+            $scope.currentprofile.favstadiumname  	= $rootScope.newstadium.favstadiumname;
+                                                                
+            $scope.currentprofile.favlatitude  		= $rootScope.newstadium.favlatitude;
+            $scope.currentprofile.favlongitude  	= $rootScope.newstadium.favlongitude;
+		}
+		else
+			console.log("no new stadium selected");
 
         $scope.isplayercolors = {
             player:

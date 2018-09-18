@@ -558,7 +558,8 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
             .state('app.teamprofileedit', {
                 url: '/teamprofileedit',
                 params: {
-                    myteam: null
+                    myteam: null,
+					newstadium:null
                 },
                 views: {
                     'menuContent': {

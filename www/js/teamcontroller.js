@@ -922,14 +922,17 @@ angular.module('football.controllers')
                     if (myprofile.favstadium !== "") {
                         ReservationFact.GetStadiumsByID(myprofile.favstadium, function (favstadium) {
                             console.log(favstadium);
+							
                             if (favstadium !== null || favstadium !== undefined) {
 
-
+								$scope.favstadium = favstadium;
                                 $scope.stadiumdisplayed.name = favstadium.stadiumname;
                                 $scope.stadiumdisplayed.picture = favstadium.photo;
                                 $scope.stadiumdisplayed.key = favstadium.key;
 
                                 $scope.currentprofile.favstadiumname = favstadium.stadiumname;
+								$scope.currentprofile.favlatitude = favstadium.cordovalatitude;
+								$scope.currentprofile.favlongitude = favstadium.cordovalongitude;
 
                             }
                             else {
@@ -1303,13 +1306,28 @@ angular.module('football.controllers')
         console.log($scope.teammatches);
     })
 
-    .controller('TeamEditController', function ($scope, $ionicHistory, $ionicPopover, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores) {
+    .controller('TeamEditController', function ($rootScope,$scope, $ionicHistory, $ionicPopover, $ionicLoading, $timeout, $ionicPopup, $stateParams, $state, TeamStores) {
 
 
-
+		
         $scope.currentprofile = $state.params.myteam;
 		$scope.currentprofile = $stateParams.myteam;
-
+		
+		if($rootScope.newstadium !== undefined && $rootScope.newstadium != null)
+		{
+			console.log("new stadium selected:");
+			console.log($state.params.newstadium);
+			
+			$scope.currentprofile.favstadium 		= $rootScope.newstadium.favstadium;
+            $scope.currentprofile.favstadiumphoto 	= $rootScope.newstadium.favstadiumphoto;
+            $scope.currentprofile.favstadiumname  	= $rootScope.newstadium.favstadiumname;
+                                                                
+            $scope.currentprofile.favlatitude  		= $rootScope.newstadium.favlatitude;
+            $scope.currentprofile.favlongitude  	= $rootScope.newstadium.favlongitude;
+		}
+		else
+			console.log("no new stadium selected");
+		
         // .fromTemplate() method
         var template = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
 
@@ -1531,6 +1549,7 @@ angular.module('football.controllers')
 
             }, function (error) {
                 alert(error.message);
+				$ionicHistory.goBack();
             });
 
         }
@@ -1600,10 +1619,10 @@ angular.module('football.controllers')
 
         ProfileStore1.SearchPlayers($scope.myteam, function (leagues) {
 
-            $scope.allplayers = leagues;
+            $scope.allplayers = leagues.filter(p=>p.key.charAt(0)!='-');
 
 
-            $scope.filteredPlayers = $scope.allplayers.filter(p=>p.key.charAt(0)!='-');
+            $scope.filteredPlayers = $scope.allplayers;
 
 
             var date = new Date();
@@ -1669,6 +1688,7 @@ angular.module('football.controllers')
 
 
         $scope.filteredPlayers = $scope.allplayers;
+		
         //$scope.$digest();
         $scope.showFilterBar = function () {
             filterBarInstance = $ionicFilterBar.show({
@@ -1705,7 +1725,7 @@ angular.module('football.controllers')
         //------------filter bar stuff ----/
     })
 
-    .controller('ChooseStadiumController', function ($scope, $ionicHistory, $ionicPopover, $ionicLoading, $timeout, $stateParams, $state, TeamStores, ReservationFact, $ionicFilterBar) {
+    .controller('ChooseStadiumController', function ($rootScope,$scope, $ionicHistory, $ionicPopover, $ionicLoading, $timeout, $stateParams, $state, TeamStores, ReservationFact, $ionicFilterBar) {
 
         $scope.notloaded = true;
         ReservationFact.GetAllStadiums(function (result) {
@@ -1719,7 +1739,10 @@ angular.module('football.controllers')
 
         $scope.goback = function (stadium) {
 
+			console.log("Going back: ");
 			console.log($stateParams);
+			
+			
 			$stateParams.myteam.favstadium = stadium.key;
             $stateParams.myteam.favstadiumphoto = stadium.photo;
             $stateParams.myteam.favstadiumname = stadium.name;
@@ -1733,6 +1756,15 @@ angular.module('football.controllers')
 
             $state.params.myteam.favlatitude = stadium.latitude;
             $state.params.myteam.favlongitude = stadium.longitude;
+			
+			//creating new team property in rootscope, coz state params ddnt work 
+			$rootScope.newstadium = {};
+			$rootScope.newstadium.favstadium = stadium.key;
+            $rootScope.newstadium.favstadiumphoto = stadium.photo;
+            $rootScope.newstadium.favstadiumname = stadium.name;
+            
+            $rootScope.newstadium.favlatitude = stadium.latitude;
+            $rootScope.newstadium.favlongitude = stadium.longitude;
 
             $ionicHistory.goBack();
         }

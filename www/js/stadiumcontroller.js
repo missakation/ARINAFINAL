@@ -1110,6 +1110,22 @@ angular.module('football.controllers')
 
         $scope.CurrentStadium = $stateParams.stadiumid;
         $scope.search = $stateParams.search;
+		
+		if($scope.search == null || $scope.search === undefined)
+		{
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			tomorrow.setHours(21);
+			tomorrow.setMinutes(0);
+			tomorrow.setMilliseconds(0);
+			tomorrow.setSeconds(0);
+
+			$scope.search = {
+				date: tomorrow,
+				text: "Tomorrow, 9:00PM - 5 Vs 5 ",
+				players: 5
+			};
+		}
 
         $scope.Photos = [];
 
