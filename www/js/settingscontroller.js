@@ -50,7 +50,7 @@ angular.module('football.controllers')
 
     }
 
-    setTimeout(() => {
+    setTimeout(function() {
       var connectedRef = firebase.database().ref(".info/connected");
       connectedRef.on("value", function (snap) {
         if (snap.val() === true) {

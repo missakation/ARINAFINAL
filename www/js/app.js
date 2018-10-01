@@ -7,6 +7,7 @@
 angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers', 'jett.ionic.filter.bar', "ion-floating-menu", 'ngCordova', 'ionic.rating', 'rzModule'])
 
     .run(function ($ionicPlatform, $cordovaSplashscreen) {
+
         $ionicPlatform.ready(function () {
 
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -37,14 +38,14 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                     //window.plugins.OneSignal.setSubscription(true);
 
                     window.plugins.OneSignal.getIds(function (ids) {
-                        alert(ids.userId);
+                        //alert(ids.userId);
                     });
 
                     // window.plugins.OneSignal.setLogLevel(4, 4);
 
                 }
 
-                $cordovaSplashscreen.hide();
+                // $cordovaSplashscreen.hide();
             } catch (error) {
                 alert((error));
             }
@@ -183,6 +184,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                     }
                 }
             })
+
             .state('app.homepage', {
                 url: '/homepage',
                 views: {
@@ -194,16 +196,14 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
             })
 
             // .state('app.homepage', {
-                // url: '/homepage',
-                // views: {
-                    // 'menuContent': {
-                        // templateUrl: 'templates/reservestadium.html',
-                        // controller: 'stadiumcontroller'
-                    // }
-                // }
+            // url: '/homepage',
+            // views: {
+            // 'menuContent': {
+            // templateUrl: 'templates/reservestadium.html',
+            // controller: 'stadiumcontroller'
+            // }
+            // }
             // })
-
-
 
 
             .state('app.feedbacks', {
@@ -527,7 +527,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
                 params: {
                     date: null,
                     players: null,
-					numplayers: null,
+                    numplayers: null,
                     visualText: null,
                     teams: null,
                     myteam: null
@@ -558,8 +558,7 @@ angular.module('football', ['ionic', /*'ionicImgCache'*/ 'football.controllers',
             .state('app.teamprofileedit', {
                 url: '/teamprofileedit',
                 params: {
-                    myteam: null,
-					newstadium:null
+                    myteam: null
                 },
                 views: {
                     'menuContent': {

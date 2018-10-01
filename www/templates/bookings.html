@@ -55,10 +55,10 @@
         <h5 align="center" class="loading-center" ng-show="!notloaded && selectedbookings.length == 0 && !nointernet">
             You have No Bookings Yet !
         </h5>
-        <div class="card" ng-repeat="item in selectedbookings | orderBy: 'date':true" style="margin:10px 5px 10px 5px;background-color:rgb(46,62,75)">
+        <div class="card" ng-repeat="item in selectedbookings | orderBy: 'date':tabs.Previous" style="margin:10px 5px 10px 5px;background-color:rgb(46,62,75)">
 
             <div align="center">
-                <img src="{{item.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: stadiums.stadiumkey})">
+                <img src="{{item.photo}}" style="width:100%;height:140px;" ui-sref="app.reservestadiumdetails({stadiumid: item})">
             </div>
             <div align="center">
                 <h6 class="whitetext" style="text-transform:uppercase;font-weight:bold;margin-top:0px;color:white"> {{item.date |date:'MMM d, y h:mm a'}} @ {{item.stadiumdescription}} - {{item.ministadiumkey}}

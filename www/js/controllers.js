@@ -149,6 +149,18 @@ angular.module('football.controllers', [])
                                                 updates['players/' + id + '/telephone'] = $scope.smsVerification.mobileNumber;
                                                 updates['playersinfo/' + id + '/telephone'] = $scope.smsVerification.mobileNumber;
 
+                                                /*// Add player to mycustomer table
+                                                var mycustomer =
+                                                {
+                                                    uid: id,
+                                                    telephone: $scope.smsVerification.mobileNumber,
+                                                    firstname: profile.firstname,
+                                                    lastname: profile.lastname,
+
+                                                }
+                                                updates['/admins/' + id + '/mycustomers/' + profile.key] = mycustomer;*/
+                                                // end of code
+
 
                                                 var alertPopup = $ionicPopup.alert({
                                                     title: 'Error',
@@ -1308,11 +1320,11 @@ angular.module('football.controllers', [])
                                 datehour: invitation.hour,
                                 dateminute: invitation.minute
                             };
-						if(myprofile.teamdisplayedkey == null || myprofile.teamdisplayed == null || myprofile.teamdisplayedkey === undefined || myprofile.teamdisplayed === undefined || myprofile.teamdisplayedkey == '' || myprofile.teamdisplayed == '')
-						{
-							updates['/players/' + id +'/teamdisplayedkey/'] = invitation.key;
-							updates['/players/' + id +'/teamdisplayed/'] = invitation.teamname;
-						}
+
+                        if (myprofile.teamdisplayedkey == null || myprofile.teamdisplayed == null || myprofile.teamdisplayedkey === undefined || myprofile.teamdisplayed === undefined || myprofile.teamdisplayedkey == '' || myprofile.teamdisplayed == '') {
+                            updates['/players/' + id + '/teamdisplayedkey/'] = invitation.key;
+                            updates['/players/' + id + '/teamdisplayed/'] = invitation.teamname;
+                        }
                     }
                     return firebase.database().ref().update(updates);
                 }
@@ -1830,8 +1842,44 @@ angular.module('football.controllers', [])
 
                 }
 
-                return $q.all([$http(req), $http(req1)]);
+                return $q.all([$http(req1)]);
             },
+
+            SendClientNotification: function (message, devicetokens, atTime) {
+
+                //  debugger;
+
+                var notID = null;
+                var message = {
+                    app_id: "233d6f63-8ead-4ee7-8e69-03f4088a075a",
+                    contents: { "en": message },
+                    small_icon: "drawable-ldpi-icon.png",
+                    large_icon: "drawable-xxxhdpi-icon.png",
+                    include_player_ids: devicetokens
+                };
+
+                var headers = {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Authorization": "Basic MTg2NTRmZmUtOTBiYS00OGI3LWJmOTUtNzNiMzU1NTFkZGYy"
+                };
+
+                if (atTime === undefined) {
+                    console.log("devliery time not passed");
+                }
+                else {
+                    message.send_after = atTime;
+                }
+
+                var req = {
+                    method: 'POST',
+                    url: notificationurl,
+                    headers: headers,
+                    data: message,
+                    headings: { "en": "English Title", "es": "Spanish Title" }
+                }
+                return $q.all([$http(req)]);
+            },
+
             CancelNotification: function (notificationID) {
 
                 var url = notificationurl + "/" + notificationID + "?app_id=" + appid;
@@ -2293,35 +2341,56 @@ angular.module('football.controllers', [])
                 var user = firebase.auth().currentUser;
 
                 if (!(user === null || user == '' || user === undefined)) {
-
-                    /*LoginStore.UpdateLastSeen();
+                    LoginStore.UpdateLastSeen();
                     firebase.auth().signOut().then(function () {
+                        //UPDATE
 
                         $state.go('signin');
 
                     }, function (error) {
 
-                    });*/
-                    window.plugins.OneSignal.getIds(function (ids) {
+                    });
+                    /*window.plugins.OneSignal.getIds(function (ids) {
 
                         var updates = {};
 
                         updates['/players/' + user.uid + '/devicetoken/' + ids.userId] = null;
                         updates['/playersinfo/' + user.uid + '/devicetoken/' + ids.userId] = null;
 
-                        firebase.database().ref().update(updates).then(function () {
+                        console.log(uiduser);
+                        firebase.database().ref('/admins').once('value').then(function (snapshot) {
+                            Availables = [];
+                            snapshot.forEach(function (snapshot1) {
 
-                            firebase.auth().signOut().then(function () {
+                                var data2 = snapshot1.val();
+                                var data3 = data2.mycustomers;
 
-                                $state.go('signin');
+                                angular.forEach(data3, function(value, key){
+                                    if(key ===  uiduser) {
+                                        firebase.database().ref('/players/' + uiduser).once('value', function (profileInfoSnapshot) {
+                                            var updates = {};
+                                            updates['/admins/' + snapshot1.key + '/mycustomers/' + uiduser + '/devicetoken'] = profileInfoSnapshot.val().devicetoken;
 
-                            }, function (error) {
-
-                            });
+                                            firebase.database().ref().update(updates);
+                                        })
+                                    }
+                                });
+                            })
                         });
-                    }, function (error) {
-                        $state.go('signin');
+
+                    firebase.database().ref().update(updates).then(function () {
+
+                        firebase.auth().signOut().then(function () {
+
+                            $state.go('signin');
+
+                        }, function (error) {
+
+                        });
                     });
+                }, function (error) {
+                    $state.go('signin');
+                });*/
 
                 }
 

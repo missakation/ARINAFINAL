@@ -360,7 +360,8 @@ angular.module('football.controllers')
                                 }
 
                                 if ((available1 || available2 || available3) && (players == search.players || players1 == search.players)) {
-								    var rating = 0;
+
+                                    var rating = 0;
                                     var NumberOfChildren = 0;
 
                                     if (stadiumsnapshot.child("rated").exists()) {
@@ -530,7 +531,7 @@ angular.module('football.controllers')
                     endhour: endhour,
                     endminute: endminute,
                     references: "",//the main info of the exact beginning time
-                    telephone: stadiums.telephone,
+                    telephone: bookeduser.telephone,
                     combined: stadiums.combined,
                     reservationnumber: stadiums.stadiumname.charAt(0) + stadiums.ministadiumkey.charAt(0) + year.toString() + month.toString() + day.toString() + hour.toString() + minute.toString()
 
@@ -790,186 +791,209 @@ angular.module('football.controllers')
                     var minute3 = search3.getMinutes();
 
 
-                    firebase.database().ref('/stadiums/' + Stadium.stadiumkey + '/ministadiums/' + Stadium.ministadiumkey).once('value').then(function (stadiumsnapshot) {
-                        Availables = [];
+                    firebase.database().ref('/stadiums/' + Stadium.stadiumkey)
 
-                        var OpeningHour = Stadium.OpeningHour;
-                        var ClosingHour = Stadium.ClosingHour;
-                        var OpeningMinute = Stadium.OpeningMinute;
-                        var ClosingMinute = Stadium.ClosingMinute;
+                        .once('value').then(function (mainstadiumsnapshot) {
 
-                        var RestrictedHour1 = Stadium.RestrictedHour1;
-                        var RestrictedMinute1 = Stadium.RestrictedMinute1;
-                        var RestrictedHour2 = Stadium.RestrictedHour2;
-                        var RestrictedMinute2 = Stadium.RestrictedMinute2;
+                            var stadiumsnapshot = mainstadiumsnapshot.child('/ministadiums/' + Stadium.ministadiumkey);
 
-                        var available1 = true;
-                        var available2 = true;
-                        var available3 = true;
+                            Availables = [];
 
-                        var starthour = stadiumsnapshot.child("starthour").val();
-                        var startminute = stadiumsnapshot.child("startminute").val();
+                            var OpeningHour = Stadium.OpeningHour;
+                            var ClosingHour = Stadium.ClosingHour;
+                            var OpeningMinute = Stadium.OpeningMinute;
+                            var ClosingMinute = Stadium.ClosingMinute;
 
-                        var endhour = stadiumsnapshot.child("endhour").val();
-                        var endminute = stadiumsnapshot.child("endminute").val();
-                        var players = stadiumsnapshot.child("numplayers").val();
-                        var players1 = stadiumsnapshot.child("numplayers1").val();
+                            var RestrictedHour1 = Stadium.RestrictedHour1;
+                            var RestrictedMinute1 = Stadium.RestrictedMinute1;
+                            var RestrictedHour2 = Stadium.RestrictedHour2;
+                            var RestrictedMinute2 = Stadium.RestrictedMinute2;
+
+                            var available1 = true;
+                            var available2 = true;
+                            var available3 = true;
+
+                            var starthour = stadiumsnapshot.child("starthour").val();
+                            var startminute = stadiumsnapshot.child("startminute").val();
+
+                            var endhour = stadiumsnapshot.child("endhour").val();
+                            var endminute = stadiumsnapshot.child("endminute").val();
+                            var players = stadiumsnapshot.child("numplayers").val();
+                            var players1 = stadiumsnapshot.child("numplayers1").val();
 
 
 
-                        //console.log(players);
-                        //console.log(search.players);
-                        if (stadiumsnapshot.child('schedules/' + year + '/' + month + '/' + day).exists()) {
-                            var freetimes = [];
+                            //console.log(players);
+                            //console.log(search.players);
+                            if (stadiumsnapshot.child('schedules/' + year + '/' + month + '/' + day).exists()) {
+                                var freetimes = [];
 
-                            stadiumsnapshot.child('schedules/' + year + '/' + month + '/' + day).forEach(function (minisnapshot) {
+                                stadiumsnapshot.child('schedules/' + year + '/' + month + '/' + day).forEach(function (minisnapshot) {
 
-                                if (minisnapshot.child("maindata").val()) {
+                                    if (minisnapshot.child("maindata").val()) {
 
-                                    var temphour = minisnapshot.child("hour").val();
-                                    var tempminute = minisnapshot.child("minute").val();
+                                        var temphour = minisnapshot.child("hour").val();
+                                        var tempminute = minisnapshot.child("minute").val();
 
-                                    //  if (temphour < starthour || temphour > (endhour - 2) || (Math.abs(temphour - hour) < 1.5)) {
+                                        //  if (temphour < starthour || temphour > (endhour - 2) || (Math.abs(temphour - hour) < 1.5)) {
 
-                                    //if ((temphour + tempminute / 60 >= OpeningHour + OpeningMinute / 60) && (ClosingHour + ClosingMinute / 60) - (temphour + tempminute / 60) > 1.5) {
+                                        //if ((temphour + tempminute / 60 >= OpeningHour + OpeningMinute / 60) && (ClosingHour + ClosingMinute / 60) - (temphour + tempminute / 60) > 1.5) {
 
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour1 * 60 + minute1)) < 90)
-                                        || ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
-                                            || (ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
-                                        || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
+                                        if ((Math.abs((temphour * 60 + tempminute) - (hour1 * 60 + minute1)) < 90)
+                                            || ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
+                                                || (ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
+                                            || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
 
-                                        available1 = false;
+                                            available1 = false;
+
+                                        }
+
+                                        if ((Math.abs((temphour * 60 + tempminute) - (hour2 * 60 + minute2)) < 90)
+                                            || ((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
+                                                || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
+                                            || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
+                                            available2 = false;
+                                        }
+
+                                        if ((Math.abs((temphour * 60 + tempminute) - (hour3 * 60 + minute3)) < 90)
+                                            || ((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
+                                            || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
+                                            available3 = false;
+                                        }
+
+                                        //}
 
                                     }
 
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour2 * 60 + minute2)) < 90)
-                                        || ((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
-                                            || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
-                                        || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
-                                        available2 = false;
+
+
+                                });
+
+                                var startdate = new Date();
+
+                                startdate.setMinutes(minute1);
+                                startdate.setFullYear(year);
+                                startdate.setMonth(month);
+                                startdate.setHours(hour1);
+                                startdate.setDate(day);
+
+                            }
+
+                            // if ((available1 || available2 || available3) && (players == search.players || players1 == search.players)) {
+
+                            if ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
+                                || ((ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
+                                || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
+                                available1 = false;
+                            }
+
+                            if (((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
+                                || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
+                                || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
+                                available2 = false;
+                            }
+
+                            if (((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60)
+                                || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
+                                || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
+                                available3 = false;
+                            }
+
+                            var rating = 0;
+                            var NumberOfChildren = 0;
+
+                            if (stadiumsnapshot.child("rated").exists()) {
+
+                                var RateList = stadiumsnapshot.child("rated").val();
+
+                                for (var k in RateList) {
+
+                                    if (RateList[k].rated == 1) {
+                                        rating += RateList[k].rate;
+                                        NumberOfChildren += 1;
                                     }
-
-                                    if ((Math.abs((temphour * 60 + tempminute) - (hour3 * 60 + minute3)) < 90)
-                                        || ((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60) || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
-                                        || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
-                                        available3 = false;
-                                    }
-
-                                    //}
-
                                 }
 
-
-
-                            });
-
-                            var startdate = new Date();
-
-                            startdate.setMinutes(minute1);
-                            startdate.setFullYear(year);
-                            startdate.setMonth(month);
-                            startdate.setHours(hour1);
-                            startdate.setDate(day);
-
-                        }
-
-                        // if ((available1 || available2 || available3) && (players == search.players || players1 == search.players)) {
-
-                        if ((hour1 + minute1 / 60 < OpeningHour + OpeningMinute / 60)
-                            || ((ClosingHour + ClosingMinute / 60) - (hour1 + minute1 / 60) < 1.5)
-                            || ((hour1 == RestrictedHour1 && minute1 == RestrictedMinute1) || (minute1 == RestrictedMinute2 && hour1 == RestrictedHour2))) {
-                            available1 = false;
-                        }
-
-                        if (((hour2 + minute2 / 60 < OpeningHour + OpeningMinute / 60)
-                            || (ClosingHour + ClosingMinute / 60) - (hour2 + minute2 / 60) < 1.5)
-                            || ((hour2 == RestrictedHour1 && minute2 == RestrictedMinute1) || (minute2 == RestrictedMinute2 && hour2 == RestrictedHour2))) {
-                            available2 = false;
-                        }
-
-                        if (((hour3 + minute3 / 60 < OpeningHour + OpeningMinute / 60)
-                            || (ClosingHour + ClosingMinute / 60) - (hour3 + minute3 / 60) < 1.5)
-                            || ((hour3 == RestrictedHour1 && minute3 == RestrictedMinute1) || (minute3 == RestrictedMinute2 && hour3 == RestrictedHour2))) {
-                            available3 = false;
-                        }
-
-                        var rating = 0;
-                        var NumberOfChildren = 0;
-
-                        if (stadiumsnapshot.child("rated").exists()) {
-
-                            var RateList = stadiumsnapshot.child("rated").val();
-
-                            for (var k in RateList) {
-
-                                if (RateList[k].rated == 1) {
-                                    rating += RateList[k].rate;
-                                    NumberOfChildren += 1;
+                                if (NumberOfChildren != 0) {
+                                    rating = rating / NumberOfChildren;
                                 }
                             }
 
-                            if (NumberOfChildren != 0) {
-                                rating = rating / NumberOfChildren;
-                            }
-                        }
+                            console.log(RateList);
 
-                        console.log(RateList);
+                            var Data = {
+                                "admin": Stadium.admin,
+                                "stadiumkey": mainstadiumsnapshot.stadiumkey,
+                                "ministadiumkey": stadiumsnapshot.key,
+                                "stadiumname": mainstadiumsnapshot.child('name').val(),
+                                "description": stadiumsnapshot.child("description").val(),
 
-                        var Data = {
-                            "admin": Stadium.admin,
-                            "stadiumkey": Stadium.stadiumkey,
-                            "ministadiumkey": stadiumsnapshot.key,
-                            "stadiumname": Stadium.stadiumname,
-                            "description": stadiumsnapshot.child("description").val(),
+                                "datetime": [
 
-                            "datetime": [
+                                    {
+                                        datetime: search3,
+                                        available: available3
+                                    },
+                                    {
+                                        datetime: search.date,
+                                        available: available1
+                                    },
+                                    {
+                                        datetime: search2,
+                                        available: available2
+                                    }],
 
-                                {
-                                    datetime: search3,
-                                    available: available3
-                                },
-                                {
-                                    datetime: search.date,
-                                    available: available1
-                                },
-                                {
-                                    datetime: search2,
-                                    available: available2
-                                }],
+                                "price": stadiumsnapshot.child("price").val(),
+                                "photo": stadiumsnapshot.child("photo").val(),
+                                "photo1": stadiumsnapshot.child("photo1").val(),
+                                "photo2": stadiumsnapshot.child("photo2").val(),
+                                "photo3": stadiumsnapshot.child("photo3").val(),
+                                "photo4": stadiumsnapshot.child("photo4").val(),
+                                "type": stadiumsnapshot.child("type").val(),
+                                "typefloor": stadiumsnapshot.child("typefloor").val(),
+                                "distance": "5",
+                                "year": year,
+                                "month": month,
+                                "day": day,
+                                "players": stadiumsnapshot.child("numplayers").val(),
+                                "hour": hour1,
+                                "minute": minute1,
+                                "selected": "select",
+                                "color": "green",
+                                "backcolor": "white",
+                                "rating": rating,
+                                "numberofrating": NumberOfChildren,
+                                //"freetimes": freetimes,
+                                "SortPoints": 0,
+                                "latitude": mainstadiumsnapshot.child("cordovalatitude").val(),
+                                "longitude": mainstadiumsnapshot.child("cordovalongitude").val(),
+                                "iscombined": stadiumsnapshot.child("iscombined").val(),
+                                "combined": stadiumsnapshot.child("combined").val(),
+                                "city": mainstadiumsnapshot.child("city").val(),
+                                "telephone": mainstadiumsnapshot.child("telephone").val(),
+                                "devicetoken": mainstadiumsnapshot.child("devicetoken").val(),
+                                "OpeningHour": mainstadiumsnapshot.child("OpeningHour").val(),
+                                "ClosingHour": mainstadiumsnapshot.child("ClosingHour").val(),
+                                "OpeningMinute": mainstadiumsnapshot.child("OpeningMinute").val(),
+                                "ClosingMinute": mainstadiumsnapshot.child("ClosingMinute").val(),
+                                "RestrictedHour1": RestrictedHour1,
+                                "RestrictedMinute1": RestrictedMinute1,
+                                "RestrictedHour2": RestrictedHour2,
+                                "RestrictedMinute2": RestrictedMinute2,
+                                "specialfeatures": mainstadiumsnapshot.child("specialfeatures").val() != null ? mainstadiumsnapshot.child("specialfeatures").val().split("|") : "",
+                                "directions": mainstadiumsnapshot.child("directions").val(),
+                                "cancelationpolicy": mainstadiumsnapshot.child("cancelationpolicy").val(),
+                                "cordovalatitude": mainstadiumsnapshot.child("cordovalatitude").val(),
+                                "cordovalongitude": mainstadiumsnapshot.child("cordovalongitude").val()
 
-                            "price": stadiumsnapshot.child("price").val(),
-                            "photo": stadiumsnapshot.child("photo").val(),
-                            "type": stadiumsnapshot.child("type").val(),
-                            "typefloor": stadiumsnapshot.child("typefloor").val(),
-                            "distance": "5",
-                            "year": year,
-                            "month": month,
-                            "day": day,
-                            "players": stadiumsnapshot.child("numplayers").val(),
-                            "hour": hour1,
-                            "minute": minute1,
-                            "selected": "select",
-                            "color": "green",
-                            "backcolor": "white",
-                            "rating": rating,
-                            //"freetimes": freetimes,
-                            "SortPoints": 0,
-                            "latitude": Stadium.latitude,
-                            "longitude": Stadium.longitude,
-                            "iscombined": stadiumsnapshot.child("iscombined").val(),
-                            "combined": stadiumsnapshot.child("combined").val(),
-                            "city": Stadium.city,
-                            "telephone": Stadium.telephone,
-                            "devicetoken": Stadium.devicetoken
+                            };
 
-                        };
-
-                        Availables.push(Data);
-                        // }
-                        callback(Availables);
-                    }, function (error) {
-                        console.log(error.message);
-                    });
+                            Availables.push(Data);
+                            // }
+                            callback(Availables);
+                        }, function (error) {
+                            console.log(error.message);
+                        });
 
                 }
                 catch (error) {

@@ -89,7 +89,9 @@ angular.module('football.controllers')
                             selectedDate = getDateFromDayName(selectedDate);
                             console.log(selectedDate);
                         }
-                        $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
+                        var dateString = selectedDate + " " + new Date().getFullYear() + selectedTime;
+                        //$scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
+                        $scope.search.date = new Date(Date.parse(dateString));
                         $scope.search.players = (output[2].split(" "))[1];
                         console.log($scope.search.date);
                         $scope.search.text = output.join(" - ");
@@ -147,7 +149,7 @@ angular.module('football.controllers')
             });
 
 
-            setTimeout(() => {
+            setTimeout(function () {
                 $scope.OpenRate();
             }, 2000)
 
@@ -178,7 +180,7 @@ angular.module('football.controllers')
             firebase.database().ref().update(updates);
             $scope.RateLeft = false;
 
-            setTimeout(() => {
+            setTimeout(function () {
                 $scope.OpenRate();
             }, 2000)
         }
@@ -192,13 +194,13 @@ angular.module('football.controllers')
             $scope.$apply();
 
         }
-        setTimeout(() => {
+        setTimeout(function () {
 
             var userid = firebase.auth().currentUser.uid;
             firebase.database().ref('/players/' + userid + "/rated/").orderByChild("rated").equalTo(0)
                 .once('value', function (snapshot) {
 
-                    for (const key in snapshot.val()) {
+                    for (var key in snapshot.val()) {
 
                         var Obj = snapshot.val()[key];
 
@@ -492,8 +494,8 @@ angular.module('football.controllers')
                         $ionicLoading.hide();
                         $scope.globalstadiums = leagues;
 
-                        $scope.globalstadiums.forEach(element => {
-                            element.datetime.forEach(item => {
+                        $scope.globalstadiums.forEach(function (element) {
+                            element.datetime.forEach(function (item) {
                                 item.datetimeto = new Date();
 
                                 item.datetimeto.setFullYear(item.datetime.getFullYear());
@@ -520,7 +522,7 @@ angular.module('football.controllers')
 
                                 var PromotionsList = Promotions.val();
 
-                                $scope.globalstadiums.forEach(element => {
+                                $scope.globalstadiums.forEach(function (element) {
 
                                     if (PromotionsList.hasOwnProperty(element.stadiumkey)) {
 
@@ -534,7 +536,7 @@ angular.module('football.controllers')
 
                                                 var PromotionItem = MiniStadiumPromotions[item];
 
-                                                element.datetime.forEach(bookdate => {
+                                                element.datetime.forEach(function (bookdate) {
 
                                                     var starttime = new Date();
                                                     var endtime = new Date();
@@ -739,7 +741,7 @@ angular.module('football.controllers')
             $scope.checkfree();
         }, {
                 enableHighAccuracy: false,
-                timeout: 2500,
+                timeout: 3500,
                 maximumAge: 0
             });
 
@@ -867,18 +869,49 @@ angular.module('football.controllers')
                                                             }
                                                         });
                                                     }
+                                                    var userid = firebase.auth().currentUser.uid;
 
+                                                    //console.log("stadium  = " + JSON.stringify(stadiums));
+                                                    // Add player to mycustomer table
+                                                    firebase.database().ref('/admins/' + stadiums.admin + '/mycustomers/' + userid).once('value', function (stadiumcustomersnapshot) {
+                                                        if (!stadiumcustomersnapshot.exists()) {
+
+                                                            firebase.database().ref('/players/' + userid).once('value', function (playersnapshot) {
+
+                                                                if (playersnapshot.exists()) {
+
+                                                                    var mycustomer =
+                                                                    {
+                                                                        uid: userid,
+                                                                        telephone: playersnapshot.child("telephone").val(),
+                                                                        firstname: playersnapshot.child("firstname").val(),
+                                                                        lastname: playersnapshot.child("lastname").val(),
+                                                                        devicetoken: playersnapshot.child("devicetoken").val(),
+
+                                                                    }
+                                                                    //console.log("customer = " + JSON.stringify(mycustomer));
+
+                                                                    updates['/admins/' + stadiums.admin + '/mycustomers/' + userid] = mycustomer;
+                                                                    firebase.database().ref().update(updates);
+
+                                                                }
+                                                            });
+                                                            // end
+                                                        }
+                                                    });
+                                                    // end of code	
                                                     LoginStore.SendNotification("New Booking on " + $scope.search.date.toString(), StadiumTokens, undefined).then(function (res) {
                                                         console.log(res);
                                                     });;
 
+
+                                                    //RATE SECTION
                                                     var userid = firebase.auth().currentUser.uid;
                                                     firebase.database().ref('/players/' + userid + "/rated/" +
                                                         $scope.search.stadiumkey + $scope.search.ministadiumkey)
                                                         .once('value', function (snapshot) {
 
                                                             if (!snapshot.exists()) {
-
 
                                                                 updates['/players/' + userid + "/rated/" + stadiums.stadiumkey + stadiums.ministadiumkey] = {
                                                                     rated: 0,
@@ -1027,7 +1060,7 @@ angular.module('football.controllers')
             $scope.closePopover();
         }
 
-        setTimeout(() => {
+        setTimeout(function () {
             var connectedRef = firebase.database().ref(".info/connected");
             connectedRef.on("value", function (snap) {
                 if (snap.val() === true) {
@@ -1110,22 +1143,6 @@ angular.module('football.controllers')
 
         $scope.CurrentStadium = $stateParams.stadiumid;
         $scope.search = $stateParams.search;
-		
-		if($scope.search == null || $scope.search === undefined)
-		{
-			var tomorrow = new Date();
-			tomorrow.setDate(tomorrow.getDate() + 1);
-			tomorrow.setHours(21);
-			tomorrow.setMinutes(0);
-			tomorrow.setMilliseconds(0);
-			tomorrow.setSeconds(0);
-
-			$scope.search = {
-				date: tomorrow,
-				text: "Tomorrow, 9:00PM - 5 Vs 5 ",
-				players: 5
-			};
-		}
 
         $scope.Photos = [];
 
@@ -1154,16 +1171,6 @@ angular.module('football.controllers')
                 $scope.Photos.push({ URL: $scope.CurrentStadium.photo4 });
             }
         }
-
-        var uluru = { lat: $scope.CurrentStadium.cordovalatitude, lng: $scope.CurrentStadium.cordovalongitude };
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: uluru
-        });
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
 
         $scope.LoadPage = function () {
             try {
@@ -1223,7 +1230,9 @@ angular.module('football.controllers')
                             selectedDate = getDateFromDayName(selectedDate);
                             console.log(selectedDate);
                         }
-                        $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
+                        var dateString = selectedDate + " " + new Date().getFullYear() + selectedTime;
+                        //$scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
+                        $scope.search.date = new Date(Date.parse(dateString));
                         $scope.search.players = $scope.CurrentStadium.players;
                         console.log($scope.search.date);
                         $scope.search.text = output.join(" - ");
@@ -1232,6 +1241,38 @@ angular.module('football.controllers')
                 });
             }
         };
+
+        $scope.RefreshPictures = function () {
+            $scope.Photos = [];
+            if ($scope.CurrentStadium.photo != null || $scope.CurrentStadium.photo != undefined) {
+                if ($scope.CurrentStadium.photo != '') {
+                    $scope.Photos.push({ URL: $scope.CurrentStadium.photo });
+                }
+            }
+            if ($scope.CurrentStadium.photo1 != null || $scope.CurrentStadium.photo1 != undefined) {
+                if ($scope.CurrentStadium.photo1 != '') {
+                    $scope.Photos.push({ URL: $scope.CurrentStadium.photo1 });
+                }
+            }
+            if ($scope.CurrentStadium.photo2 != null || $scope.CurrentStadium.photo2 != undefined) {
+                if ($scope.CurrentStadium.photo2 != '') {
+                    $scope.Photos.push({ URL: $scope.CurrentStadium.photo2 });
+                }
+            }
+            if ($scope.CurrentStadium.photo3 != null || $scope.CurrentStadium.photo3 != undefined) {
+                if ($scope.CurrentStadium.photo3 != '') {
+                    $scope.Photos.push({ URL: $scope.CurrentStadium.photo3 });
+                }
+            }
+            if ($scope.CurrentStadium.photo4 != null || $scope.CurrentStadium.photo4 != undefined) {
+                if ($scope.CurrentStadium.photo4 != '') {
+                    $scope.Photos.push({ URL: $scope.CurrentStadium.photo4 });
+                }
+            }
+
+
+
+        }
 
         $scope.checkfree = function () {
 
@@ -1251,8 +1292,33 @@ angular.module('football.controllers')
                     $ionicLoading.hide();
                     $scope.globalstadiums = leagues;
 
-                    $scope.globalstadiums.forEach(element => {
-                        element.datetime.forEach(item => {
+                    $scope.CurrentStadium.type = leagues[0].type;
+                    $scope.CurrentStadium.typefloor = leagues[0].typefloor;
+                    $scope.CurrentStadium.city = leagues[0].city;
+                    $scope.CurrentStadium.rating = leagues[0].rating;
+                    $scope.CurrentStadium.stadiumname = leagues[0].stadiumname;
+                    $scope.CurrentStadium.description = leagues[0].description;
+                    $scope.CurrentStadium.directions = leagues[0].directions;
+                    $scope.CurrentStadium.specialfeatures = leagues[0].specialfeatures;
+                    $scope.CurrentStadium.cancelationpolicy = leagues[0].cancelationpolicy;
+                    $scope.CurrentStadium.cordovalatitude = leagues[0].cordovalatitude;
+                    $scope.CurrentStadium.cordovalongitude = leagues[0].cordovalongitude;
+                    $scope.CurrentStadium.numberofrating = leagues[0].numberofrating;
+                    $scope.CurrentStadium.players = leagues[0].players;
+                    $scope.ComputeLocation();
+
+                    var uluru = { lat: $scope.CurrentStadium.cordovalatitude, lng: $scope.CurrentStadium.cordovalongitude };
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 16,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+
+                    $scope.globalstadiums.forEach(function (element) {
+                        element.datetime.forEach(function (item) {
 
                             item.datetimeto = new Date();
 
@@ -1274,7 +1340,7 @@ angular.module('football.controllers')
 
                             var PromotionsList = Promotions.val();
 
-                            $scope.globalstadiums.forEach(element => {
+                            $scope.globalstadiums.forEach(function (element) {
 
                                 if (PromotionsList.hasOwnProperty(element.stadiumkey)) {
 
@@ -1288,7 +1354,7 @@ angular.module('football.controllers')
 
                                             var PromotionItem = MiniStadiumPromotions[item];
 
-                                            element.datetime.forEach(bookdate => {
+                                            element.datetime.forEach(function (bookdate) {
 
                                                 var starttime = new Date();
                                                 var endtime = new Date();
@@ -1398,6 +1464,7 @@ angular.module('football.controllers')
                                 }
 
                                 $scope.CurrentStadium.datetime = $scope.globalstadiums[0].datetime;
+                                $scope.RefreshPictures();
 
                                 $scope.$apply();
 
@@ -1423,7 +1490,7 @@ angular.module('football.controllers')
                                     $scope.globalstadiums[i].points = -totlPoints;
 
                                     $scope.CurrentStadium.datetime = $scope.globalstadiums[0].datetime;
-
+                                    $scope.RefreshPictures();
                                     $scope.$apply();
                                 }
                             }
@@ -1440,6 +1507,8 @@ angular.module('football.controllers')
                 })
             }
         }
+
+
 
         $scope.reserve = function (search, stadiums, item) {
 
@@ -1660,6 +1729,66 @@ angular.module('football.controllers')
         };
 
         $scope.LoadPage();
+        $scope.RefreshPictures();
+
+        if ($scope.search == undefined || $scope.search == null) {
+
+            //$scope.search.date = "2013-01-08";
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(21);
+            tomorrow.setMinutes(0);
+            tomorrow.setMilliseconds(0);
+            tomorrow.setSeconds(0);
+
+            $scope.search = {
+                date: tomorrow,
+                text: "Tomorrow, 9:00PM - 5 Vs 5 ",
+                players: 5
+            };
+
+            $scope.checkfree();
+
+        }
+
+        $scope.ComputeLocation = function()
+        {
+            navigator.geolocation.getCurrentPosition(function (position) {
+
+                var lat1 = $scope.latitude = position.coords.latitude;
+                var lon1 = $scope.longitude = position.coords.longitude;
+
+                var lat2 = $scope.CurrentStadium.cordovalatitude
+                var lon2 = $scope.CurrentStadium.cordovalongitude
+
+                $scope.gotlocation = true;
+
+
+                var R = 6371; // km 
+                //has a problem with the .toRad() method below.
+                var x1 = lat2 - lat1;
+
+                var dLat = x1.toRad();
+
+                var x2 = lon2 - lon1;
+                var dLon = x2.toRad();
+                var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                var d = R * c; // Distance in km
+
+                $scope.CurrentStadium.distance = d;
+
+
+            }, function (error) {
+
+
+
+            });
+        }
+
+
 
 
     }).factory('pickerView', ['$compile', '$rootScope', '$timeout', '$q', '$ionicScrollDelegate', '$ionicBackdrop',
@@ -2021,15 +2150,15 @@ function getDateFromDayName(selectedDay) {
     var selectedDate = new Date();
     if (selectedDay == "Tomorrow") {
         selectedDate.setDate(selectedDate.getDate() + 1);
-        return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
+        return weekday[selectedDate.getDay()] + " " + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
     }
     if (selectedDay == "Today") {
         selectedDate.setDate(selectedDate.getDate());
-        return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
+        return weekday[selectedDate.getDay()] + " " + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
     }
     for (var i = 0; i < 7; i++) {
         if (weekdayFull[selectedDate.getDay()] == selectedDay)
-            return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
+            return weekday[selectedDate.getDay()] + " " + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
         selectedDate.setDate(selectedDate.getDate() + 1);
     }
 }

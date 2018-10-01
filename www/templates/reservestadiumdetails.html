@@ -104,10 +104,12 @@
 
 
             <div class="row " style="padding-top:0px;padding-bottom:0px;margin-bottom:0px">
-                <div class="col col-75" style="padding-left:0px;padding-top: 0px;font-weight:bold;padding-bottom:0px;color:white"> {{CurrentStadium.stadiumname}} &#8226 {{CurrentStadium.description}}
+                <div class="col col-75" style="padding-left:0px;padding-top: 0px;font-weight:bold;padding-bottom:0px;color:white">
+                    {{CurrentStadium.stadiumname}} &#8226 {{CurrentStadium.description}}
                 </div>
 
-                <div class="col" align="right" style="padding-top:0px;padding-bottom:0px;font-size:12px;color:#5f7485"> PRICE
+                <div class="col" align="right" style="padding-top:0px;padding-bottom:0px;font-size:12px;color:#5f7485">
+                    PRICE
                 </div>
 
             </div>
@@ -116,7 +118,8 @@
                 <div class="col col-66" style="padding-left:0px;padding-top: 4px" align="left">
 
                     <div style="float: left">
-                        <rating style="font-size:18px;color:orange" readonly="true" ng-model='CurrentStadium.rating' max="rating.max" align="left">
+                        <rating style="font-size:18px;color:orange" readonly="true" ng-model='CurrentStadium.rating'
+                            max="rating.max" align="left">
                         </rating>
                     </div>
                     <div style="float: left;color:white;margin-top:2px;font-size: 14px;
@@ -191,7 +194,8 @@
                         {{item.datetime | date:'HH:mm'}} - {{item.datetimeto | date:'HH:mm'}}
 
                     </button>
-                    <div class="row" ng-show="item.haspromotion" ng-click="reserve(search,Currentstadiums,item)" ng-style="
+                    <div class="row" ng-show="item.haspromotion" ng-click="reserve(search,Currentstadiums,item)"
+                        ng-style="
 					{'opacity':item.available? '1': '0.4',
 					'font-weight':'bold',
 					'border':'2px solid #2ab041',
@@ -281,7 +285,8 @@
             </div>
             <div align="left">
                 <p class="whitetext" style="margin: 3px 0 8px 0;margin-left:10px;">
-                    {{CurrentStadium.stadiumname}} stadium requires {{CurrentStadium.cancelationpolicy}} hours cancellation notice prior to your
+                    {{CurrentStadium.stadiumname}} stadium requires {{CurrentStadium.cancelationpolicy}} hours
+                    cancellation notice prior to your
                     scheduled booking
                 </p>
             </div>
