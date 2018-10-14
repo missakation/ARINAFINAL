@@ -218,7 +218,7 @@
 
                     <div class="col" align="center">
                         <img src="img/Badges/{{rankedteams[0].badge}}.png" style="text-transform:capitalize;width:50px;height:50px "
-                            ng-click="goteamprofile(rankedteams[0].key)">
+                            ng-click="teamdisplayed.key == rankedteams[0].key?gototeam(teamdisplayed.key):goteamprofile(rankedteams[0].key)">
                         <h6 class="whitetext" style="margin-bottom:-5px;text-transform:capitalize">
                             {{rankedteams[0].teamname}}
                         </h6>
@@ -227,7 +227,7 @@
                     </div>
 
                     <div class="col" align="center">
-                        <img ion-img-cache src="img/Badges/{{rankedteams[1].badge}}.png" style="width:50px;height:50px " ng-click="goteamprofile(rankedteams[1].key)">
+                        <img ion-img-cache src="img/Badges/{{rankedteams[1].badge}}.png" style="width:50px;height:50px " ng-click="teamdisplayed.key == rankedteams[1].key?gototeam(teamdisplayed.key):goteamprofile(rankedteams[1].key)">
                         <h6 class="whitetext" style="margin-bottom:-5px;text-transform:capitalize">
                             {{rankedteams[1].teamname}}
                         </h6>
@@ -237,7 +237,7 @@
 
 
                     <div class="col" align="center">
-                        <img ion-img-cache src="img/Badges/{{rankedteams[2].badge}}.png" style="width:50px;height:50px " ng-click="goteamprofile(rankedteams[2].key)">
+                        <img ion-img-cache src="img/Badges/{{rankedteams[2].badge}}.png" style="width:50px;height:50px " ng-click="teamdisplayed.key == rankedteams[2].key?gototeam(teamdisplayed.key):goteamprofile(rankedteams[2].key)">
                         <h6 class="whitetext" style="margin-bottom:-5px;text-transform:capitalize">
                             {{rankedteams[2].teamname}}
                         </h6>
