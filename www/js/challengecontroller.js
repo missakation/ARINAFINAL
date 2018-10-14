@@ -327,10 +327,10 @@ angular.module('football.controllers')
 
                 }
                 else {
-                    if ($scope.selectedteams.length == 3) {
+                    if ($scope.selectedteams.length == 1) {
                         $ionicPopup.alert({
                             title: 'Forbidden',
-                            template: 'You cannot select more than 3 teams'
+                            template: 'You cannot select more than 1 team'
                         });
                     }
                     else {
